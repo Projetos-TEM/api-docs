@@ -1,0 +1,3596 @@
+FORMAT: 1A
+
+# API SAC
+
+API REST para o Sistema de Atendimento ao Consumidor (SAC) da Rede TEM.
+
+## URL
+
+A URL base depende do ambiente:
+
+<dl>
+<!--
+<dt>Homologação</dt>
+<dd>https://qa-api-sac.temrede.com.br</dd>
+-->
+<dt>Produção</dt>
+<dd>https://api-sac.temrede.com.br</dd>
+</dl>
+
+> O endereço de produção só funciona para IP previamente liberado.
+
+## Autenticação
+
+Essa API exige autenticação usando o método OAuth 2.0.
+
+# Group Locais
+
+Obtém localizações onde há prestadores da Rede TEM.
+
+## Lista de Estados [/api/sac/states]
+
+### POST
+
+Retorna todos os estados que há prestadores da TEM.
+
+No retorno de sucesso, uma lista de estados é retornada.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Request
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "name": "ACRE",
+                "uf": "AC"
+            },
+            {
+                "id": 2,
+                "name": "ALAGOAS",
+                "uf": "AL"
+            },
+            {
+                "id": 3,
+                "name": "AMAZONAS",
+                "uf": "AM"
+            },
+            {
+                "id": 4,
+                "name": "AMAPÁ",
+                "uf": "AP"
+            },
+            {
+                "id": 5,
+                "name": "BAHIA",
+                "uf": "BA"
+            },
+            {
+                "id": 6,
+                "name": "CEARÁ",
+                "uf": "CE"
+            },
+            {
+                "id": 7,
+                "name": "DISTRITO FEDERAL",
+                "uf": "DF"
+            },
+            {
+                "id": 8,
+                "name": "ESPÍRITO SANTO",
+                "uf": "ES"
+            },
+            {
+                "id": 9,
+                "name": "GOIÁS",
+                "uf": "GO"
+            },
+            {
+                "id": 10,
+                "name": "MARANHÃO",
+                "uf": "MA"
+            },
+            {
+                "id": 11,
+                "name": "MINAS GERAIS",
+                "uf": "MG"
+            },
+            {
+                "id": 12,
+                "name": "MATO GROSSO DO SUL",
+                "uf": "MS"
+            },
+            {
+                "id": 13,
+                "name": "MATO GROSSO",
+                "uf": "MT"
+            },
+            {
+                "id": 14,
+                "name": "PARÁ",
+                "uf": "PA"
+            },
+            {
+                "id": 15,
+                "name": "PARAÍBA",
+                "uf": "PB"
+            },
+            {
+                "id": 16,
+                "name": "PERNAMBUCO",
+                "uf": "PE"
+            },
+            {
+                "id": 17,
+                "name": "PIAUÍ",
+                "uf": "PI"
+            },
+            {
+                "id": 18,
+                "name": "PARANÁ",
+                "uf": "PR"
+            },
+            {
+                "id": 19,
+                "name": "RIO DE JANEIRO",
+                "uf": "RJ"
+            },
+            {
+                "id": 20,
+                "name": "RIO GRANDE DO NORTE",
+                "uf": "RN"
+            },
+            {
+                "id": 21,
+                "name": "RONDONIA",
+                "uf": "RO"
+            },
+            {
+                "id": 22,
+                "name": "RORAIMA",
+                "uf": "RR"
+            },
+            {
+                "id": 23,
+                "name": "RIO GRANDE DO SUL",
+                "uf": "RS"
+            },
+            {
+                "id": 24,
+                "name": "SANTA CATARINA",
+                "uf": "SC"
+            },
+            {
+                "id": 25,
+                "name": "SERGIPE",
+                "uf": "SE"
+            },
+            {
+                "id": 26,
+                "name": "SÃO PAULO",
+                "uf": "SP"
+            },
+            {
+                "id": 27,
+                "name": "TOCANTINS",
+                "uf": "TO"
+            }
+        ]
+
+## Lista de Cidades [/api/sac/states/{uf}/cities]
+
++ Parameters
+    + uf: 25 (required, number) - Identificador único do estado
+
+### POST
+
+Retorna todas as cidades que há prestadores da TEM de um certo estado.
+
+No retorno de sucesso, uma lista de cidades é retornada.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Request Cidades de Sergipe
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 8732,
+                "idState": 25,
+                "name": "AMPARO DE SÃO FRANCISCO"
+            },
+            {
+                "id": 8733,
+                "idState": 25,
+                "name": "AQUIDABÃ"
+            },
+            {
+                "id": 8734,
+                "idState": 25,
+                "name": "ARACAJU"
+            },
+            {
+                "id": 8735,
+                "idState": 25,
+                "name": "ARAUÁ"
+            },
+            {
+                "id": 8736,
+                "idState": 25,
+                "name": "AREIA BRANCA"
+            },
+            {
+                "id": 8738,
+                "idState": 25,
+                "name": "BARRA DOS COQUEIROS"
+            },
+            {
+                "id": 8740,
+                "idState": 25,
+                "name": "BOQUIM"
+            },
+            {
+                "id": 8741,
+                "idState": 25,
+                "name": "BREJO GRANDE"
+            },
+            {
+                "id": 8742,
+                "idState": 25,
+                "name": "CAMPO DO BRITO"
+            },
+            {
+                "id": 8743,
+                "idState": 25,
+                "name": "CANHOBA"
+            },
+            {
+                "id": 8744,
+                "idState": 25,
+                "name": "CANINDÉ DE SÃO FRANCISCO"
+            },
+            {
+                "id": 8745,
+                "idState": 25,
+                "name": "CAPELA"
+            },
+            {
+                "id": 8746,
+                "idState": 25,
+                "name": "CARIRA"
+            },
+            {
+                "id": 8747,
+                "idState": 25,
+                "name": "CARMÓPOLIS"
+            },
+            {
+                "id": 8748,
+                "idState": 25,
+                "name": "CEDRO DE SÃO JOÃO"
+            },
+            {
+                "id": 8749,
+                "idState": 25,
+                "name": "CRISTINÁPOLIS"
+            },
+            {
+                "id": 8750,
+                "idState": 25,
+                "name": "CUMBE"
+            },
+            {
+                "id": 8751,
+                "idState": 25,
+                "name": "DIVINA PASTORA"
+            },
+            {
+                "id": 8752,
+                "idState": 25,
+                "name": "ESTÂNCIA"
+            },
+            {
+                "id": 8753,
+                "idState": 25,
+                "name": "FEIRA NOVA"
+            },
+            {
+                "id": 8754,
+                "idState": 25,
+                "name": "FREI PAULO"
+            },
+            {
+                "id": 8755,
+                "idState": 25,
+                "name": "GARARU"
+            },
+            {
+                "id": 8756,
+                "idState": 25,
+                "name": "GENERAL MAYNARD"
+            },
+            {
+                "id": 8757,
+                "idState": 25,
+                "name": "GRACCHO CARDOSO"
+            },
+            {
+                "id": 8758,
+                "idState": 25,
+                "name": "ILHA DAS FLORES"
+            },
+            {
+                "id": 8759,
+                "idState": 25,
+                "name": "INDIAROBA"
+            },
+            {
+                "id": 8760,
+                "idState": 25,
+                "name": "ITABAIANA"
+            },
+            {
+                "id": 8761,
+                "idState": 25,
+                "name": "ITABAIANINHA"
+            },
+            {
+                "id": 8762,
+                "idState": 25,
+                "name": "ITABI"
+            },
+            {
+                "id": 8763,
+                "idState": 25,
+                "name": "ITAPORANGA D'AJUDA"
+            },
+            {
+                "id": 8764,
+                "idState": 25,
+                "name": "JAPARATUBA"
+            },
+            {
+                "id": 8765,
+                "idState": 25,
+                "name": "JAPOATÃ"
+            },
+            {
+                "id": 8766,
+                "idState": 25,
+                "name": "LAGARTO"
+            },
+            {
+                "id": 8768,
+                "idState": 25,
+                "name": "LARANJEIRAS"
+            },
+            {
+                "id": 8769,
+                "idState": 25,
+                "name": "MACAMBIRA"
+            },
+            {
+                "id": 8770,
+                "idState": 25,
+                "name": "MALHADA DOS BOIS"
+            },
+            {
+                "id": 8771,
+                "idState": 25,
+                "name": "MALHADOR"
+            },
+            {
+                "id": 8772,
+                "idState": 25,
+                "name": "MARUIM"
+            },
+            {
+                "id": 8774,
+                "idState": 25,
+                "name": "MOITA BONITA"
+            },
+            {
+                "id": 8775,
+                "idState": 25,
+                "name": "MONTE ALEGRE DE SERGIPE"
+            },
+            {
+                "id": 8777,
+                "idState": 25,
+                "name": "MURIBECA"
+            },
+            {
+                "id": 8778,
+                "idState": 25,
+                "name": "NEÓPOLIS"
+            },
+            {
+                "id": 8779,
+                "idState": 25,
+                "name": "NOSSA SENHORA APARECIDA"
+            },
+            {
+                "id": 8780,
+                "idState": 25,
+                "name": "NOSSA SENHORA DA GLÓRIA"
+            },
+            {
+                "id": 8781,
+                "idState": 25,
+                "name": "NOSSA SENHORA DAS DORES"
+            },
+            {
+                "id": 8782,
+                "idState": 25,
+                "name": "NOSSA SENHORA DE LOURDES"
+            },
+            {
+                "id": 8783,
+                "idState": 25,
+                "name": "NOSSA SENHORA DO SOCORRO"
+            },
+            {
+                "id": 8784,
+                "idState": 25,
+                "name": "PACATUBA"
+            },
+            {
+                "id": 8786,
+                "idState": 25,
+                "name": "PEDRA MOLE"
+            },
+            {
+                "id": 8788,
+                "idState": 25,
+                "name": "PEDRINHAS"
+            },
+            {
+                "id": 8789,
+                "idState": 25,
+                "name": "PINHÃO"
+            },
+            {
+                "id": 8790,
+                "idState": 25,
+                "name": "PIRAMBU"
+            },
+            {
+                "id": 8791,
+                "idState": 25,
+                "name": "POÇO REDONDO"
+            },
+            {
+                "id": 8792,
+                "idState": 25,
+                "name": "POÇO VERDE"
+            },
+            {
+                "id": 8793,
+                "idState": 25,
+                "name": "PORTO DA FOLHA"
+            },
+            {
+                "id": 8794,
+                "idState": 25,
+                "name": "PROPRIÁ"
+            },
+            {
+                "id": 8795,
+                "idState": 25,
+                "name": "RIACHÃO DO DANTAS"
+            },
+            {
+                "id": 8796,
+                "idState": 25,
+                "name": "RIACHUELO"
+            },
+            {
+                "id": 8797,
+                "idState": 25,
+                "name": "RIBEIRÓPOLIS"
+            },
+            {
+                "id": 8798,
+                "idState": 25,
+                "name": "ROSÁRIO DO CATETE"
+            },
+            {
+                "id": 8799,
+                "idState": 25,
+                "name": "SALGADO"
+            },
+            {
+                "id": 8801,
+                "idState": 25,
+                "name": "SANTA LUZIA DO ITANHY"
+            },
+            {
+                "id": 8802,
+                "idState": 25,
+                "name": "SANTA ROSA DE LIMA"
+            },
+            {
+                "id": 8803,
+                "idState": 25,
+                "name": "SANTANA DO SÃO FRANCISCO"
+            },
+            {
+                "id": 8804,
+                "idState": 25,
+                "name": "SANTO AMARO DAS BROTAS"
+            },
+            {
+                "id": 8805,
+                "idState": 25,
+                "name": "SÃO CRISTÓVÃO"
+            },
+            {
+                "id": 8806,
+                "idState": 25,
+                "name": "SÃO DOMINGOS"
+            },
+            {
+                "id": 8807,
+                "idState": 25,
+                "name": "SÃO FRANCISCO"
+            },
+            {
+                "id": 8810,
+                "idState": 25,
+                "name": "SÃO MIGUEL DO ALEIXO"
+            },
+            {
+                "id": 8811,
+                "idState": 25,
+                "name": "SIMÃO DIAS"
+            },
+            {
+                "id": 8812,
+                "idState": 25,
+                "name": "SIRIRI"
+            },
+            {
+                "id": 8813,
+                "idState": 25,
+                "name": "TELHA"
+            },
+            {
+                "id": 8814,
+                "idState": 25,
+                "name": "TOBIAS BARRETO"
+            },
+            {
+                "id": 8815,
+                "idState": 25,
+                "name": "TOMAR DO GERU"
+            },
+            {
+                "id": 8816,
+                "idState": 25,
+                "name": "UMBAÚBA"
+            }
+        ]
+
+## Lista de Bairros [/api/sac/states/{uf}/cities/{city}/neighborhoods]
+
++ Parameters
+    + uf: 25 (required, number) - Identificador único do estado
+    + city: 8734 (required, number) - Identificador único da cidade
+
+### POST
+
+Retorna todos os bairros que há unidades de atendimento de certa cidade.
+
+No retorno de sucesso, uma lista de bairros é retornada.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Request Bairros de Aracaju
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 20789,
+                "idCity": 8734,
+                "name": "AEROPORTO"
+            },
+            {
+                "id": 20790,
+                "idCity": 8734,
+                "name": "AMÉRICA"
+            },
+            {
+                "id": 20791,
+                "idCity": 8734,
+                "name": "ATALAIA"
+            },
+            {
+                "id": 20792,
+                "idCity": 8734,
+                "name": "BUGIO"
+            },
+            {
+                "id": 20793,
+                "idCity": 8734,
+                "name": "CAPUCHO"
+            },
+            {
+                "id": 20794,
+                "idCity": 8734,
+                "name": "CENTRO"
+            },
+            {
+                "id": 20795,
+                "idCity": 8734,
+                "name": "CIDADE NOVA"
+            },
+            {
+                "id": 20796,
+                "idCity": 8734,
+                "name": "CIRURGIA"
+            },
+            {
+                "id": 20797,
+                "idCity": 8734,
+                "name": "COROA DO MEIO"
+            },
+            {
+                "id": 20798,
+                "idCity": 8734,
+                "name": "DEZOITO DO FORTE"
+            },
+            {
+                "id": 20799,
+                "idCity": 8734,
+                "name": "FAROLÂNDIA"
+            },
+            {
+                "id": 20800,
+                "idCity": 8734,
+                "name": "GETÚLIO VARGAS"
+            },
+            {
+                "id": 20801,
+                "idCity": 8734,
+                "name": "GRAGERU"
+            },
+            {
+                "id": 20802,
+                "idCity": 8734,
+                "name": "INÁCIO BARBOSA"
+            },
+            {
+                "id": 20803,
+                "idCity": 8734,
+                "name": "INDUSTRIAL"
+            },
+            {
+                "id": 20804,
+                "idCity": 8734,
+                "name": "JABOTIANA"
+            },
+            {
+                "id": 20805,
+                "idCity": 8734,
+                "name": "JARDIM CENTENÁRIO"
+            },
+            {
+                "id": 20806,
+                "idCity": 8734,
+                "name": "JARDINS"
+            },
+            {
+                "id": 20807,
+                "idCity": 8734,
+                "name": "JOSÉ CONRADO DE ARAÚJO"
+            },
+            {
+                "id": 20808,
+                "idCity": 8734,
+                "name": "LAMARÃO"
+            },
+            {
+                "id": 20809,
+                "idCity": 8734,
+                "name": "LUZIA"
+            },
+            {
+                "id": 20810,
+                "idCity": 8734,
+                "name": "MOSQUEIRO"
+            },
+            {
+                "id": 20811,
+                "idCity": 8734,
+                "name": "NOVO PARAÍSO"
+            },
+            {
+                "id": 20812,
+                "idCity": 8734,
+                "name": "OLARIA"
+            },
+            {
+                "id": 20813,
+                "idCity": 8734,
+                "name": "PALESTINA"
+            },
+            {
+                "id": 20814,
+                "idCity": 8734,
+                "name": "PEREIRA LOBO"
+            },
+            {
+                "id": 20815,
+                "idCity": 8734,
+                "name": "PONTO NOVO"
+            },
+            {
+                "id": 20816,
+                "idCity": 8734,
+                "name": "PORTO D'ANTAS"
+            },
+            {
+                "id": 20817,
+                "idCity": 8734,
+                "name": "ROBALO"
+            },
+            {
+                "id": 20818,
+                "idCity": 8734,
+                "name": "SALGADO FILHO"
+            },
+            {
+                "id": 20819,
+                "idCity": 8734,
+                "name": "SANTO ANTÔNIO"
+            },
+            {
+                "id": 20820,
+                "idCity": 8734,
+                "name": "SANTOS DUMONT"
+            },
+            {
+                "id": 20821,
+                "idCity": 8734,
+                "name": "SÃO CONRADO"
+            },
+            {
+                "id": 20822,
+                "idCity": 8734,
+                "name": "SÃO JOSÉ"
+            },
+            {
+                "id": 20823,
+                "idCity": 8734,
+                "name": "SIQUEIRA CAMPOS"
+            },
+            {
+                "id": 20824,
+                "idCity": 8734,
+                "name": "SOLEDADE"
+            },
+            {
+                "id": 20825,
+                "idCity": 8734,
+                "name": "SUÍSSA"
+            },
+            {
+                "id": 20826,
+                "idCity": 8734,
+                "name": "SANTA MARIA"
+            },
+            {
+                "id": 20827,
+                "idCity": 8734,
+                "name": "TREZE DE JULHO"
+            },
+            {
+                "id": 33541,
+                "idCity": 8734,
+                "name": "ARUANA"
+            },
+            {
+                "id": 33542,
+                "idCity": 8734,
+                "name": "AREIA BRANCA"
+            },
+            {
+                "id": 33545,
+                "idCity": 8734,
+                "name": "POVOADO SÃO JOSÉ"
+            }
+        ]
+
+# Group Especialidades
+
+Obtém especialidades disponíveis na Rede TEM.
+
+## Por cidade [/api/sac/states/{uf}/cities/{city}/specialities]
+
++ Parameters
+    + uf: 25 (required, number) - Identificador único do estado
+    + city: 8734 (required, number) - Identificador único da cidade
+
+### POST
+
+Retorna todas as especialidades de uma certa cidade.
+
+No retorno de sucesso, uma lista de especialidades é retornada.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Request Especialidades em Aracaju
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 61,
+                "name": "ACUPUNTURA"
+            },
+            {
+                "id": 70,
+                "name": "ALERGIA E IMUNOLOGIA"
+            },
+            {
+                "id": 114,
+                "name": "ANALISES CLINICA"
+            },
+            {
+                "id": 115,
+                "name": "ANATOMIA PATOLOGICA"
+            },
+            {
+                "id": 50,
+                "name": "ANGIOLOGIA"
+            },
+            {
+                "id": 41,
+                "name": "CARDIOLOGIA"
+            },
+            {
+                "id": 3,
+                "name": "CLINICA MEDICA"
+            },
+            {
+                "id": 179,
+                "name": "COLONOSCOPIA"
+            },
+            {
+                "id": 5,
+                "name": "DERMATOLOGIA"
+            },
+            {
+                "id": 79,
+                "name": "DESINTOMETRIA OSSEA"
+            },
+            {
+                "id": 165,
+                "name": "ELETROCARDIOGRAMA - ECG"
+            },
+            {
+                "id": 117,
+                "name": "ELETROENCEFALOGRAFIA"
+            },
+            {
+                "id": 6,
+                "name": "ENDOCRINOLOGIA"
+            },
+            {
+                "id": 7,
+                "name": "ENDOSCOPIA"
+            },
+            {
+                "id": 59,
+                "name": "FISIOTERAPIA"
+            },
+            {
+                "id": 42,
+                "name": "FONOAUDIOLOGIA"
+            },
+            {
+                "id": 8,
+                "name": "GASTROENTEROLOGIA"
+            },
+            {
+                "id": 45,
+                "name": "GINECOLOGIA"
+            },
+            {
+                "id": 11,
+                "name": "GINECOLOGIA E OBSTETRICIA"
+            },
+            {
+                "id": 62,
+                "name": "HEPATOLOGIA"
+            },
+            {
+                "id": 166,
+                "name": "HOLTER 24 HS/2 CANAIS"
+            },
+            {
+                "id": 14,
+                "name": "INFECTOLOGIA"
+            },
+            {
+                "id": 95,
+                "name": "MAMOGRAFIA"
+            },
+            {
+                "id": 156,
+                "name": "MAPA-24 HS"
+            },
+            {
+                "id": 15,
+                "name": "MASTOLOGIA"
+            },
+            {
+                "id": 17,
+                "name": "MEDICINA DO TRABALHO"
+            },
+            {
+                "id": 23,
+                "name": "MEDICINA NUCLEAR"
+            },
+            {
+                "id": 27,
+                "name": "NEUROLOGIA"
+            },
+            {
+                "id": 44,
+                "name": "NUTRICIONISTA"
+            },
+            {
+                "id": 51,
+                "name": "OBSTETRICIA"
+            },
+            {
+                "id": 29,
+                "name": "OFTALMOLOGIA"
+            },
+            {
+                "id": 54,
+                "name": "ORTOPEDIA"
+            },
+            {
+                "id": 31,
+                "name": "OTORRINOLARINGOLOGIA"
+            },
+            {
+                "id": 34,
+                "name": "PEDIATRIA"
+            },
+            {
+                "id": 125,
+                "name": "PILATES"
+            },
+            {
+                "id": 60,
+                "name": "PROCTOLOGIA"
+            },
+            {
+                "id": 154,
+                "name": "PROVA DE FUNÇÃO PULMONAR"
+            },
+            {
+                "id": 43,
+                "name": "PSICOLOGIA"
+            },
+            {
+                "id": 36,
+                "name": "PSIQUIATRIA"
+            },
+            {
+                "id": 37,
+                "name": "RADIOLOGIA E DIAGNOSTICO POR IMAGEM"
+            },
+            {
+                "id": 186,
+                "name": "RESSONANCIA MAGNETICA"
+            },
+            {
+                "id": 149,
+                "name": "RETOSSIGMOIDOSCOPIA"
+            },
+            {
+                "id": 126,
+                "name": "RPG"
+            },
+            {
+                "id": 150,
+                "name": "TOMOGRAFIA COMPUTADORIZADA"
+            },
+            {
+                "id": 40,
+                "name": "UROLOGIA"
+            }
+        ]
+ 
+## Por bairro [/api/sac/states/{uf}/cities/{city}/neighborhoods/{neighborhood}/specialities]
+
++ Parameters
+    + uf: 25 (required, number) - Identificador único do estado
+    + city: 8734 (required, number) - Identificador único da cidade
+    + neighborhood: 20794 (required, number) - Identificador único do bairro
+
+### POST
+
+Retorna todas as especialidades de um certo bairro.
+
+No retorno de sucesso, uma lista de especialidades é retornada.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Request Especialidades no bairro Centro
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 61,
+                "name": "ACUPUNTURA"
+            },
+            {
+                "id": 70,
+                "name": "ALERGIA E IMUNOLOGIA"
+            },
+            {
+                "id": 50,
+                "name": "ANGIOLOGIA"
+            },
+            {
+                "id": 41,
+                "name": "CARDIOLOGIA"
+            },
+            {
+                "id": 3,
+                "name": "CLINICA MEDICA"
+            },
+            {
+                "id": 179,
+                "name": "COLONOSCOPIA"
+            },
+            {
+                "id": 5,
+                "name": "DERMATOLOGIA"
+            },
+            {
+                "id": 79,
+                "name": "DESINTOMETRIA OSSEA"
+            },
+            {
+                "id": 165,
+                "name": "ELETROCARDIOGRAMA - ECG"
+            },
+            {
+                "id": 117,
+                "name": "ELETROENCEFALOGRAFIA"
+            },
+            {
+                "id": 6,
+                "name": "ENDOCRINOLOGIA"
+            },
+            {
+                "id": 7,
+                "name": "ENDOSCOPIA"
+            },
+            {
+                "id": 59,
+                "name": "FISIOTERAPIA"
+            },
+            {
+                "id": 8,
+                "name": "GASTROENTEROLOGIA"
+            },
+            {
+                "id": 45,
+                "name": "GINECOLOGIA"
+            },
+            {
+                "id": 62,
+                "name": "HEPATOLOGIA"
+            },
+            {
+                "id": 166,
+                "name": "HOLTER 24 HS/2 CANAIS"
+            },
+            {
+                "id": 14,
+                "name": "INFECTOLOGIA"
+            },
+            {
+                "id": 95,
+                "name": "MAMOGRAFIA"
+            },
+            {
+                "id": 156,
+                "name": "MAPA-24 HS"
+            },
+            {
+                "id": 15,
+                "name": "MASTOLOGIA"
+            },
+            {
+                "id": 23,
+                "name": "MEDICINA NUCLEAR"
+            },
+            {
+                "id": 27,
+                "name": "NEUROLOGIA"
+            },
+            {
+                "id": 44,
+                "name": "NUTRICIONISTA"
+            },
+            {
+                "id": 51,
+                "name": "OBSTETRICIA"
+            },
+            {
+                "id": 54,
+                "name": "ORTOPEDIA"
+            },
+            {
+                "id": 31,
+                "name": "OTORRINOLARINGOLOGIA"
+            },
+            {
+                "id": 34,
+                "name": "PEDIATRIA"
+            },
+            {
+                "id": 125,
+                "name": "PILATES"
+            },
+            {
+                "id": 60,
+                "name": "PROCTOLOGIA"
+            },
+            {
+                "id": 154,
+                "name": "PROVA DE FUNÇÃO PULMONAR"
+            },
+            {
+                "id": 43,
+                "name": "PSICOLOGIA"
+            },
+            {
+                "id": 36,
+                "name": "PSIQUIATRIA"
+            },
+            {
+                "id": 37,
+                "name": "RADIOLOGIA E DIAGNOSTICO POR IMAGEM"
+            },
+            {
+                "id": 186,
+                "name": "RESSONANCIA MAGNETICA"
+            },
+            {
+                "id": 149,
+                "name": "RETOSSIGMOIDOSCOPIA"
+            },
+            {
+                "id": 126,
+                "name": "RPG"
+            },
+            {
+                "id": 150,
+                "name": "TOMOGRAFIA COMPUTADORIZADA"
+            },
+            {
+                "id": 40,
+                "name": "UROLOGIA"
+            }
+        ]
+
+# Group Eventos
+
+Obtém eventos, tais como consultas e exames, disponíveis na Rede TEM.
+
+## Por cidade [/api/sac/states/{uf}/cities/{city}/specialities/{speciality}/events]
+
++ Parameters
+    + uf: 25 (required, number) - Identificador único do estado
+    + city: 8734 (required, number) - Identificador único da cidade
+    + speciality: 41 (required, number) - Identificador único da especialidade
+
+### POST
+
+Retorna todos os eventos de uma especialidade de uma certa cidade.
+
+No retorno de sucesso, uma lista de eventos é retornada.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Request Eventos de cardiologia em Aracaju
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 3500,
+                "code": "40708020",
+                "description": "Cintilografia com galio67"
+            },
+            {
+                "id": 3460,
+                "code": "40702049",
+                "description": "Cintilografia para deteccao de hemorragia digestoria ativa"
+            },
+            {
+                "id": 3454,
+                "code": "40701107",
+                "description": "Quantificacao de shunt da direita para a esquerda"
+            },
+            {
+                "id": 4572,
+                "code": "41501144",
+                "description": "Tomografia de coerencia optica  monocular"
+            },
+            {
+                "id": 4567,
+                "code": "41001168",
+                "description": "Angiotomografia (cranio ou pescoco ou torax ou abdome superior o"
+            },
+            {
+                "id": 3490,
+                "code": "40706010",
+                "description": "Cintilografia ossea (corpo total)"
+            },
+            {
+                "id": 3447,
+                "code": "40701026",
+                "description": "Cintilografia com hemacias marcadas"
+            },
+            {
+                "id": 3457,
+                "code": "40702014",
+                "description": "Cintilografia das glandulas salivares com ou sem estimulo"
+            },
+            {
+                "id": 4558,
+                "code": "41001060",
+                "description": "Pescoco (partes moles, laringe, tireoide e faringe)"
+            },
+            {
+                "id": 3453,
+                "code": "40701085",
+                "description": "Cintilografia sincronizada das camaras cardiacas  repouso"
+            },
+            {
+                "id": 4515,
+                "code": "41101081",
+                "description": "Ressonancia Ossos temporais bilateral"
+            },
+            {
+                "id": 4511,
+                "code": "41101014",
+                "description": "Ressonancia Cranio (encefalo)"
+            },
+            {
+                "id": 3502,
+                "code": "40708047",
+                "description": "Cintilografia com MIBG (metaiodobenzilguanidina)"
+            },
+            {
+                "id": 3467,
+                "code": "40702111",
+                "description": "Fluxo sanguineo hepatico (qualitativo e quantitativo)"
+            },
+            {
+                "id": 4564,
+                "code": "41001133",
+                "description": "Coluna  segmento adicional"
+            },
+            {
+                "id": 4570,
+                "code": "41001222",
+                "description": "TC para PET dedicado oncologico"
+            },
+            {
+                "id": 4561,
+                "code": "41001095",
+                "description": "Abdome total (abdome superior, pelve e retroperitonio)"
+            },
+            {
+                "id": 3486,
+                "code": "40705030",
+                "description": "Determinacao da sobrevida de hemacias"
+            },
+            {
+                "id": 3513,
+                "code": "40808122",
+                "description": "Densitometria ossea (um segmento)"
+            },
+            {
+                "id": 3494,
+                "code": "40707040",
+                "description": "Cisternocintilografia"
+            },
+            {
+                "id": 4518,
+                "code": "41101111",
+                "description": "Ressonancia Pescoco (nasofaringe, orofaringe, laringe, traqueia,"
+            },
+            {
+                "id": 4566,
+                "code": "41001150",
+                "description": "Segmentos apendiculares (braco ou antebraco ou mao ou coxa ou pe"
+            },
+            {
+                "id": 4513,
+                "code": "41101030",
+                "description": "Ressonancia Base do cranio"
+            },
+            {
+                "id": 3498,
+                "code": "40707083",
+                "description": "Ventriculocintilografia"
+            },
+            {
+                "id": 3463,
+                "code": "40702073",
+                "description": "Cintilografia para estudo de transito esofagico (liquidos)"
+            },
+            {
+                "id": 3503,
+                "code": "40708055",
+                "description": "Cintilografia de corpo total com FDG18 F, em camara hibrida"
+            },
+            {
+                "id": 3472,
+                "code": "40703053",
+                "description": "Cintilografia de corpo inteiro para pesquisa de metastases (PCI)"
+            },
+            {
+                "id": 3478,
+                "code": "40704033",
+                "description": "Cintilografia renal estatica (quantitativa ou qualitativa)"
+            },
+            {
+                "id": 3452,
+                "code": "40701077",
+                "description": "Cintilografia sincronizada das camaras cardiacas  esforco"
+            },
+            {
+                "id": 3465,
+                "code": "40702090",
+                "description": "Cintilografia para pesquisa de diverticulo de Meckel"
+            },
+            {
+                "id": 3469,
+                "code": "40703029",
+                "description": "Cintilografia da tireoide e/ou captacao (iodo  131)"
+            },
+            {
+                "id": 3450,
+                "code": "40701050",
+                "description": "Cintilografia do miocardio necrose (infarto agudo)"
+            },
+            {
+                "id": 3471,
+                "code": "40703045",
+                "description": "Cintilografia das paratireoides"
+            },
+            {
+                "id": 3480,
+                "code": "40704050",
+                "description": "Cistocintilografia direta"
+            },
+            {
+                "id": 3449,
+                "code": "40701042",
+                "description": "Cintilografia do miocardio com FDG18 F, em camara hibrida"
+            },
+            {
+                "id": 3515,
+                "code": "40808149",
+                "description": "Densitometria ossea  corpo inteiro"
+            },
+            {
+                "id": 4556,
+                "code": "41001028",
+                "description": "Mastoides ou orelhas"
+            },
+            {
+                "id": 4565,
+                "code": "41001141",
+                "description": "Articulacao (esternoclavicular ou ombro ou cotovelo ou punho ou "
+            },
+            {
+                "id": 3514,
+                "code": "40808130",
+                "description": "Densitometria ossea  2 segmentos (coluna e femur)"
+            },
+            {
+                "id": 3451,
+                "code": "40701069",
+                "description": "Cintilografia do miocardio perfusao  repouso"
+            },
+            {
+                "id": 3477,
+                "code": "40704025",
+                "description": "Cintilografia renal dinamica com diuretico"
+            },
+            {
+                "id": 3484,
+                "code": "40705013",
+                "description": "Cintilografia do sistema reticuloendotelial (medula ossea)"
+            },
+            {
+                "id": 4569,
+                "code": "41001184",
+                "description": "Angiotomografia de aorta abdominal"
+            },
+            {
+                "id": 3456,
+                "code": "40701123",
+                "description": "Venografia radioisotopica"
+            },
+            {
+                "id": 4571,
+                "code": "41002016",
+                "description": "Tomomielografia (ate 3 segmentos)  acrescentar a TC da coluna e "
+            },
+            {
+                "id": 3481,
+                "code": "40704068",
+                "description": "Cistocintilografia indireta"
+            },
+            {
+                "id": 3458,
+                "code": "40702022",
+                "description": "Cintilografia do figado e do baco"
+            },
+            {
+                "id": 3509,
+                "code": "40709027",
+                "description": "Cintilografia pulmonar (inalacao)"
+            },
+            {
+                "id": 3483,
+                "code": "40704084",
+                "description": "Determinacao do fluxo plasmatico renal"
+            },
+            {
+                "id": 3501,
+                "code": "40708039",
+                "description": "Cintilografia com leucocitos marcados"
+            },
+            {
+                "id": 3507,
+                "code": "40708110",
+                "description": "Quantificacao da captacao pulmonar com galio67"
+            },
+            {
+                "id": 4512,
+                "code": "41101022",
+                "description": "Ressonancia Sela turcica (hipofise)"
+            },
+            {
+                "id": 3464,
+                "code": "40702081",
+                "description": "Cintilografia para estudo de transito esofagico (semisolidos)"
+            },
+            {
+                "id": 3448,
+                "code": "40701034",
+                "description": "Cintilografia do miocardio com duplo isotopo (perfusao + viabili"
+            },
+            {
+                "id": 4557,
+                "code": "41001036",
+                "description": "Face ou seios da face"
+            },
+            {
+                "id": 3255,
+                "code": "00010014",
+                "description": "Consulta em consultorio (no horario normal ou preestabelecido)"
+            },
+            {
+                "id": 5,
+                "code": "10101187",
+                "description": "Consulta de Psicologia e/ou Sessoes de Psicoterapia e/ou Avaliac"
+            },
+            {
+                "id": 3499,
+                "code": "40708012",
+                "description": "Cintilografia com analogo de somatostatina"
+            },
+            {
+                "id": 4517,
+                "code": "41101103",
+                "description": "Ressonancia Articulacao temporomandibular (bilateral)"
+            },
+            {
+                "id": 3497,
+                "code": "40707075",
+                "description": "Mielocintilografia"
+            },
+            {
+                "id": 3446,
+                "code": "40701018",
+                "description": "Angiografia radioisotopica"
+            },
+            {
+                "id": 3455,
+                "code": "40701115",
+                "description": "Quantificacao de shunt periferico"
+            },
+            {
+                "id": 3488,
+                "code": "40705056",
+                "description": "Determinacao do volume plasmatico"
+            },
+            {
+                "id": 3492,
+                "code": "40707024",
+                "description": "Cintilografia cerebral com FDG18 F, em camara hibrida"
+            },
+            {
+                "id": 3512,
+                "code": "40711021",
+                "description": "Imunocintilografia (anticorpos monoclonais)"
+            },
+            {
+                "id": 3496,
+                "code": "40707067",
+                "description": "Fluxo sanguineo cerebral"
+            },
+            {
+                "id": 3474,
+                "code": "40703070",
+                "description": "Teste de supressao da tireoide com T3"
+            },
+            {
+                "id": 3473,
+                "code": "40703061",
+                "description": "Teste de estimulo com TSH recombinante"
+            },
+            {
+                "id": 3462,
+                "code": "40702065",
+                "description": "Cintilografia para determinacao do tempo de esvaziamento gastric"
+            },
+            {
+                "id": 3495,
+                "code": "40707059",
+                "description": "Cisternocintilografia para pesquisa de fistula liquorica"
+            },
+            {
+                "id": 4563,
+                "code": "41001125",
+                "description": "Coluna cervical ou dorsal ou lombar (ate 3 segmentos)"
+            },
+            {
+                "id": 3445,
+                "code": "40316424",
+                "description": "PTH"
+            },
+            {
+                "id": 3491,
+                "code": "40706028",
+                "description": "Fluxo sanguineo osseo"
+            },
+            {
+                "id": 4562,
+                "code": "41001117",
+                "description": "Pelve ou bacia"
+            },
+            {
+                "id": 3489,
+                "code": "40705064",
+                "description": "Teste de absorcao de vitamina B12 com cobalto  57 (teste de Schi"
+            },
+            {
+                "id": 4516,
+                "code": "41101090",
+                "description": "Ressonancia Face (inclui seios da face)"
+            },
+            {
+                "id": 3476,
+                "code": "40704017",
+                "description": "Cintilografia renal dinamica"
+            },
+            {
+                "id": 3510,
+                "code": "40709035",
+                "description": "Cintilografia pulmonar (perfusao)"
+            },
+            {
+                "id": 3504,
+                "code": "40708063",
+                "description": "Cintilografia de mama (bilateral)"
+            },
+            {
+                "id": 3518,
+                "code": "20101074",
+                "description": "Consulta  nutricao ( inclui avaliacao)"
+            },
+            {
+                "id": 3505,
+                "code": "40708071",
+                "description": "Demarcacao radioisotopica de lesoes tumorais"
+            },
+            {
+                "id": 3493,
+                "code": "40707032",
+                "description": "Cintilografia de perfusao cerebral"
+            },
+            {
+                "id": 4514,
+                "code": "41101073",
+                "description": "Ressonancia orbita bilateral"
+            },
+            {
+                "id": 3470,
+                "code": "40703037",
+                "description": "Cintilografia da tireoide e/ou captacao (tecnecio  99m TC)"
+            },
+            {
+                "id": 3459,
+                "code": "40702030",
+                "description": "Cintilografia do figado e vias biliares"
+            },
+            {
+                "id": 4559,
+                "code": "41001079",
+                "description": "Torax"
+            },
+            {
+                "id": 4555,
+                "code": "41001010",
+                "description": "Cranio ou sela tursica ou orbitas"
+            },
+            {
+                "id": 3482,
+                "code": "40704076",
+                "description": "Determinacao da filtracao glomerular"
+            },
+            {
+                "id": 3485,
+                "code": "40705021",
+                "description": "Demonstracao do sequestro de hemacias pelo baco"
+            },
+            {
+                "id": 3487,
+                "code": "40705048",
+                "description": "Determinacao do volume eritrocitario"
+            },
+            {
+                "id": 3466,
+                "code": "40702103",
+                "description": "Cintilografia para pesquisa de refluxo gastroesofagico"
+            },
+            {
+                "id": 4568,
+                "code": "41001176",
+                "description": "Angiotomografia de aorta toracica"
+            },
+            {
+                "id": 3506,
+                "code": "40708101",
+                "description": "Linfocintilografia"
+            },
+            {
+                "id": 3479,
+                "code": "40704041",
+                "description": "Cintilografia testicular (escrotal)"
+            },
+            {
+                "id": 3468,
+                "code": "40703010",
+                "description": "Cintilografia da tireoide e/ou captacao (iodo  123)"
+            },
+            {
+                "id": 3511,
+                "code": "40711013",
+                "description": "Dacriocintilografia"
+            },
+            {
+                "id": 3508,
+                "code": "40709019",
+                "description": "Cintilografia para deteccao de aspiracao pulmonar"
+            },
+            {
+                "id": 4560,
+                "code": "41001087",
+                "description": "Coracao  para avaliacao do escore de calcio coronariano"
+            },
+            {
+                "id": 3461,
+                "code": "40702057",
+                "description": "Cintilografia para deteccao de hemorragia digestoria nao ativa"
+            },
+            {
+                "id": 3475,
+                "code": "40703088",
+                "description": "Teste do perclorato"
+            },
+            {
+                "id": 4523,
+                "code": "41101189",
+                "description": "Ressonancia Pelve (nao inclui articulacoes coxofemorais)"
+            },
+            {
+                "id": 4540,
+                "code": "41101367",
+                "description": "Ressonancia Endocavitaria (endorretal ou endovaginal)"
+            },
+            {
+                "id": 4538,
+                "code": "41101340",
+                "description": "Ressonancia AngioRM de aorta abdominal"
+            },
+            {
+                "id": 4520,
+                "code": "41101138",
+                "description": "Ressonancia Coracao  morfologico e funcional"
+            },
+            {
+                "id": 4535,
+                "code": "41101316",
+                "description": "Ressonancia Articular (por articulacao)"
+            },
+            {
+                "id": 4531,
+                "code": "41101278",
+                "description": "Ressonancia Bacia (articulacoes sacroiliacas)"
+            },
+            {
+                "id": 4528,
+                "code": "41101243",
+                "description": "Ressonancia Plexo braquial (desfiladeiro toracico) ou lombossacr"
+            },
+            {
+                "id": 4522,
+                "code": "41101170",
+                "description": "Ressonancia Abdome superior (figado, pancreas, baco, rins, supra"
+            },
+            {
+                "id": 4536,
+                "code": "41101324",
+                "description": "Ressonancia AngioRM (cranio ou pescoco ou torax ou abdome superi"
+            },
+            {
+                "id": 4532,
+                "code": "41101286",
+                "description": "Ressonancia Coxa (unilateral)"
+            },
+            {
+                "id": 4521,
+                "code": "41101162",
+                "description": "Ressonancia Mama (unilateral)"
+            },
+            {
+                "id": 4529,
+                "code": "41101251",
+                "description": "Ressonancia Membro superior unilateral (nao inclui mao e articul"
+            },
+            {
+                "id": 4541,
+                "code": "41101375",
+                "description": "Ressonancia Endoscopia virtual por RM  acrescentar ao exame de b"
+            },
+            {
+                "id": 4530,
+                "code": "41101260",
+                "description": "Ressonancia Mao (nao inclui punho)"
+            },
+            {
+                "id": 4525,
+                "code": "41101200",
+                "description": "Ressonancia Penis"
+            },
+            {
+                "id": 4534,
+                "code": "41101308",
+                "description": "Ressonancia Pe (antepe)  nao inclui tornozelo"
+            },
+            {
+                "id": 4537,
+                "code": "41101332",
+                "description": "Ressonancia AngioRM de aorta toracica"
+            },
+            {
+                "id": 4533,
+                "code": "41101294",
+                "description": "Ressonancia Perna (unilateral)"
+            },
+            {
+                "id": 4542,
+                "code": "41102010",
+                "description": "Ressonancia ArtroRM (incluir a puncao articular)  por articulaca"
+            },
+            {
+                "id": 4539,
+                "code": "41101359",
+                "description": "Ressonancia HidroRM (colangioRM ou uroRM ou mieloRM ou sialoRM o"
+            },
+            {
+                "id": 4527,
+                "code": "41101227",
+                "description": "Ressonancia Coluna cervical ou dorsal ou lombar"
+            },
+            {
+                "id": 4524,
+                "code": "41101197",
+                "description": "Ressonancia Fetal"
+            },
+            {
+                "id": 4526,
+                "code": "41101219",
+                "description": "Ressonancia Bolsa escrotal"
+            },
+            {
+                "id": 4519,
+                "code": "41101120",
+                "description": "Ressonancia Torax (mediastino, pulmao, parede toracica)"
+            },
+            {
+                "id": 4456,
+                "code": "40803090",
+                "description": "Cotovelo"
+            },
+            {
+                "id": 4475,
+                "code": "40805018",
+                "description": "Torax  1 incidencia"
+            },
+            {
+                "id": 4461,
+                "code": "40803147",
+                "description": "Incidencia adicional de membro superior"
+            },
+            {
+                "id": 4473,
+                "code": "40804127",
+                "description": "Panoramica dos membros inferiores"
+            },
+            {
+                "id": 4483,
+                "code": "40806030",
+                "description": "Esofago"
+            },
+            {
+                "id": 4469,
+                "code": "40804089",
+                "description": "Articulacao tibiotarsica (tornozelo)"
+            },
+            {
+                "id": 4425,
+                "code": "40801098",
+                "description": "Ossos da face"
+            },
+            {
+                "id": 4418,
+                "code": "40801020",
+                "description": "Cranio  3 incidencias"
+            },
+            {
+                "id": 4458,
+                "code": "40803112",
+                "description": "Punho"
+            },
+            {
+                "id": 4421,
+                "code": "40801055",
+                "description": "orbitas  bilateral"
+            },
+            {
+                "id": 4427,
+                "code": "40801110",
+                "description": "Articulacao temporomandibular  bilateral"
+            },
+            {
+                "id": 4439,
+                "code": "40802035",
+                "description": "Coluna dorsal  2 incidencias"
+            },
+            {
+                "id": 4462,
+                "code": "40804011",
+                "description": "Bacia"
+            },
+            {
+                "id": 4455,
+                "code": "40803082",
+                "description": "Braco"
+            },
+            {
+                "id": 4428,
+                "code": "40801128",
+                "description": "Adenoides ou cavum"
+            },
+            {
+                "id": 4436,
+                "code": "40801209",
+                "description": "Incidencia adicional de cranio ou face"
+            },
+            {
+                "id": 4444,
+                "code": "40802086",
+                "description": "Coluna dorsolombar para escoliose"
+            },
+            {
+                "id": 4446,
+                "code": "40802108",
+                "description": "Planigrafia de coluna vertebral (dois planos)"
+            },
+            {
+                "id": 4443,
+                "code": "40802078",
+                "description": "Sacrococcix"
+            },
+            {
+                "id": 4420,
+                "code": "40801047",
+                "description": "Orelha , mastoides ou rochedos  bilateral"
+            },
+            {
+                "id": 4448,
+                "code": "40803015",
+                "description": "Esterno"
+            },
+            {
+                "id": 4442,
+                "code": "40802060",
+                "description": "Coluna lombosacra  5 incidencias"
+            },
+            {
+                "id": 4465,
+                "code": "40804046",
+                "description": "Coxa"
+            },
+            {
+                "id": 4417,
+                "code": "40801012",
+                "description": "Cranio  2 incidencias"
+            },
+            {
+                "id": 4459,
+                "code": "40803120",
+                "description": "Mao ou quirodactilo"
+            },
+            {
+                "id": 4451,
+                "code": "40803040",
+                "description": "Clavicula"
+            },
+            {
+                "id": 4463,
+                "code": "40804020",
+                "description": "Articulacoes sacroiliacas"
+            },
+            {
+                "id": 4464,
+                "code": "40804038",
+                "description": "Articulacao coxofemoral (quadril)"
+            },
+            {
+                "id": 4424,
+                "code": "40801080",
+                "description": "Maxilar inferior"
+            },
+            {
+                "id": 4478,
+                "code": "40805042",
+                "description": "Torax  4 incidencias"
+            },
+            {
+                "id": 4422,
+                "code": "40801063",
+                "description": "Seios da face"
+            },
+            {
+                "id": 4497,
+                "code": "40808017",
+                "description": "Abdome simples"
+            },
+            {
+                "id": 4438,
+                "code": "40802027",
+                "description": "Coluna cervical  5 incidencias"
+            },
+            {
+                "id": 4449,
+                "code": "40803023",
+                "description": "Articulacao esternoclavicular"
+            },
+            {
+                "id": 4441,
+                "code": "40802051",
+                "description": "Coluna lombosacra 3 incidencias"
+            },
+            {
+                "id": 4470,
+                "code": "40804097",
+                "description": "Pe ou pododactilo"
+            },
+            {
+                "id": 4460,
+                "code": "40803139",
+                "description": "Maos e punhos para idade ossea"
+            },
+            {
+                "id": 4477,
+                "code": "40805034",
+                "description": "Torax  3 incidencias"
+            },
+            {
+                "id": 4468,
+                "code": "40804070",
+                "description": "Perna"
+            },
+            {
+                "id": 4471,
+                "code": "40804100",
+                "description": "Calcaneo"
+            },
+            {
+                "id": 4445,
+                "code": "40802094",
+                "description": "Coluna total para escoliose (telespondilografia)"
+            },
+            {
+                "id": 4476,
+                "code": "40805026",
+                "description": "Torax  2 incidencias"
+            },
+            {
+                "id": 4474,
+                "code": "40804135",
+                "description": "Incidencia adicional de membro inferior"
+            },
+            {
+                "id": 4450,
+                "code": "40803031",
+                "description": "Costelas  por hemitorax"
+            },
+            {
+                "id": 4453,
+                "code": "40803066",
+                "description": "Articulacao acromioclavicular RX"
+            },
+            {
+                "id": 4467,
+                "code": "40804062",
+                "description": "Patela"
+            },
+            {
+                "id": 4423,
+                "code": "40801071",
+                "description": "Sela turcica"
+            },
+            {
+                "id": 4452,
+                "code": "40803058",
+                "description": "Omoplata ou escapula"
+            },
+            {
+                "id": 4447,
+                "code": "40802116",
+                "description": "Incidencia adicional de coluna"
+            },
+            {
+                "id": 4435,
+                "code": "40801195",
+                "description": "Planigrafia linear de cranio ou sela turcica ou face ou mastoide"
+            },
+            {
+                "id": 4440,
+                "code": "40802043",
+                "description": "Coluna dorsal  4 incidencias"
+            },
+            {
+                "id": 4426,
+                "code": "40801101",
+                "description": "Arcos zigomaticos ou malar ou apofises estiloides RX"
+            },
+            {
+                "id": 4454,
+                "code": "40803074",
+                "description": "Articulacao escapuloumeral (ombro)"
+            },
+            {
+                "id": 4472,
+                "code": "40804119",
+                "description": "Escanometria"
+            },
+            {
+                "id": 4466,
+                "code": "40804054",
+                "description": "Joelho"
+            },
+            {
+                "id": 4419,
+                "code": "40801039",
+                "description": "Cranio  4 incidencias"
+            },
+            {
+                "id": 4437,
+                "code": "40802019",
+                "description": "Coluna cervical  3 incidencias"
+            },
+            {
+                "id": 4457,
+                "code": "40803104",
+                "description": "Antebraco"
+            },
+            {
+                "id": 3569,
+                "code": "40103439",
+                "description": "IMPEDANCIOMETRIA"
+            },
+            {
+                "id": 3291,
+                "code": "40101029",
+                "description": "ECG de alta resolucao"
+            },
+            {
+                "id": 3285,
+                "code": "20102011",
+                "description": "Holter de 24 horas  2 ou mais canais  analogico"
+            },
+            {
+                "id": 3290,
+                "code": "40101010",
+                "description": "ECG convencional de ate 12 derivacoes"
+            },
+            {
+                "id": 4407,
+                "code": "40201082",
+                "description": "Colonoscopia (inclui a retossigmoidoscopia)"
+            },
+            {
+                "id": 8604,
+                "code": "91029040",
+                "description": "Video-laringo-estroboscopia com endoscópio flexivel"
+            },
+            {
+                "id": 4549,
+                "code": "40105075",
+                "description": "Prova de funcao pulmonar completa (ou espirometria)"
+            },
+            {
+                "id": 3300,
+                "code": "40901092",
+                "description": "Ecodopplercardiograma transesofagico (inclui transtoracico)"
+            },
+            {
+                "id": 3287,
+                "code": "20102038",
+                "description": "Monitorizacao ambulatorial da pressao arterial  MAPA (24 horas)"
+            },
+            {
+                "id": 4498,
+                "code": "40808033",
+                "description": "Mamografia convencional bilateral"
+            },
+            {
+                "id": 4408,
+                "code": "40202542",
+                "description": "Polipectomia de colon (independente do numero de polipos)"
+            },
+            {
+                "id": 3373,
+                "code": "40202038",
+                "description": "Endoscopia digestiva alta com biopsia e/ou citologia"
+            },
+            {
+                "id": 3336,
+                "code": "40103170",
+                "description": "EEG de rotina"
+            },
+            {
+                "id": 3369,
+                "code": "40201171",
+                "description": "Retossigmoidoscopia flexivel"
+            },
+            {
+                "id": 4499,
+                "code": "40808041",
+                "description": "Mamografia digital bilateral"
+            },
+            {
+                "id": 3370,
+                "code": "40201180",
+                "description": "Retossigmoidoscopia rigida"
+            },
+            {
+                "id": 3294,
+                "code": "40101061",
+                "description": "Ergoespirometria ou teste cardiopulmonar de exercicio completo ("
+            },
+            {
+                "id": 3560,
+                "code": "40103072",
+                "description": "AUDIOMETRIA TONAL"
+            },
+            {
+                "id": 3338,
+                "code": "40103234",
+                "description": "Eletrencefalograma em vigilia, e sono espontaneo ou induzido"
+            },
+            {
+                "id": 3367,
+                "code": "40201120",
+                "description": "Endoscopia digestiva alta"
+            },
+            {
+                "id": 4501,
+                "code": "40808114",
+                "description": "Esqueleto (incidencias basicas de: cranio, coluna, bacia e membr"
+            },
+            {
+                "id": 3562,
+                "code": "40103099",
+                "description": "AUDIOMETRIA VOCAL COM DISCR"
+            },
+            {
+                "id": 8605,
+                "code": "91029058",
+                "description": "Video-laringo-estroboscopia com endoscópio rigido"
+            },
+            {
+                "id": 3556,
+                "code": "20104065",
+                "description": "Cerumen  remocao (bilateral)"
+            },
+            {
+                "id": 3563,
+                "code": "40103102",
+                "description": "AUDIOMETRIA VOCAL COM SRT"
+            },
+            {
+                "id": 3561,
+                "code": "40103080",
+                "description": "Audiometria tonal limiar infantil condicionada (qualquer tecnica"
+            },
+            {
+                "id": 3293,
+                "code": "40101045",
+                "description": "Teste ergometrico convencional  3 ou mais derivacoes simultaneas"
+            },
+            {
+                "id": 6566,
+                "code": "91008794",
+                "description": "US GESTACIONAL MORFOLOGICO"
+            },
+            {
+                "id": 4594,
+                "code": "40901300",
+                "description": "Transvaginal (inclui abdome inferior feminino)"
+            },
+            {
+                "id": 32977,
+                "code": "94094527",
+                "description": "USG TIREÓIDE"
+            },
+            {
+                "id": 32956,
+                "code": "94094314",
+                "description": "USG MAMAS"
+            },
+            {
+                "id": 4580,
+                "code": "40901122",
+                "description": "Ultrassonografia Abdomen total"
+            },
+            {
+                "id": 30129,
+                "code": "93036680",
+                "description": "COLPOCITOLOGIA ONCÓTICA (PAPANICOLAU)"
+            },
+            {
+                "id": 1351,
+                "code": "45010021",
+                "description": "Colposcopia ou Vulvoscopia ou Anuscopia"
+            }
+        ]
+
+## Por bairro [/api/sac/states/{uf}/cities/{city}/neighborhoods/{neighborhood}/specialities/{speciality}/events]
+
++ Parameters
+    + uf: 25 (required, number) - Identificador único do estado
+    + city: 8734 (required, number) - Identificador único da cidade
+    + neighborhood: 20794 (required, number) - Identificador único do bairro
+    + speciality: 41 (required, number) - Identificador único da especialidade
+
+### POST
+
+Retorna todos os eventos de uma especialidade de um certo bairro.
+
+No retorno de sucesso, uma lista de eventos é retornada.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Request Eventos de cardiologia no bairro Centro
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 3500,
+                "code": "40708020",
+                "description": "Cintilografia com galio67"
+            },
+            {
+                "id": 3460,
+                "code": "40702049",
+                "description": "Cintilografia para deteccao de hemorragia digestoria ativa"
+            },
+            {
+                "id": 3454,
+                "code": "40701107",
+                "description": "Quantificacao de shunt da direita para a esquerda"
+            },
+            {
+                "id": 4572,
+                "code": "41501144",
+                "description": "Tomografia de coerencia optica  monocular"
+            },
+            {
+                "id": 4567,
+                "code": "41001168",
+                "description": "Angiotomografia (cranio ou pescoco ou torax ou abdome superior o"
+            },
+            {
+                "id": 3490,
+                "code": "40706010",
+                "description": "Cintilografia ossea (corpo total)"
+            },
+            {
+                "id": 3447,
+                "code": "40701026",
+                "description": "Cintilografia com hemacias marcadas"
+            },
+            {
+                "id": 3457,
+                "code": "40702014",
+                "description": "Cintilografia das glandulas salivares com ou sem estimulo"
+            },
+            {
+                "id": 4558,
+                "code": "41001060",
+                "description": "Pescoco (partes moles, laringe, tireoide e faringe)"
+            },
+            {
+                "id": 3453,
+                "code": "40701085",
+                "description": "Cintilografia sincronizada das camaras cardiacas  repouso"
+            },
+            {
+                "id": 4515,
+                "code": "41101081",
+                "description": "Ressonancia Ossos temporais bilateral"
+            },
+            {
+                "id": 4511,
+                "code": "41101014",
+                "description": "Ressonancia Cranio (encefalo)"
+            },
+            {
+                "id": 3502,
+                "code": "40708047",
+                "description": "Cintilografia com MIBG (metaiodobenzilguanidina)"
+            },
+            {
+                "id": 3467,
+                "code": "40702111",
+                "description": "Fluxo sanguineo hepatico (qualitativo e quantitativo)"
+            },
+            {
+                "id": 4564,
+                "code": "41001133",
+                "description": "Coluna  segmento adicional"
+            },
+            {
+                "id": 4570,
+                "code": "41001222",
+                "description": "TC para PET dedicado oncologico"
+            },
+            {
+                "id": 4561,
+                "code": "41001095",
+                "description": "Abdome total (abdome superior, pelve e retroperitonio)"
+            },
+            {
+                "id": 3486,
+                "code": "40705030",
+                "description": "Determinacao da sobrevida de hemacias"
+            },
+            {
+                "id": 3513,
+                "code": "40808122",
+                "description": "Densitometria ossea (um segmento)"
+            },
+            {
+                "id": 3494,
+                "code": "40707040",
+                "description": "Cisternocintilografia"
+            },
+            {
+                "id": 4518,
+                "code": "41101111",
+                "description": "Ressonancia Pescoco (nasofaringe, orofaringe, laringe, traqueia,"
+            },
+            {
+                "id": 4566,
+                "code": "41001150",
+                "description": "Segmentos apendiculares (braco ou antebraco ou mao ou coxa ou pe"
+            },
+            {
+                "id": 4513,
+                "code": "41101030",
+                "description": "Ressonancia Base do cranio"
+            },
+            {
+                "id": 3498,
+                "code": "40707083",
+                "description": "Ventriculocintilografia"
+            },
+            {
+                "id": 3463,
+                "code": "40702073",
+                "description": "Cintilografia para estudo de transito esofagico (liquidos)"
+            },
+            {
+                "id": 3503,
+                "code": "40708055",
+                "description": "Cintilografia de corpo total com FDG18 F, em camara hibrida"
+            },
+            {
+                "id": 3472,
+                "code": "40703053",
+                "description": "Cintilografia de corpo inteiro para pesquisa de metastases (PCI)"
+            },
+            {
+                "id": 3478,
+                "code": "40704033",
+                "description": "Cintilografia renal estatica (quantitativa ou qualitativa)"
+            },
+            {
+                "id": 3452,
+                "code": "40701077",
+                "description": "Cintilografia sincronizada das camaras cardiacas  esforco"
+            },
+            {
+                "id": 3465,
+                "code": "40702090",
+                "description": "Cintilografia para pesquisa de diverticulo de Meckel"
+            },
+            {
+                "id": 3469,
+                "code": "40703029",
+                "description": "Cintilografia da tireoide e/ou captacao (iodo  131)"
+            },
+            {
+                "id": 3450,
+                "code": "40701050",
+                "description": "Cintilografia do miocardio necrose (infarto agudo)"
+            },
+            {
+                "id": 3471,
+                "code": "40703045",
+                "description": "Cintilografia das paratireoides"
+            },
+            {
+                "id": 3480,
+                "code": "40704050",
+                "description": "Cistocintilografia direta"
+            },
+            {
+                "id": 3449,
+                "code": "40701042",
+                "description": "Cintilografia do miocardio com FDG18 F, em camara hibrida"
+            },
+            {
+                "id": 3515,
+                "code": "40808149",
+                "description": "Densitometria ossea  corpo inteiro"
+            },
+            {
+                "id": 4556,
+                "code": "41001028",
+                "description": "Mastoides ou orelhas"
+            },
+            {
+                "id": 4565,
+                "code": "41001141",
+                "description": "Articulacao (esternoclavicular ou ombro ou cotovelo ou punho ou "
+            },
+            {
+                "id": 3514,
+                "code": "40808130",
+                "description": "Densitometria ossea  2 segmentos (coluna e femur)"
+            },
+            {
+                "id": 3451,
+                "code": "40701069",
+                "description": "Cintilografia do miocardio perfusao  repouso"
+            },
+            {
+                "id": 3477,
+                "code": "40704025",
+                "description": "Cintilografia renal dinamica com diuretico"
+            },
+            {
+                "id": 3484,
+                "code": "40705013",
+                "description": "Cintilografia do sistema reticuloendotelial (medula ossea)"
+            },
+            {
+                "id": 4569,
+                "code": "41001184",
+                "description": "Angiotomografia de aorta abdominal"
+            },
+            {
+                "id": 3456,
+                "code": "40701123",
+                "description": "Venografia radioisotopica"
+            },
+            {
+                "id": 4571,
+                "code": "41002016",
+                "description": "Tomomielografia (ate 3 segmentos)  acrescentar a TC da coluna e "
+            },
+            {
+                "id": 3481,
+                "code": "40704068",
+                "description": "Cistocintilografia indireta"
+            },
+            {
+                "id": 3458,
+                "code": "40702022",
+                "description": "Cintilografia do figado e do baco"
+            },
+            {
+                "id": 3509,
+                "code": "40709027",
+                "description": "Cintilografia pulmonar (inalacao)"
+            },
+            {
+                "id": 3483,
+                "code": "40704084",
+                "description": "Determinacao do fluxo plasmatico renal"
+            },
+            {
+                "id": 3501,
+                "code": "40708039",
+                "description": "Cintilografia com leucocitos marcados"
+            },
+            {
+                "id": 3507,
+                "code": "40708110",
+                "description": "Quantificacao da captacao pulmonar com galio67"
+            },
+            {
+                "id": 4512,
+                "code": "41101022",
+                "description": "Ressonancia Sela turcica (hipofise)"
+            },
+            {
+                "id": 3464,
+                "code": "40702081",
+                "description": "Cintilografia para estudo de transito esofagico (semisolidos)"
+            },
+            {
+                "id": 3448,
+                "code": "40701034",
+                "description": "Cintilografia do miocardio com duplo isotopo (perfusao + viabili"
+            },
+            {
+                "id": 4557,
+                "code": "41001036",
+                "description": "Face ou seios da face"
+            },
+            {
+                "id": 3255,
+                "code": "00010014",
+                "description": "Consulta em consultorio (no horario normal ou preestabelecido)"
+            },
+            {
+                "id": 5,
+                "code": "10101187",
+                "description": "Consulta de Psicologia e/ou Sessoes de Psicoterapia e/ou Avaliac"
+            },
+            {
+                "id": 3499,
+                "code": "40708012",
+                "description": "Cintilografia com analogo de somatostatina"
+            },
+            {
+                "id": 4517,
+                "code": "41101103",
+                "description": "Ressonancia Articulacao temporomandibular (bilateral)"
+            },
+            {
+                "id": 3497,
+                "code": "40707075",
+                "description": "Mielocintilografia"
+            },
+            {
+                "id": 3446,
+                "code": "40701018",
+                "description": "Angiografia radioisotopica"
+            },
+            {
+                "id": 3455,
+                "code": "40701115",
+                "description": "Quantificacao de shunt periferico"
+            },
+            {
+                "id": 3488,
+                "code": "40705056",
+                "description": "Determinacao do volume plasmatico"
+            },
+            {
+                "id": 3492,
+                "code": "40707024",
+                "description": "Cintilografia cerebral com FDG18 F, em camara hibrida"
+            },
+            {
+                "id": 3512,
+                "code": "40711021",
+                "description": "Imunocintilografia (anticorpos monoclonais)"
+            },
+            {
+                "id": 3496,
+                "code": "40707067",
+                "description": "Fluxo sanguineo cerebral"
+            },
+            {
+                "id": 3474,
+                "code": "40703070",
+                "description": "Teste de supressao da tireoide com T3"
+            },
+            {
+                "id": 3473,
+                "code": "40703061",
+                "description": "Teste de estimulo com TSH recombinante"
+            },
+            {
+                "id": 3462,
+                "code": "40702065",
+                "description": "Cintilografia para determinacao do tempo de esvaziamento gastric"
+            },
+            {
+                "id": 3495,
+                "code": "40707059",
+                "description": "Cisternocintilografia para pesquisa de fistula liquorica"
+            },
+            {
+                "id": 4563,
+                "code": "41001125",
+                "description": "Coluna cervical ou dorsal ou lombar (ate 3 segmentos)"
+            },
+            {
+                "id": 3445,
+                "code": "40316424",
+                "description": "PTH"
+            },
+            {
+                "id": 3491,
+                "code": "40706028",
+                "description": "Fluxo sanguineo osseo"
+            },
+            {
+                "id": 4562,
+                "code": "41001117",
+                "description": "Pelve ou bacia"
+            },
+            {
+                "id": 3489,
+                "code": "40705064",
+                "description": "Teste de absorcao de vitamina B12 com cobalto  57 (teste de Schi"
+            },
+            {
+                "id": 4516,
+                "code": "41101090",
+                "description": "Ressonancia Face (inclui seios da face)"
+            },
+            {
+                "id": 3476,
+                "code": "40704017",
+                "description": "Cintilografia renal dinamica"
+            },
+            {
+                "id": 3510,
+                "code": "40709035",
+                "description": "Cintilografia pulmonar (perfusao)"
+            },
+            {
+                "id": 3504,
+                "code": "40708063",
+                "description": "Cintilografia de mama (bilateral)"
+            },
+            {
+                "id": 3518,
+                "code": "20101074",
+                "description": "Consulta  nutricao ( inclui avaliacao)"
+            },
+            {
+                "id": 3505,
+                "code": "40708071",
+                "description": "Demarcacao radioisotopica de lesoes tumorais"
+            },
+            {
+                "id": 3493,
+                "code": "40707032",
+                "description": "Cintilografia de perfusao cerebral"
+            },
+            {
+                "id": 4514,
+                "code": "41101073",
+                "description": "Ressonancia orbita bilateral"
+            },
+            {
+                "id": 3470,
+                "code": "40703037",
+                "description": "Cintilografia da tireoide e/ou captacao (tecnecio  99m TC)"
+            },
+            {
+                "id": 3459,
+                "code": "40702030",
+                "description": "Cintilografia do figado e vias biliares"
+            },
+            {
+                "id": 4559,
+                "code": "41001079",
+                "description": "Torax"
+            },
+            {
+                "id": 4555,
+                "code": "41001010",
+                "description": "Cranio ou sela tursica ou orbitas"
+            },
+            {
+                "id": 3482,
+                "code": "40704076",
+                "description": "Determinacao da filtracao glomerular"
+            },
+            {
+                "id": 3485,
+                "code": "40705021",
+                "description": "Demonstracao do sequestro de hemacias pelo baco"
+            },
+            {
+                "id": 3487,
+                "code": "40705048",
+                "description": "Determinacao do volume eritrocitario"
+            },
+            {
+                "id": 3466,
+                "code": "40702103",
+                "description": "Cintilografia para pesquisa de refluxo gastroesofagico"
+            },
+            {
+                "id": 4568,
+                "code": "41001176",
+                "description": "Angiotomografia de aorta toracica"
+            },
+            {
+                "id": 3506,
+                "code": "40708101",
+                "description": "Linfocintilografia"
+            },
+            {
+                "id": 3479,
+                "code": "40704041",
+                "description": "Cintilografia testicular (escrotal)"
+            },
+            {
+                "id": 3468,
+                "code": "40703010",
+                "description": "Cintilografia da tireoide e/ou captacao (iodo  123)"
+            },
+            {
+                "id": 3511,
+                "code": "40711013",
+                "description": "Dacriocintilografia"
+            },
+            {
+                "id": 3508,
+                "code": "40709019",
+                "description": "Cintilografia para deteccao de aspiracao pulmonar"
+            },
+            {
+                "id": 4560,
+                "code": "41001087",
+                "description": "Coracao  para avaliacao do escore de calcio coronariano"
+            },
+            {
+                "id": 3461,
+                "code": "40702057",
+                "description": "Cintilografia para deteccao de hemorragia digestoria nao ativa"
+            },
+            {
+                "id": 3475,
+                "code": "40703088",
+                "description": "Teste do perclorato"
+            },
+            {
+                "id": 4523,
+                "code": "41101189",
+                "description": "Ressonancia Pelve (nao inclui articulacoes coxofemorais)"
+            },
+            {
+                "id": 4540,
+                "code": "41101367",
+                "description": "Ressonancia Endocavitaria (endorretal ou endovaginal)"
+            },
+            {
+                "id": 4538,
+                "code": "41101340",
+                "description": "Ressonancia AngioRM de aorta abdominal"
+            },
+            {
+                "id": 4520,
+                "code": "41101138",
+                "description": "Ressonancia Coracao  morfologico e funcional"
+            },
+            {
+                "id": 4535,
+                "code": "41101316",
+                "description": "Ressonancia Articular (por articulacao)"
+            },
+            {
+                "id": 4531,
+                "code": "41101278",
+                "description": "Ressonancia Bacia (articulacoes sacroiliacas)"
+            },
+            {
+                "id": 4528,
+                "code": "41101243",
+                "description": "Ressonancia Plexo braquial (desfiladeiro toracico) ou lombossacr"
+            },
+            {
+                "id": 4522,
+                "code": "41101170",
+                "description": "Ressonancia Abdome superior (figado, pancreas, baco, rins, supra"
+            },
+            {
+                "id": 4536,
+                "code": "41101324",
+                "description": "Ressonancia AngioRM (cranio ou pescoco ou torax ou abdome superi"
+            },
+            {
+                "id": 4532,
+                "code": "41101286",
+                "description": "Ressonancia Coxa (unilateral)"
+            },
+            {
+                "id": 4521,
+                "code": "41101162",
+                "description": "Ressonancia Mama (unilateral)"
+            },
+            {
+                "id": 4529,
+                "code": "41101251",
+                "description": "Ressonancia Membro superior unilateral (nao inclui mao e articul"
+            },
+            {
+                "id": 4541,
+                "code": "41101375",
+                "description": "Ressonancia Endoscopia virtual por RM  acrescentar ao exame de b"
+            },
+            {
+                "id": 4530,
+                "code": "41101260",
+                "description": "Ressonancia Mao (nao inclui punho)"
+            },
+            {
+                "id": 4525,
+                "code": "41101200",
+                "description": "Ressonancia Penis"
+            },
+            {
+                "id": 4534,
+                "code": "41101308",
+                "description": "Ressonancia Pe (antepe)  nao inclui tornozelo"
+            },
+            {
+                "id": 4537,
+                "code": "41101332",
+                "description": "Ressonancia AngioRM de aorta toracica"
+            },
+            {
+                "id": 4533,
+                "code": "41101294",
+                "description": "Ressonancia Perna (unilateral)"
+            },
+            {
+                "id": 4542,
+                "code": "41102010",
+                "description": "Ressonancia ArtroRM (incluir a puncao articular)  por articulaca"
+            },
+            {
+                "id": 4539,
+                "code": "41101359",
+                "description": "Ressonancia HidroRM (colangioRM ou uroRM ou mieloRM ou sialoRM o"
+            },
+            {
+                "id": 4527,
+                "code": "41101227",
+                "description": "Ressonancia Coluna cervical ou dorsal ou lombar"
+            },
+            {
+                "id": 4524,
+                "code": "41101197",
+                "description": "Ressonancia Fetal"
+            },
+            {
+                "id": 4526,
+                "code": "41101219",
+                "description": "Ressonancia Bolsa escrotal"
+            },
+            {
+                "id": 4519,
+                "code": "41101120",
+                "description": "Ressonancia Torax (mediastino, pulmao, parede toracica)"
+            },
+            {
+                "id": 4456,
+                "code": "40803090",
+                "description": "Cotovelo"
+            },
+            {
+                "id": 4475,
+                "code": "40805018",
+                "description": "Torax  1 incidencia"
+            },
+            {
+                "id": 4461,
+                "code": "40803147",
+                "description": "Incidencia adicional de membro superior"
+            },
+            {
+                "id": 4473,
+                "code": "40804127",
+                "description": "Panoramica dos membros inferiores"
+            },
+            {
+                "id": 4483,
+                "code": "40806030",
+                "description": "Esofago"
+            },
+            {
+                "id": 4469,
+                "code": "40804089",
+                "description": "Articulacao tibiotarsica (tornozelo)"
+            },
+            {
+                "id": 4425,
+                "code": "40801098",
+                "description": "Ossos da face"
+            },
+            {
+                "id": 4418,
+                "code": "40801020",
+                "description": "Cranio  3 incidencias"
+            },
+            {
+                "id": 4458,
+                "code": "40803112",
+                "description": "Punho"
+            },
+            {
+                "id": 4421,
+                "code": "40801055",
+                "description": "orbitas  bilateral"
+            },
+            {
+                "id": 4427,
+                "code": "40801110",
+                "description": "Articulacao temporomandibular  bilateral"
+            },
+            {
+                "id": 4439,
+                "code": "40802035",
+                "description": "Coluna dorsal  2 incidencias"
+            },
+            {
+                "id": 4462,
+                "code": "40804011",
+                "description": "Bacia"
+            },
+            {
+                "id": 4455,
+                "code": "40803082",
+                "description": "Braco"
+            },
+            {
+                "id": 4428,
+                "code": "40801128",
+                "description": "Adenoides ou cavum"
+            },
+            {
+                "id": 4436,
+                "code": "40801209",
+                "description": "Incidencia adicional de cranio ou face"
+            },
+            {
+                "id": 4444,
+                "code": "40802086",
+                "description": "Coluna dorsolombar para escoliose"
+            },
+            {
+                "id": 4446,
+                "code": "40802108",
+                "description": "Planigrafia de coluna vertebral (dois planos)"
+            },
+            {
+                "id": 4443,
+                "code": "40802078",
+                "description": "Sacrococcix"
+            },
+            {
+                "id": 4420,
+                "code": "40801047",
+                "description": "Orelha , mastoides ou rochedos  bilateral"
+            },
+            {
+                "id": 4448,
+                "code": "40803015",
+                "description": "Esterno"
+            },
+            {
+                "id": 4442,
+                "code": "40802060",
+                "description": "Coluna lombosacra  5 incidencias"
+            },
+            {
+                "id": 4465,
+                "code": "40804046",
+                "description": "Coxa"
+            },
+            {
+                "id": 4417,
+                "code": "40801012",
+                "description": "Cranio  2 incidencias"
+            },
+            {
+                "id": 4459,
+                "code": "40803120",
+                "description": "Mao ou quirodactilo"
+            },
+            {
+                "id": 4451,
+                "code": "40803040",
+                "description": "Clavicula"
+            },
+            {
+                "id": 4463,
+                "code": "40804020",
+                "description": "Articulacoes sacroiliacas"
+            },
+            {
+                "id": 4464,
+                "code": "40804038",
+                "description": "Articulacao coxofemoral (quadril)"
+            },
+            {
+                "id": 4424,
+                "code": "40801080",
+                "description": "Maxilar inferior"
+            },
+            {
+                "id": 4478,
+                "code": "40805042",
+                "description": "Torax  4 incidencias"
+            },
+            {
+                "id": 4422,
+                "code": "40801063",
+                "description": "Seios da face"
+            },
+            {
+                "id": 4497,
+                "code": "40808017",
+                "description": "Abdome simples"
+            },
+            {
+                "id": 4438,
+                "code": "40802027",
+                "description": "Coluna cervical  5 incidencias"
+            },
+            {
+                "id": 4449,
+                "code": "40803023",
+                "description": "Articulacao esternoclavicular"
+            },
+            {
+                "id": 4441,
+                "code": "40802051",
+                "description": "Coluna lombosacra 3 incidencias"
+            },
+            {
+                "id": 4470,
+                "code": "40804097",
+                "description": "Pe ou pododactilo"
+            },
+            {
+                "id": 4460,
+                "code": "40803139",
+                "description": "Maos e punhos para idade ossea"
+            },
+            {
+                "id": 4477,
+                "code": "40805034",
+                "description": "Torax  3 incidencias"
+            },
+            {
+                "id": 4468,
+                "code": "40804070",
+                "description": "Perna"
+            },
+            {
+                "id": 4471,
+                "code": "40804100",
+                "description": "Calcaneo"
+            },
+            {
+                "id": 4445,
+                "code": "40802094",
+                "description": "Coluna total para escoliose (telespondilografia)"
+            },
+            {
+                "id": 4476,
+                "code": "40805026",
+                "description": "Torax  2 incidencias"
+            },
+            {
+                "id": 4474,
+                "code": "40804135",
+                "description": "Incidencia adicional de membro inferior"
+            },
+            {
+                "id": 4450,
+                "code": "40803031",
+                "description": "Costelas  por hemitorax"
+            },
+            {
+                "id": 4453,
+                "code": "40803066",
+                "description": "Articulacao acromioclavicular RX"
+            },
+            {
+                "id": 4467,
+                "code": "40804062",
+                "description": "Patela"
+            },
+            {
+                "id": 4423,
+                "code": "40801071",
+                "description": "Sela turcica"
+            },
+            {
+                "id": 4452,
+                "code": "40803058",
+                "description": "Omoplata ou escapula"
+            },
+            {
+                "id": 4447,
+                "code": "40802116",
+                "description": "Incidencia adicional de coluna"
+            },
+            {
+                "id": 4435,
+                "code": "40801195",
+                "description": "Planigrafia linear de cranio ou sela turcica ou face ou mastoide"
+            },
+            {
+                "id": 4440,
+                "code": "40802043",
+                "description": "Coluna dorsal  4 incidencias"
+            },
+            {
+                "id": 4426,
+                "code": "40801101",
+                "description": "Arcos zigomaticos ou malar ou apofises estiloides RX"
+            },
+            {
+                "id": 4454,
+                "code": "40803074",
+                "description": "Articulacao escapuloumeral (ombro)"
+            },
+            {
+                "id": 4472,
+                "code": "40804119",
+                "description": "Escanometria"
+            },
+            {
+                "id": 4466,
+                "code": "40804054",
+                "description": "Joelho"
+            },
+            {
+                "id": 4419,
+                "code": "40801039",
+                "description": "Cranio  4 incidencias"
+            },
+            {
+                "id": 4437,
+                "code": "40802019",
+                "description": "Coluna cervical  3 incidencias"
+            },
+            {
+                "id": 4457,
+                "code": "40803104",
+                "description": "Antebraco"
+            },
+            {
+                "id": 3569,
+                "code": "40103439",
+                "description": "IMPEDANCIOMETRIA"
+            },
+            {
+                "id": 3291,
+                "code": "40101029",
+                "description": "ECG de alta resolucao"
+            },
+            {
+                "id": 3285,
+                "code": "20102011",
+                "description": "Holter de 24 horas  2 ou mais canais  analogico"
+            },
+            {
+                "id": 3290,
+                "code": "40101010",
+                "description": "ECG convencional de ate 12 derivacoes"
+            },
+            {
+                "id": 4407,
+                "code": "40201082",
+                "description": "Colonoscopia (inclui a retossigmoidoscopia)"
+            },
+            {
+                "id": 8604,
+                "code": "91029040",
+                "description": "Video-laringo-estroboscopia com endoscópio flexivel"
+            },
+            {
+                "id": 4549,
+                "code": "40105075",
+                "description": "Prova de funcao pulmonar completa (ou espirometria)"
+            },
+            {
+                "id": 3300,
+                "code": "40901092",
+                "description": "Ecodopplercardiograma transesofagico (inclui transtoracico)"
+            },
+            {
+                "id": 3287,
+                "code": "20102038",
+                "description": "Monitorizacao ambulatorial da pressao arterial  MAPA (24 horas)"
+            },
+            {
+                "id": 4498,
+                "code": "40808033",
+                "description": "Mamografia convencional bilateral"
+            },
+            {
+                "id": 4408,
+                "code": "40202542",
+                "description": "Polipectomia de colon (independente do numero de polipos)"
+            },
+            {
+                "id": 3373,
+                "code": "40202038",
+                "description": "Endoscopia digestiva alta com biopsia e/ou citologia"
+            },
+            {
+                "id": 3336,
+                "code": "40103170",
+                "description": "EEG de rotina"
+            },
+            {
+                "id": 3369,
+                "code": "40201171",
+                "description": "Retossigmoidoscopia flexivel"
+            },
+            {
+                "id": 4499,
+                "code": "40808041",
+                "description": "Mamografia digital bilateral"
+            },
+            {
+                "id": 3370,
+                "code": "40201180",
+                "description": "Retossigmoidoscopia rigida"
+            },
+            {
+                "id": 3294,
+                "code": "40101061",
+                "description": "Ergoespirometria ou teste cardiopulmonar de exercicio completo ("
+            },
+            {
+                "id": 3560,
+                "code": "40103072",
+                "description": "AUDIOMETRIA TONAL"
+            },
+            {
+                "id": 3338,
+                "code": "40103234",
+                "description": "Eletrencefalograma em vigilia, e sono espontaneo ou induzido"
+            },
+            {
+                "id": 3367,
+                "code": "40201120",
+                "description": "Endoscopia digestiva alta"
+            },
+            {
+                "id": 4501,
+                "code": "40808114",
+                "description": "Esqueleto (incidencias basicas de: cranio, coluna, bacia e membr"
+            },
+            {
+                "id": 3562,
+                "code": "40103099",
+                "description": "AUDIOMETRIA VOCAL COM DISCR"
+            },
+            {
+                "id": 8605,
+                "code": "91029058",
+                "description": "Video-laringo-estroboscopia com endoscópio rigido"
+            },
+            {
+                "id": 3556,
+                "code": "20104065",
+                "description": "Cerumen  remocao (bilateral)"
+            },
+            {
+                "id": 3563,
+                "code": "40103102",
+                "description": "AUDIOMETRIA VOCAL COM SRT"
+            },
+            {
+                "id": 3561,
+                "code": "40103080",
+                "description": "Audiometria tonal limiar infantil condicionada (qualquer tecnica"
+            },
+            {
+                "id": 3293,
+                "code": "40101045",
+                "description": "Teste ergometrico convencional  3 ou mais derivacoes simultaneas"
+            },
+            {
+                "id": 6566,
+                "code": "91008794",
+                "description": "US GESTACIONAL MORFOLOGICO"
+            },
+            {
+                "id": 4594,
+                "code": "40901300",
+                "description": "Transvaginal (inclui abdome inferior feminino)"
+            },
+            {
+                "id": 32977,
+                "code": "94094527",
+                "description": "USG TIREÓIDE"
+            },
+            {
+                "id": 32956,
+                "code": "94094314",
+                "description": "USG MAMAS"
+            },
+            {
+                "id": 4580,
+                "code": "40901122",
+                "description": "Ultrassonografia Abdomen total"
+            },
+            {
+                "id": 30129,
+                "code": "93036680",
+                "description": "COLPOCITOLOGIA ONCÓTICA (PAPANICOLAU)"
+            },
+            {
+                "id": 1351,
+                "code": "45010021",
+                "description": "Colposcopia ou Vulvoscopia ou Anuscopia"
+            }
+        ]
+
+# Group Prestadores
+
+Obtém prestadores disponíveis na Rede TEM.
+
+## Por cidade [/api/sac/states/{uf}/cities/{city}/specialities/{speciality}/events/{event}/providers]
+
++ Parameters
+    + uf: 25 (required, number) - Identificador único do estado
+    + city: 8734 (required, number) - Identificador único da cidade
+    + speciality: 41 (required, number) - Identificador único da especialidade
+    + event: 3500 (required, number) - Identificador único do evento
+
+### POST
+
+Retorna todos os prestadores de uma especialidade em uma certa cidade.
+
+No retorno de sucesso, uma lista de unidades é retornada.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Request Unidades de cardiologia em Aracaju
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 2498,
+                "name": "CLIMEDI CLINICA DE MEDICINA NUCLEAR ENDOCRINOLOGIA",
+                "status": "Liberado",
+                "value": "441,14",
+                "careUnit": {
+                    "id": 1857,
+                    "name": "CLIMEDI - UNIDADE I",
+                    "description": "CLIMEDI",
+                    "address": "BARAO DE MARUIM",
+                    "addressNumber": "570",
+                    "complement": "",
+                    "neighborhood": "CENTRO",
+                    "phone": "(79) 2107-9800",
+                    "ramal": "",
+                    "email": "climedi@climedi.com.br"
+                }
+            },
+            {
+                "id": 2498,
+                "name": "CLIMEDI CLINICA DE MEDICINA NUCLEAR ENDOCRINOLOGIA",
+                "status": "Liberado",
+                "value": "441,14",
+                "careUnit": {
+                    "id": 1860,
+                    "name": "CLIMEDI - UNIDADE II",
+                    "description": "CLIMEDI",
+                    "address": "SANTA LUZIA",
+                    "addressNumber": "575",
+                    "complement": "",
+                    "neighborhood": "SÃO JOSÉ",
+                    "phone": "(79) 2107-9820",
+                    "ramal": "",
+                    "email": "climedi@climedi.com.br"
+                }
+            }
+        ]
+
+## Por bairro [/api/sac/states/{uf}/cities/{city}/neighborhoods/{neighborhood}/specialities/{speciality}/events/{event}/providers]
+
++ Parameters
+    + uf: 25 (required, number) - Identificador único do estado
+    + city: 8734 (required, number) - Identificador único da cidade
+    + neighborhood: 20794 (required, number) - Identificador único do bairro
+    + speciality: 41 (required, number) - Identificador único da especialidade
+    + event: 3500 (required, number) - Identificador único do evento
+
+### POST
+
+Retorna todos os prestadores de uma especialidade em um certo bairro.
+
+No retorno de sucesso, uma lista de unidades é retornada.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Request Unidades de cardiologia no bairro Centro
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 2498,
+                "name": "CLIMEDI CLINICA DE MEDICINA NUCLEAR ENDOCRINOLOGIA",
+                "status": "Liberado",
+                "value": "441,14",
+                "careUnit": {
+                    "id": 1857,
+                    "name": "CLIMEDI - UNIDADE I",
+                    "description": "CLIMEDI",
+                    "address": "BARAO DE MARUIM",
+                    "addressNumber": "570",
+                    "complement": "",
+                    "neighborhood": "CENTRO",
+                    "phone": "(79) 2107-9800",
+                    "ramal": "",
+                    "email": "climedi@climedi.com.br"
+                }
+            }
+        ]
+
+# Group Autorização
+
+## Token [/api/sac/oauth/token]
+
+### POST
+
+Obtém um token temporário para ser usado na API, esse token deve ser reutilizado até expirar.
+
+Utiliza o modo de autenticação _HTTP Basic_, seguindo o modo `client_credentials`.
+
++ Request (application/x-www-form-urlencoded)
+    + Headers
+
+            Authorization: Basic dGVzdGU6dGVzdGU=
+    
+    + Body
+
+            grant_type=client_credentials
+
++ Response 200 (application/json)
+
+        {
+            "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+            "token_type": "bearer",
+            "expires_in": 29999999,
+            "scope": "all",
+            "jti": "ab6abdb1-4d08-4a9c-9d49-3fdcb1a81611"
+        }
+
++ Response 401 (application/json)
+
+        {
+            "status": 401,
+            "timestamp": "2018-06-28",
+            "error": "Unauthorized",
+            "message": "Unauthorized",
+            "path": "/api/tim/oauth/token"
+        }
