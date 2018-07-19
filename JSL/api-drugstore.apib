@@ -1,0 +1,663 @@
+FORMAT: 1A
+
+# API Farmácia
+
+API REST para consulta de farmácias conveniadas à Rede TEM.
+
+## URL
+
+A URL base depende do ambiente:
+
+<dl>
+<dt>Homologação</dt>
+<dd>https://qa-api.meutem.com.br</dd>
+<dt>Produção</dt>
+<dd>https://api.meutem.com.br</dd>
+</dl>
+
+> O endereço de produção só funciona para IP previamente liberado.
+
+## Autenticação
+
+Essa API exige em toda requisição o envio de uma chave de transação nos cabeçalhos,
+o valor da chave a ser usada deve ser solicitada previamente.
+
+```
+Transaction-Key: <KEY>
+```
+
+# Group Busca por locais
+
+Obtém localizações onde há farmácias da Rede TEM.
+
+## Lista de Estados [/drugstores-states]
+
+### GET
+
+Retorna todos os estados que possuem farmácias conveniadas à Rede TEM.
+
+No retorno de sucesso, uma lista de estados é retornada.
+
++ Request
+    + Headers
+
+            Transaction-Key: <KEY>
+
++ Response 200 (application/json)
+
+        [
+            {
+                "state": "AC"
+            },
+            {
+                "state": "AL"
+            },
+            {
+                "state": "AM"
+            },
+            {
+                "state": "AP"
+            },
+            {
+                "state": "BA"
+            },
+            {
+                "state": "CE"
+            },
+            {
+                "state": "DF"
+            },
+            {
+                "state": "ES"
+            },
+            {
+                "state": "GO"
+            },
+            {
+                "state": "MA"
+            },
+            {
+                "state": "MG"
+            },
+            {
+                "state": "MS"
+            },
+            {
+                "state": "MT"
+            },
+            {
+                "state": "PA"
+            },
+            {
+                "state": "PB"
+            },
+            {
+                "state": "PE"
+            },
+            {
+                "state": "PI"
+            },
+            {
+                "state": "PR"
+            },
+            {
+                "state": "RJ"
+            },
+            {
+                "state": "RN"
+            },
+            {
+                "state": "RO"
+            },
+            {
+                "state": "RS"
+            },
+            {
+                "state": "SC"
+            },
+            {
+                "state": "SE"
+            },
+            {
+                "state": "SP"
+            },
+            {
+                "state": "TO"
+            }
+        ]
+
+## Lista de Cidades [/drugstores-cities/{state}]
+
+### GET
+
+Retorna todas as cidades de um certo estado que possuem farmácias conveniadas à Rede TEM.
+
+No retorno de sucesso, uma lista de cidades é retornada.
+
++ Parameters
+    + state: `SE` (string) - o estado buscado. Use a sigla da UF.
+
++ Request Cidades de Sergipe
+    + Headers
+
+            Transaction-Key: <KEY>
+
++ Response 200 (application/json)
+
+        [
+            {
+                "city": "ARACAJU"
+            },
+            {
+                "city": "BOQUIM"
+            },
+            {
+                "city": "ESTANCIA"
+            },
+            {
+                "city": "ITABAIANA"
+            },
+            {
+                "city": "LAGARTO"
+            },
+            {
+                "city": "SALGADO"
+            },
+            {
+                "city": "TOBIAS BARRETO"
+            }
+        ]
+
+## Lista de Bairros [/drugstores-neighborhoods/{state}/{city}]
+
+### GET
+
+Retorna todos os bairros de uma certa cidade e de um certo estado que possuem farmácias conveniadas à Rede TEM.
+
+No retorno de sucesso, uma lista de bairros é retornada.
+
++ Parameters
+    + state: `SE` (string) - o estado buscado. Use a sigla da UF.
+    + city: `Aracaju` (string) - o nome da cidade buscada.
+
++ Request Bairros de Aracaju
+    + Headers
+
+            Transaction-Key: <KEY>
+
++ Response 200 (application/json)
+
+        [
+            {
+                "neighborhood": "ATALAIA"
+            },
+            {
+                "neighborhood": "CENTRO"
+            },
+            {
+                "neighborhood": "COROA DO MEIO"
+            },
+            {
+                "neighborhood": "FAROLANDIA"
+            },
+            {
+                "neighborhood": "GRAGERU"
+            },
+            {
+                "neighborhood": "JARDINS"
+            },
+            {
+                "neighborhood": "LUZIA"
+            },
+            {
+                "neighborhood": "MOSQUEIRO"
+            },
+            {
+                "neighborhood": "SAO CONRRADO"
+            },
+            {
+                "neighborhood": "SAO JOSE"
+            },
+            {
+                "neighborhood": "SIQUEIRA CAMPOS"
+            },
+            {
+                "neighborhood": "STO. ANTONIO"
+            },
+            {
+                "neighborhood": "SUISSA"
+            }
+        ]
+
+# Group Busca por farmácias
+
+Obtém as farmácias disponíveis na Rede TEM.
+
+## GET /drugstore/{id}
+
+Retorna uma certa farmácia da Rede TEM.
+
++ Parameters
+    + id: 8201 (number) - o identificador único da farmácia conveniada.
+
++ Request
+    + Headers
+
+            Transaction-Key: <KEY>
+
++ Response 200 (application/json)
+
+        {
+            "id": "8201",
+            "name": "DROGASIL",
+            "address": "AV. GONCALO ROLEMBERG",
+            "number": "1813",
+            "neighborhood": "LUZIA",
+            "city": "ARACAJU",
+            "state": "SE",
+            "postal_code": "49045280",
+            "telephone": "",
+            "latitude": "-10.92896410",
+            "longitude": "-37.06605320",
+            "created_at": "2018-03-20 11:43:02"
+        }
+
+## GET /drugstores/get-all
+
+Retorna todas as farmácias conveniadas à Rede TEM.
+
++ Request
+    + Headers
+
+            Transaction-Key: <KEY>
+
++ Response 200 (application/json)
+
+        {
+            "data": [
+                {
+                    "DT_RowId": "10465",
+                    "id": "10465",
+                    "name": "A FARMACEUTICA",
+                    "address": "R. TREZE DE MAIO",
+                    "number": "1278",
+                    "neighborhood": "CENTRO",
+                    "city": "CATANDUVA",
+                    "state": "SP",
+                    "postal_code": "15800010",
+                    "telephone": "(17) 3523-6243",
+                    "latitude": "-21.14276110",
+                    "longitude": "-48.97715570",
+                    "created_at": "2018-03-20 11:43:04"
+                },
+                {
+                    "DT_RowId": "176",
+                    "id": "176",
+                    "name": "A PHARMACIA",
+                    "address": "AV. LUIS VIANA",
+                    "number": "6814",
+                    "neighborhood": "PARALELA",
+                    "city": "SALVADOR",
+                    "state": "BA",
+                    "postal_code": "41730101",
+                    "telephone": "(71) 3161-8647",
+                    "latitude": "-12.93967680",
+                    "longitude": "-38.41291000",
+                    "created_at": "2018-03-20 11:42:52"
+                },
+                {
+                    "DT_RowId": "2781",
+                    "id": "2781",
+                    "name": "A POPULAR DROGARIA",
+                    "address": "AV. BETUMARCO",
+                    "number": "1155",
+                    "neighborhood": "CENTRO",
+                    "city": "PORTO ALEGRE DO NORTE",
+                    "state": "MT",
+                    "postal_code": "78655000",
+                    "telephone": "(66) 3569-1073",
+                    "latitude": "-10.88055810",
+                    "longitude": "-51.63591160",
+                    "created_at": "2018-03-20 11:42:55"
+                },
+                {
+                    "DT_RowId": "11065",
+                    "id": "11065",
+                    "name": "A SUPERFARMA",
+                    "address": "AV. DOS JURITIS",
+                    "number": "328",
+                    "neighborhood": "PARQUE FELICIDADE",
+                    "city": "ITAPIRA",
+                    "state": "SP",
+                    "postal_code": "13973241",
+                    "telephone": "(19) 3813-5474",
+                    "latitude": "-22.44581460",
+                    "longitude": "-46.80531070",
+                    "created_at": "2018-03-20 11:43:05"
+                },
+                {
+                    "DT_RowId": "8574",
+                    "id": "8574",
+                    "name": "ABELLA",
+                    "address": "AV. LUIS PIRES DE MINAS",
+                    "number": "257",
+                    "neighborhood": "JARDIM IMPERADOR",
+                    "city": "SAO PAULO",
+                    "state": "SP",
+                    "postal_code": "03933070",
+                    "telephone": "(11) 2727-0106",
+                    "latitude": "-23.59217870",
+                    "longitude": "-46.50225580",
+                    "created_at": "2018-03-20 11:43:02"
+                },
+                ...
+            ]
+        }
+
+## GET /drugstores/search{?latitude}{&longitude}{&radius}{&description}
+
+Busca por farmácias conveniadas em dadas coordenadas.
+
++ Parameters
+    + latitude: `-10.9225431` (number) - a posição da latitude.
+    + longitude: `-37.0756198` (number) - a posição da longitude.
+    + radius: `0.8` (number) - raio da busca, em quilômetros. Pode-se indicar metros, usando frações.
+    + description: DROGASIL (optional, string) - filtro com o nome da farmácia buscada.
+
++ Request
+    + Headers
+
+            Transaction-Key: <KEY>
+
++ Response 200 (application/json)
+
+        {
+            "data": [
+                {
+                    "DT_RowId": "8201",
+                    "id": "8201",
+                    "name": "DROGASIL",
+                    "address": "AV. GONCALO ROLEMBERG",
+                    "number": "1813",
+                    "neighborhood": "LUZIA",
+                    "city": "ARACAJU",
+                    "state": "SE",
+                    "postal_code": "49045280",
+                    "telephone": "",
+                    "latitude": "-10.92896410",
+                    "longitude": "-37.06605320",
+                    "created_at": "2018-03-20 11:43:02",
+                    "distance": "0.7861996587577161"
+                }
+            ]
+        }
+
+## GET /drugstores/search-units/{limit}/{offset}/{?latitude}{&longitude}{&radius}{&description}
+
+Busca paginada por farmácias conveniadas em dadas coordenadas.
+Semelhante à busca em `/drugstores/search`, mas permite paginação de resultados.
+
++ Parameters
+    + limit: 5 (number) - a quantidade de resultados desejada.
+    + offset: 0 (number) - conta resultados a partir desse índice, começando de 0.
+    + latitude (number)
+    + longitude (number)
+    + radius (number)
+    + description (optional, string)
+
++ Request cinco resultados a partir do primeiro
+    + Headers
+
+            Transaction-Key: <KEY>
+
++ Response 200 (application/json)
+
+        {
+            "data": [
+                {
+                    "DT_RowId": "8196",
+                    "id": "8196",
+                    "name": "DROGASIL",
+                    "address": "AV. MIN. GERALDO BARRETO SOBRAL",
+                    "number": "215",
+                    "neighborhood": "JARDINS",
+                    "city": "ARACAJU",
+                    "state": "SE",
+                    "postal_code": "49026010",
+                    "telephone": "",
+                    "latitude": "-10.94323200",
+                    "longitude": "-37.06072420",
+                    "created_at": "2018-03-20 11:43:02",
+                    "distance": "1.7506775194095041"
+                },
+                {
+                    "DT_RowId": "8198",
+                    "id": "8198",
+                    "name": "DROGASIL",
+                    "address": "R. JOAO PESSOA",
+                    "number": "182",
+                    "neighborhood": "CENTRO",
+                    "city": "ARACAJU",
+                    "state": "SE",
+                    "postal_code": "49010130",
+                    "telephone": "",
+                    "latitude": "-10.91103890",
+                    "longitude": "-37.04915800",
+                    "created_at": "2018-03-20 11:43:02",
+                    "distance": "1.9634649191943647"
+                },
+                {
+                    "DT_RowId": "8201",
+                    "id": "8201",
+                    "name": "DROGASIL",
+                    "address": "AV. GONCALO ROLEMBERG",
+                    "number": "1813",
+                    "neighborhood": "LUZIA",
+                    "city": "ARACAJU",
+                    "state": "SE",
+                    "postal_code": "49045280",
+                    "telephone": "",
+                    "latitude": "-10.92896410",
+                    "longitude": "-37.06605320",
+                    "created_at": "2018-03-20 11:43:02",
+                    "distance": "0.7861996587577161"
+                },
+                {
+                    "DT_RowId": "8169",
+                    "id": "8169",
+                    "name": "DROGASIL",
+                    "address": "R. CEDRO",
+                    "number": "9",
+                    "neighborhood": "SAO JOSE",
+                    "city": "ARACAJU",
+                    "state": "SE",
+                    "postal_code": "49015150",
+                    "telephone": "(79) 3022-1209",
+                    "latitude": "-10.92439590",
+                    "longitude": "-37.05013970",
+                    "created_at": "2018-03-20 11:43:02",
+                    "distance": "1.7334472079237262"
+                },
+                {
+                    "DT_RowId": "8170",
+                    "id": "8170",
+                    "name": "DROGASIL",
+                    "address": "AV. FRANCISCO PORTO",
+                    "number": "177",
+                    "neighborhood": "GRAGERU",
+                    "city": "ARACAJU",
+                    "state": "SE",
+                    "postal_code": "49025245",
+                    "telephone": "(79) 3022-4396",
+                    "latitude": "-10.93405790",
+                    "longitude": "-37.05442910",
+                    "created_at": "2018-03-20 11:43:02",
+                    "distance": "1.64315356853464"
+                }
+            ]
+        }
+
+## GET /drugstores-filter{?state}{&city}{&neighborhood}
+
+Busca por farmácias conveniadas filtrando por estado, cidade e/ou bairro.
+
++ Parameters
+    + state (optional, string) - o estado buscado. Use a sigla da UF.
+    + city (optional, string) - o nome da cidade buscada.
+    + neighborhood (optional, string) - o bairro buscado.
+
++ Request
+    + Headers
+
+            Transaction-Key: <KEY>
+
++ Response 200 (application/json)
+
+        {
+            "data": [
+                {
+                    "DT_RowId": "8198",
+                    "id": "8198",
+                    "name": "DROGASIL",
+                    "address": "R. JOAO PESSOA",
+                    "number": "182",
+                    "neighborhood": "CENTRO",
+                    "city": "ARACAJU",
+                    "state": "SE",
+                    "postal_code": "49010130",
+                    "telephone": "",
+                    "latitude": "-10.91103890",
+                    "longitude": "-37.04915800",
+                    "created_at": "2018-03-20 11:43:02"
+                },
+                {
+                    "DT_RowId": "8177",
+                    "id": "8177",
+                    "name": "FARMACIA EDSON",
+                    "address": "AV. BARAO DE MARUIM",
+                    "number": "538",
+                    "neighborhood": "CENTRO",
+                    "city": "ARACAJU",
+                    "state": "SE",
+                    "postal_code": "49010340",
+                    "telephone": "(79) 3214-4650",
+                    "latitude": "-10.91843890",
+                    "longitude": "-37.05185620",
+                    "created_at": "2018-03-20 11:43:02"
+                },
+                {
+                    "DT_RowId": "8174",
+                    "id": "8174",
+                    "name": "FARMACIA SOUZA",
+                    "address": "R. LARANJEIRAS",
+                    "number": "115",
+                    "neighborhood": "CENTRO",
+                    "city": "ARACAJU",
+                    "state": "SE",
+                    "postal_code": "49010090",
+                    "telephone": "(79) 3179-4722",
+                    "latitude": "-10.91170280",
+                    "longitude": "-37.04910380",
+                    "created_at": "2018-03-20 11:43:02"
+                }
+            ]
+        }
+
+## GET /drugstores/search-units-filter/{limit}/{offset}/{?state}{&city}{&neighborhood}
+
+Busca paginada por farmácias conveniadas filtrando por estado, cidade e/ou bairro.
+Semelhante à busca em `/drugstores-filter`, mas permite paginação de resultados.
+
++ Parameters
+    + limit: 5 (number) - a quantidade de resultados desejada.
+    + offset: 0 (number) - conta resultados a partir desse índice, começando de 0.
+    + state (optional, string)
+    + city (optional, string)
+    + neighborhood (optional, string)
+
++ Request cinco resultados a partir do primeiro
+    + Headers
+
+            Transaction-Key: <KEY>
+
++ Response 200 (application/json)
+
+        {
+            "data": [
+                {
+                    "DT_RowId": "8195",
+                    "id": "8195",
+                    "name": "DROGASIL",
+                    "address": "PCA. DOS NAVEGANTES",
+                    "number": "181",
+                    "neighborhood": "FAROLANDIA",
+                    "city": "ARACAJU",
+                    "state": "SE",
+                    "postal_code": "49032016",
+                    "telephone": "",
+                    "latitude": "-10.96766210",
+                    "longitude": "-37.06524240",
+                    "created_at": "2018-03-20 11:43:02"
+                },
+                {
+                    "DT_RowId": "8196",
+                    "id": "8196",
+                    "name": "DROGASIL",
+                    "address": "AV. MIN. GERALDO BARRETO SOBRAL",
+                    "number": "215",
+                    "neighborhood": "JARDINS",
+                    "city": "ARACAJU",
+                    "state": "SE",
+                    "postal_code": "49026010",
+                    "telephone": "",
+                    "latitude": "-10.94323200",
+                    "longitude": "-37.06072420",
+                    "created_at": "2018-03-20 11:43:02"
+                },
+                {
+                    "DT_RowId": "8197",
+                    "id": "8197",
+                    "name": "DROGASIL",
+                    "address": "AV. ANTONIO ALVES",
+                    "number": "696",
+                    "neighborhood": "ATALAIA",
+                    "city": "ARACAJU",
+                    "state": "SE",
+                    "postal_code": "49037050",
+                    "telephone": "",
+                    "latitude": "-10.98697900",
+                    "longitude": "-37.05239200",
+                    "created_at": "2018-03-20 11:43:02"
+                },
+                {
+                    "DT_RowId": "8198",
+                    "id": "8198",
+                    "name": "DROGASIL",
+                    "address": "R. JOAO PESSOA",
+                    "number": "182",
+                    "neighborhood": "CENTRO",
+                    "city": "ARACAJU",
+                    "state": "SE",
+                    "postal_code": "49010130",
+                    "telephone": "",
+                    "latitude": "-10.91103890",
+                    "longitude": "-37.04915800",
+                    "created_at": "2018-03-20 11:43:02"
+                },
+                {
+                    "DT_RowId": "8199",
+                    "id": "8199",
+                    "name": "DROGASIL",
+                    "address": "AV. IVO DO PRADO",
+                    "number": "1228",
+                    "neighborhood": "SAO JOSE",
+                    "city": "ARACAJU",
+                    "state": "SE",
+                    "postal_code": "49015070",
+                    "telephone": "",
+                    "latitude": "-10.92443500",
+                    "longitude": "-37.04448950",
+                    "created_at": "2018-03-20 11:43:02"
+                }
+            ]
+        }
