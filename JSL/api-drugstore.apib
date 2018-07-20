@@ -400,10 +400,10 @@ Semelhante à busca em `/drugstores/search`, mas permite paginação de resultad
 + Parameters
     + limit: 5 (number) - a quantidade de resultados desejada.
     + offset: 0 (number) - conta resultados a partir desse índice, começando de 0.
-    + latitude (number)
-    + longitude (number)
-    + radius (number)
-    + description (optional, string)
+    + latitude: `-10.9225431` (number)
+    + longitude: `-37.0756198` (number)
+    + radius: `2` (number)
+    + description: DROGASIL (optional, string)
 
 + Request cinco resultados a partir do primeiro
     + Headers
@@ -502,9 +502,9 @@ Semelhante à busca em `/drugstores/search`, mas permite paginação de resultad
 Busca por farmácias conveniadas filtrando por estado, cidade e/ou bairro.
 
 + Parameters
-    + state (optional, string) - o estado buscado. Use a sigla da UF.
-    + city (optional, string) - o nome da cidade buscada.
-    + neighborhood (optional, string) - o bairro buscado.
+    + state: `SE` (optional, string) - o estado buscado. Use a sigla da UF.
+    + city: `Aracaju` (optional, string) - o nome da cidade buscada.
+    + neighborhood: `Centro` (optional, string) - o bairro buscado.
 
 + Request
     + Headers
@@ -571,9 +571,9 @@ Semelhante à busca em `/drugstores-filter`, mas permite paginação de resultad
 + Parameters
     + limit: 5 (number) - a quantidade de resultados desejada.
     + offset: 0 (number) - conta resultados a partir desse índice, começando de 0.
-    + state (optional, string)
-    + city (optional, string)
-    + neighborhood (optional, string)
+    + state: `SE` (optional, string)
+    + city: `Aracaju` (optional, string)
+    + neighborhood: `Centro` (optional, string)
 
 + Request cinco resultados a partir do primeiro
     + Headers
