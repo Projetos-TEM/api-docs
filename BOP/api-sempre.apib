@@ -1,0 +1,210 @@
+FORMAT: 1A
+
+# API Sempre
+
+API REST para integração com o sistema Sempre.
+
+## URL
+
+A URL base depende do ambiente:
+
+<dl>
+<dt>Homologação</dt>
+<dd>https://qa-api-sempre.temrede.com.br</dd>
+<dt>Produção</dt>
+<dd>https://api-sempre.temrede.com.br</dd>
+</dl>
+
+> O endereço de produção só funciona para IP previamente liberado.
+
+## Autenticação
+
+Essa API exige autenticação usando o método OAuth 2.0.
+As credenciais para obter o token devem ser solicitadas previamente.
+
+# Group Endpoints
+
+## Geração de Cartões [/api/sempre/cards/generate]
+
+### POST
+
+Solicita a geração de cartões de saúde da TEM ainda não associados a um cliente.
+
+A entrada deve ser um JSON, informando a quantidade de cartões a ser gerada, o código do produto e a identificação da operação:
+
+```json
+{
+    "quantity": "1",
+    "onixCode": "9004",
+    "insertUser": "BOP"
+}
+```
+
+No retorno de sucesso, uma lista de cartões é retornada (exemplos abaixo).
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe ou um código de produto inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Request Gerar 1 cartão (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Attributes (object)
+        + quantity: `1` (number) - Quantidade de cartões para gerar
+        + onixCode: `9004` (string) - O código do produto em que os cartões serão gerados
+        + insertUser: `BOP` (string) - Identificação de quem fez a operação
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + status: `201` (number) - O mesmo código de resposta do HTTP
+        + defaultMessage: `Criação de cartões` (string) - Descrição da resposta
+        + body (array[Card])
+
++ Request Gerar 2 cartões (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Body
+
+            {
+                "quantity": 2,
+                "onixCode": "9004",
+                "insertUser": "BOP"
+            }
+
++ Response 201 (application/json)
+
+        {
+            "status": 201,
+            "defaultMessage": "Criação de cartões",
+            "body": [
+                {
+                    "cardNumber": "1234567654321234",
+                    "cvv": "321",
+                    "way": "1",
+                    "password": "874125",
+                    "emitter": "755",
+                    "product": "9004"
+                },
+                {
+                    "cardNumber": "4687952416475856",
+                    "cvv": "544",
+                    "way": "1",
+                    "password": "697453",
+                    "emitter": "755",
+                    "product": "9004"
+                }
+            ]
+        }
+
+## Carga de Cliente [/api/sempre/clients/load]
+
+### POST
+
+Faz a carga de um cliente a um cartão de saúde. O cartão pode ser um existente (o número do cartão deve ser passado) ou o cartão pode ser gerado na hora.
+
+A entrada deve ser um JSON, informando os dados do cliente, veja o esquema no exemplo de requisição para a descrição dos campos.
+
+No retorno de sucesso, os dados do cartão, seja novo ou pré-existente são retornados.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido,
+  nesses casos, pode ser retornado uma lista dos erros encontrados.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Request Adesão (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Attributes (Client)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + status: `201` (number) - O mesmo código de resposta do HTTP
+        + defaultMessage: `Adesão on-line` (string) - Descrição da resposta
+        + body (object)
+            + message: `Carga de cliente finalizada com sucesso` (string)
+            + card (Card) - Informações do cartão ativada
+            + errors (array) - Lista de erros
+
+# Group Autorização
+
+## Token [/api/sempre/oauth/token]
+
+### POST
+
+Obtém um token temporário para ser usado na API, esse token deve ser reutilizado até expirar.
+
+Utiliza o modo de autenticação _HTTP Basic_, seguindo o modo `client_credentials`.
+
++ Request (application/x-www-form-urlencoded)
+    + Headers
+
+            Authorization: Basic <CREDENTIALS>
+    
+    + Body
+
+            grant_type=client_credentials
+
++ Response 200 (application/json)
+
+        {
+            "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+            "token_type": "bearer",
+            "expires_in": 29999999,
+            "scope": "all",
+            "jti": "ab6abdb1-4d08-4a9c-9d49-3fdcb1a81611"
+        }
+
++ Response 401 (application/json)
+
+        {
+            "status": 401,
+            "timestamp": "2018-06-28",
+            "error": "Unauthorized",
+            "message": "Unauthorized",
+            "path": "/api/tim/oauth/token"
+        }
+
+# Data Structures
+
+## Client (object)
+
++ currentUser: `BOP` (string, required) - Identificação de quem fez a operação
++ action: `1` (string, required) - Ação a ser efetuada (1: Adesão)
++ cardNumber: `1234567654321234` (string, required) - Número do cartão
++ onixCode: `9004` (string, required) - Código do produto
++ cpfOrCnpj: `28937645173` (string, required) - Número de CPF do cliente
++ name: `Maria Vitória Cunha` (string, required) - Nome completo do cliente
++ shortName: `M. V. Cunha` (string) - Nome abreviado (usado no cartão)
++ birthdate: `1991-11-12` (string, required) - Data de nascimento do cliente
++ telephone: `81996762941` (string, required) - Número de celular do cliente com DDD
++ email: `maria@exemplo.com` (string) - Um e-mail válido do cliente
++ gender: `F` (string, required) - Gênero do cliente (M/F)
++ address: `Rua Teófilo Prado` (string) - Endereço do cliente (logradouro)
++ number: `561` (string) - Endereço do cliente (número)
++ complement: `Ap. 1102` (string) - Endereço do cliente (complemento)
++ neighborhood: `Jardins` (string) - Endereço do cliente (bairro)
++ city: `Campinas` (string) - Endereço do cliente (cidade)
++ state: `SP` (string) - Endereço do cliente (UF)
++ postalCode: `01310100` (string) - Endereço do cliente (CEP, somente números)
++ rg: `100345` (string) - Número do RG
++ documentType: `SSP/RJ` (string) - Tipo de documento (e.g. SSP, CNH, ...)
++ nationality: `Brasileira` (string) - Nacionalidade do cliente
+
+## Card (object)
+
++ cardNumber: `1234567654321234` (string) - Número do cartão para o cliente
++ cvv: `321` (string) - Código de segurança do cartão
++ way: `1` (string) - Número da via
++ password: `874125` (string) - Senha inicial do cliente
++ emitter: `755` (string) - Código do emissor
++ product: `9004` (string) - Código do produto
