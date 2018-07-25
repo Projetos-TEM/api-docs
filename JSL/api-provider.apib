@@ -1,0 +1,216 @@
+FORMAT: 1A
+
+# API Prestadores
+
+API REST para consulta de prestadores conveniados à Rede TEM.
+
+## URL
+
+A URL base depende do ambiente:
+
+<dl>
+<dt>Homologação</dt>
+<dd>https://qa-api-app.temrede.com.br</dd>
+<dt>Produção</dt>
+<dd>https://api-app.temrede.com.br</dd>
+</dl>
+
+> O endereço de produção só funciona para IP previamente liberado.
+
+## Autenticação
+
+Essa API exige autenticação usando o método OAuth 2.0.
+As credenciais para obter o token devem ser solicitadas previamente.
+
+# Group Endpoints
+
+## Prestadores por especialidade [/api/app/providers{?specialty,latitude,longitude,radius,place}]
+
+Busca por prestadores conveniados de uma certa especialidade, em dadas coordenadas.
+
+No retorno de sucesso, uma lista de prestadores é retornada.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Parameters
+    + specialty: `61` (number) - o identificador único da especialidade.
+    + latitude: `-23.5815888` (number) - a posição da latitude.
+    + longitude: `-46.702628` (number) - a posição da longitude.
+    + radius: `6` (number) - raio da busca, em quilômetros. Pode-se indicar metros, usando frações.
+    + place (optional, string) - filtro do nome do local (cidade, estado ou bairro).
+
+### GET
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna prestadores baseado nos parâmetros passados",
+            "body": [
+                {
+                    "id": 1592,
+                    "cnpj": null,
+                    "idUnitCare": 156,
+                    "logo": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
+                    "name": "AME ASSISTENCIA MEDICA ESTELA",
+                    "city": "SÃO PAULO",
+                    "state": "SÃO PAULO",
+                    "neighborhood": "PARAÍSO",
+                    "telephone1": "(11) 5575-3031",
+                    "telephone2": null,
+                    "latitude": -23.57855660000000,
+                    "longitude": -46.64537860000000,
+                    "postalCode": null,
+                    "uf": null
+                },
+                {
+                    "id": 1031,
+                    "cnpj": null,
+                    "idUnitCare": 139,
+                    "logo": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
+                    "name": "CLINICA PENG LTDA",
+                    "city": "SÃO PAULO",
+                    "state": "SÃO PAULO",
+                    "neighborhood": "CHÁCARA SANTO ANTÔNIO (ZONA SUL)",
+                    "telephone1": "(11)5182-5721",
+                    "telephone2": null,
+                    "latitude": -23.63414830000000,
+                    "longitude": -46.69785130000000,
+                    "postalCode": null,
+                    "uf": null
+                },
+                {
+                    "id": 768,
+                    "cnpj": null,
+                    "idUnitCare": 3,
+                    "logo": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
+                    "name": "TEM ADMINISTRADORA DE CARTOES LTDA",
+                    "city": "SÃO PAULO",
+                    "state": "SÃO PAULO",
+                    "neighborhood": "CERQUEIRA CÉSAR",
+                    "telephone1": "(11)3065-3838",
+                    "telephone2": null,
+                    "latitude": -23.56194720000000,
+                    "longitude": -46.66013460000000,
+                    "postalCode": null,
+                    "uf": null
+                }
+            ]
+        }
+
+## Prestadores por filtro [/api/app/providers-filter{?latitude,longitude,radius,specialties,name,state,city,neighborhood,postalcode}]
+
+Busca por prestadores conveniados em dadas coordenadas.
+É semelhante à anterior, mas mais abrangente, pois permite mais filtros.
+
+No retorno de sucesso, uma lista de prestadores é retornada.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Parameters
+    + latitude: `-23.5815888` (number) - a posição da latitude.
+    + longitude: `-46.702628` (number) - a posição da longitude.
+    + radius: `2.3` (number) - raio da busca, em quilômetros. Pode-se indicar metros, usando frações.
+    + specialties: `61,179` (optional, number) - identificadores das especialidades, separados por vírgula.
+    + name (optional, string) - filtro do nome da especilidade.
+    + state (optional, string) - o estado buscado. Use a sigla da UF.
+    + city (optional, string) - o nome da cidade buscada.
+    + neighborhood (optional, string) - o bairro buscado.
+
+### GET
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna prestadores baseado nos parâmetros passados",
+            "body": [
+                {
+                    "id": 1037,
+                    "cnpj": null,
+                    "idUnitCare": 320,
+                    "logo": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
+                    "name": "CENTRO MEDICO MMDC LTDA",
+                    "city": "SÃO PAULO",
+                    "state": "SÃO PAULO",
+                    "neighborhood": "BUTANTÃ",
+                    "telephone1": "(11) 3030-0050",
+                    "telephone2": null,
+                    "latitude": -23.57692620000000,
+                    "longitude": -46.70817630000000,
+                    "postalCode": "05512-000",
+                    "uf": "SP"
+                },
+                {
+                    "id": 1169,
+                    "cnpj": null,
+                    "idUnitCare": 416,
+                    "logo": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
+                    "name": "VISCLIN OFTALMOLOGIA LTDA",
+                    "city": "SÃO PAULO",
+                    "state": "SÃO PAULO",
+                    "neighborhood": "VILA OLÍMPIA",
+                    "telephone1": "(11) 3842-4480",
+                    "telephone2": null,
+                    "latitude": -23.59468210000000,
+                    "longitude": -46.68764550000000,
+                    "postalCode": "04552-000",
+                    "uf": "SP"
+                }
+            ]
+        }
+
+# Group Autorização
+
+## Token [/api/app/oauth/token]
+
+### POST
+
+Obtém um token temporário para ser usado na API, esse token deve ser reutilizado até expirar.
+
+Utiliza o modo de autenticação _HTTP Basic_, seguindo o modo `client_credentials`.
+
++ Request (application/x-www-form-urlencoded)
+    + Headers
+
+            Authorization: Basic <CREDENTIALS>
+    
+    + Body
+
+            grant_type=client_credentials
+
++ Response 200 (application/json)
+
+        {
+            "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+            "token_type": "bearer",
+            "expires_in": 29999999,
+            "scope": "all",
+            "jti": "ab6abdb1-4d08-4a9c-9d49-3fdcb1a81611"
+        }
+
++ Response 401 (application/json)
+
+        {
+            "status": 401,
+            "timestamp": "2018-06-28",
+            "error": "Unauthorized",
+            "message": "Unauthorized",
+            "path": "/api/tim/oauth/token"
+        }
