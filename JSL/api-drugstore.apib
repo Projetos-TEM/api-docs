@@ -354,7 +354,7 @@ Retorna todas as farmácias conveniadas à Rede TEM.
             ]
         }
 
-## GET /drugstores/search{?latitude}{&longitude}{&radius}{&description}
+## GET /drugstores/search{?latitude,longitude,radius,description}
 
 Busca por farmácias conveniadas em dadas coordenadas.
 
@@ -392,7 +392,7 @@ Busca por farmácias conveniadas em dadas coordenadas.
             ]
         }
 
-## GET /drugstores/search-units/{limit}/{offset}/{?latitude}{&longitude}{&radius}{&description}
+## GET /drugstores/search-units/{limit}/{offset}/{?latitude,longitude,radius,description}
 
 Busca paginada por farmácias conveniadas em dadas coordenadas.
 Semelhante à busca em `/drugstores/search`, mas permite paginação de resultados.
@@ -497,7 +497,7 @@ Semelhante à busca em `/drugstores/search`, mas permite paginação de resultad
             ]
         }
 
-## GET /drugstores-filter{?state}{&city}{&neighborhood}
+## GET /drugstores-filter{?state,city,neighborhood}
 
 Busca por farmácias conveniadas filtrando por estado, cidade e/ou bairro.
 
@@ -563,7 +563,7 @@ Busca por farmácias conveniadas filtrando por estado, cidade e/ou bairro.
             ]
         }
 
-## GET /drugstores/search-units-filter/{limit}/{offset}/{?state}{&city}{&neighborhood}
+## GET /drugstores/search-units-filter/{limit}/{offset}/{?state,city,neighborhood}
 
 Busca paginada por farmácias conveniadas filtrando por estado, cidade e/ou bairro.
 Semelhante à busca em `/drugstores-filter`, mas permite paginação de resultados.
