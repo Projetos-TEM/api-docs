@@ -24,7 +24,7 @@ As credenciais para obter o token devem ser solicitadas previamente.
 
 # Group Endpoints
 
-## Prestadores por especialidade [/api/app/providers{?specialty,latitude,longitude,radius,place}]
+## Prestadores por especialidade [/api/app/providers/specialty:{id}{?latitude,longitude,radius,place}]
 
 Busca por prestadores conveniados de uma certa especialidade, em dadas coordenadas.
 
@@ -36,7 +36,7 @@ _Códigos de erro:_
 - `401`: para erros relativos à autenticação ou à autorização.
 
 + Parameters
-    + specialty: `61` (number) - o identificador único da especialidade.
+    + id: `61` (number) - o identificador único da especialidade.
     + latitude: `-23.5815888` (number) - a posição da latitude.
     + longitude: `-46.702628` (number) - a posição da longitude.
     + radius: `6` (number) - raio da busca, em quilômetros. Pode-se indicar metros, usando frações.
@@ -106,7 +106,7 @@ _Códigos de erro:_
             ]
         }
 
-## Prestadores por filtro [/api/app/providers-filter{?latitude,longitude,radius,specialties,name,state,city,neighborhood,postalcode}]
+## Prestadores por filtro [/api/app/providers/filter{?latitude,longitude,radius,specialties,name,state,city,neighborhood,postalcode}]
 
 Busca por prestadores conveniados em dadas coordenadas.
 É semelhante à anterior, mas mais abrangente, pois permite mais filtros.
@@ -127,6 +127,7 @@ _Códigos de erro:_
     + state (optional, string) - o estado buscado. Use a sigla da UF.
     + city (optional, string) - o nome da cidade buscada.
     + neighborhood (optional, string) - o bairro buscado.
+    + postalcode (optional, string) - o CEP buscado.
 
 ### GET
 
