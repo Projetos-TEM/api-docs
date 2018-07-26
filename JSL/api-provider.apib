@@ -24,7 +24,54 @@ As credenciais para obter o token devem ser solicitadas previamente.
 
 # Group Endpoints
 
-## Prestadores por especialidade [/api/app/providers/specialty:{id}{?latitude,longitude,radius,place}]
+## Lista de especialidades [/api/app/specialties]
+
+Retorna todas as especialidades fornecidas pela Rede TEM.
+
+No retorno de sucesso, uma lista de prestadores é retornada.
+
+_Códigos de erro:_
+
+- `401`: para erros relativos à autenticação ou à autorização.
+
+### GET
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 61,
+                "name": "ACUPUNTURA"
+            },
+            {
+                "id": 70,
+                "name": "ALERGIA E IMUNOLOGIA"
+            },
+            {
+                "id": 114,
+                "name": "ANALISES CLINICA"
+            },
+            {
+                "id": 115,
+                "name": "ANATOMIA PATOLOGICA"
+            },
+            {
+                "id": 50,
+                "name": "ANGIOLOGIA"
+            },
+            {
+                "id": 41,
+                "name": "CARDIOLOGIA"
+            },
+            ⋮
+        ]
+
+## Prestadores por especialidade [/api/app/specialties/{id}/providers{?latitude,longitude,radius,place}]
 
 Busca por prestadores conveniados de uma certa especialidade, em dadas coordenadas.
 
@@ -106,7 +153,7 @@ _Códigos de erro:_
             ]
         }
 
-## Prestadores por filtro [/api/app/providers/filter{?latitude,longitude,radius,specialties,name,state,city,neighborhood,postalcode}]
+## Prestadores por filtro [/api/app/providers/filter{?latitude,longitude,radius,id,name,state,city,neighborhood,postalcode}]
 
 Busca por prestadores conveniados em dadas coordenadas.
 É semelhante à anterior, mas mais abrangente, pois permite mais filtros.
@@ -122,7 +169,7 @@ _Códigos de erro:_
     + latitude: `-23.5815888` (number) - a posição da latitude.
     + longitude: `-46.702628` (number) - a posição da longitude.
     + radius: `2.3` (number) - raio da busca, em quilômetros. Pode-se indicar metros, usando frações.
-    + specialties: `61,179` (optional, number) - identificadores das especialidades, separados por vírgula.
+    + id: 61 (optional, number) - identificador único do prestador. Pode ser informado várias vezes para mais de um prestador.
     + name (optional, string) - filtro do nome da especilidade.
     + state (optional, string) - o estado buscado. Use a sigla da UF.
     + city (optional, string) - o nome da cidade buscada.
