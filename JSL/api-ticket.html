@@ -15,33 +15,164 @@
 o valor da chave a ser usada deve ser solicitada previamente.</p>
 <pre><code><span class="hljs-attribute">Transaction-Key</span>: <span class="hljs-string">&lt;KEY&gt;</span></code></pre>
 <section id="agendamento" class="resource-group"><h2 class="group-heading">Agendamento <a href="#agendamento" class="permalink">&para;</a></h2><div id="agendamento-agendamento-de-consultas" class="resource"><h3 class="resource-heading">Agendamento de Consultas <a href="#agendamento-agendamento-de-consultas" class="permalink">&nbsp;&para;</a></h3><div id="agendamento-agendamento-de-consultas-post" class="action post"><h4 class="action-heading"><div class="name"></div><a href="#agendamento-agendamento-de-consultas-post" class="method post">POST</a><code class="uri">/app/tickets/appointment</code></h4><p>Realiza o agendamento de consulta em um prestador conveniado à Rede TEM.</p>
-<p>A entrada deve ser um JSON com as informações de agendamento.</p>
-<p>Na resposta de sucesso, é retornado o id do ticket criado.</p>
-<p><em>Códigos de erro:</em></p>
-<ul>
-<li>
-<p><code>400</code>: para erros na requisição, como de sintaxe, campo faltante ou inválido.</p>
-</li>
-<li>
-<p><code>401</code>: para erros relativos à autorização.</p>
-</li>
-<li>
-<p><code>404</code>: se o cliente de CPF e Número da Cartão passado não foi encontrado.</p>
-</li>
-<li>
-<p><code>500</code>: para erros indeterminados.</p>
-</li>
-</ul>
+<h4 id="header-sobre-a-requisição">Sobre a requisição <a class="permalink" href="#header-sobre-a-requisição" aria-hidden="true">¶</a></h4>
+<p>A entrada deve ser um JSON com os seguintes campos:</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo</th>
+<th style="text-align:center">Obrigatório</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cpf</code></td>
+<td>String</td>
+<td style="text-align:center">Sim</td>
+<td>Número de CPF do cliente (somente números).</td>
+</tr>
+<tr>
+<td><code>card_number</code></td>
+<td>String</td>
+<td style="text-align:center">Sim</td>
+<td>Número de cartão do cliente (somente números).</td>
+</tr>
+<tr>
+<td><code>specialty</code></td>
+<td>String</td>
+<td style="text-align:center">Sim</td>
+<td>Nome da especialidade como está descrita na resposta da consulta de especialidades da API de SAC.</td>
+</tr>
+<tr>
+<td><code>best_hour</code></td>
+<td>String</td>
+<td style="text-align:center">Sim</td>
+<td>Melhor horário para a consulta: pode ser <code>m</code> (Manhã), <code>t</code> (Tarde), <code>n</code> (Noite), <code>q</code> (Qualquer Período)</td>
+</tr>
+<tr>
+<td><code>best_days</code></td>
+<td>Array</td>
+<td style="text-align:center">Sim</td>
+<td>Melhores dias da semana para a consulta: <code>Segunda</code>, <code>Terça</code>, <code>Quarta</code>, <code>Quinta</code>, <code>Sexta</code></td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>O estado para onde a consulta deve ser agendada. Use a sigla da UF.</td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>O nome da cidade para onde a consulta deve ser agendada.</td>
+</tr>
+<tr>
+<td><code>zone</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>A região para onde a consulta deve ser agendada.</td>
+</tr>
+<tr>
+<td><code>patient_name</code></td>
+<td>String</td>
+<td style="text-align:center">Não<a href="">*</a></td>
+<td>Nome completo do paciente.</td>
+</tr>
+<tr>
+<td><code>patient_relationship</code></td>
+<td>String</td>
+<td style="text-align:center">Não<a href="">*</a></td>
+<td>Parentesco do paciente com o cliente: deve ser <code>CO</code> (cônjuge) ou <code>FI</code> (filho ou filha)</td>
+</tr>
+<tr>
+<td><code>patient_birthdate</code></td>
+<td>String</td>
+<td style="text-align:center">Não<a href="">*</a></td>
+<td>Data de nascimento do paciente no formato <code>yyyy-MM-dd</code>.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Qualquer informação adicional sobre o agendamento.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="">*</a> Os dados do paciente só devem ser informados quando o agendamemnto for para um depedente do cliente.</p>
+<h4 id="header-sobre-a-resposta">Sobre a resposta <a class="permalink" href="#header-sobre-a-resposta" aria-hidden="true">¶</a></h4>
+<p>Na resposta de sucesso, é retornado outro JSON:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>status</code></td>
+<td>String</td>
+<td>O mesmo código de resposta do HTTP.</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>String</td>
+<td>Descrição da resposta.</td>
+</tr>
+<tr>
+<td><code>ticket_id</code></td>
+<td>String</td>
+<td>O número do ticket.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="header-códigos-de-erro">Códigos de erro <a class="permalink" href="#header-códigos-de-erro" aria-hidden="true">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Código</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>400</code></td>
+<td>Para erros na requisição, como de sintaxe, campo faltante ou inválido.</td>
+</tr>
+<tr>
+<td><code>401</code></td>
+<td>Para erros relativos à autorização.</td>
+</tr>
+<tr>
+<td><code>404</code></td>
+<td>Se o cliente de CPF e Número da Cartão passado não foi encontrado.</td>
+</tr>
+<tr>
+<td><code>500</code></td>
+<td>Para erros indeterminados.</td>
+</tr>
+</tbody>
+</table>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/app/tickets/appointment</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Transaction-Key</span>: <span class="hljs-string">&lt;KEY&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">cpf</span>": <span class="hljs-value"><span class="hljs-string">"05910470558"</span></span>,
   "<span class="hljs-attribute">card_number</span>": <span class="hljs-value"><span class="hljs-string">"6064070152759819"</span></span>,
   "<span class="hljs-attribute">specialty</span>": <span class="hljs-value"><span class="hljs-string">"ALERGIA E IMUNOLOGIA"</span></span>,
-  "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Gostaria que o profissional fosse mulher"</span></span>,
   "<span class="hljs-attribute">best_hour</span>": <span class="hljs-value"><span class="hljs-string">"m"</span></span>,
   "<span class="hljs-attribute">best_days</span>": <span class="hljs-value">[
     <span class="hljs-string">"Segunda"</span>,
     <span class="hljs-string">"Terça"</span>
-  ]
+  ]</span>,
+  "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"SE"</span></span>,
+  "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Aracaju"</span></span>,
+  "<span class="hljs-attribute">zone</span>": <span class="hljs-value"><span class="hljs-string">"SP - Zona Leste"</span></span>,
+  "<span class="hljs-attribute">patient_name</span>": <span class="hljs-value"><span class="hljs-string">"Renata de Albuquerque Souza"</span></span>,
+  "<span class="hljs-attribute">patient_relationship</span>": <span class="hljs-value"><span class="hljs-string">"FI"</span></span>,
+  "<span class="hljs-attribute">patient_birthdate</span>": <span class="hljs-value"><span class="hljs-string">"1995-05-11"</span></span>,
+  "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Gostaria que o profissional fosse mulher"</span>
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
@@ -58,10 +189,6 @@ o valor da chave a ser usada deve ser solicitada previamente.</p>
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Nome da especialidade como está descrita na resposta da consulta de especialidades da API de SAC."</span>
     </span>}</span>,
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Observação feita pelo cliente no momento do agendamento."</span>
-    </span>}</span>,
     "<span class="hljs-attribute">best_hour</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Melhor horário para a consulta: pode ser 'm' (Manhã), 't' (Tarde), 'n' (Noite), 'q' (Qualquer Período)"</span>
@@ -69,6 +196,34 @@ o valor da chave a ser usada deve ser solicitada previamente.</p>
     "<span class="hljs-attribute">best_days</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Melhores dias da semana para a consulta: Segunda, Terça, Quarta, Quinta, Sexta"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">state</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"O estado para onde a consulta deve ser agendada. Use a sigla da UF."</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">city</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"O nome da cidade para onde a consulta deve ser agendada."</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">zone</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"A região para onde a consulta deve ser agendada."</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">patient_name</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Nome completo do paciente."</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">patient_relationship</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Parentesco do paciente com o cliente: deve ser CO (cônjuge) ou FI (filho ou filha)"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">patient_birthdate</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Data de nascimento do paciente."</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">description</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Observação feita pelo cliente no momento do agendamento."</span>
     </span>}
   </span>}</span>,
   "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
@@ -100,36 +255,164 @@ o valor da chave a ser usada deve ser solicitada previamente.</p>
     </span>}
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="agendamento-agendamento-de-exames" class="resource"><h3 class="resource-heading">Agendamento de Exames <a href="#agendamento-agendamento-de-exames" class="permalink">&nbsp;&para;</a></h3><div id="agendamento-agendamento-de-exames-post" class="action post"><h4 class="action-heading"><div class="name"></div><a href="#agendamento-agendamento-de-exames-post" class="method post">POST</a><code class="uri">/app/tickets/exam</code></h4><p>Realiza o agendamento de exame em um prestador conveniado à Rede TEM.</p>
-<p>A entrada deve ser um JSON com as informações de agendamento.</p>
-<p>Na resposta de sucesso, é retornado o id do ticket criado.</p>
-<p><em>Códigos de erro:</em></p>
-<ul>
-<li>
-<p><code>400</code>: para erros na requisição, como de sintaxe, campo faltante ou inválido.</p>
-</li>
-<li>
-<p><code>401</code>: para erros relativos à autorização.</p>
-</li>
-<li>
-<p><code>404</code>: se o cliente de CPF e Número da Cartão passado não foi encontrado.</p>
-</li>
-<li>
-<p><code>500</code>: para erros indeterminados.</p>
-</li>
-</ul>
+<h4 id="header-sobre-a-requisição-1">Sobre a requisição <a class="permalink" href="#header-sobre-a-requisição-1" aria-hidden="true">¶</a></h4>
+<p>A entrada deve ser um JSON com os seguintes campos:</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo</th>
+<th style="text-align:center">Obrigatório</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cpf</code></td>
+<td>String</td>
+<td style="text-align:center">Sim</td>
+<td>Número de CPF do cliente (somente números).</td>
+</tr>
+<tr>
+<td><code>card_number</code></td>
+<td>String</td>
+<td style="text-align:center">Sim</td>
+<td>Número de cartão do cliente (somente números).</td>
+</tr>
+<tr>
+<td><code>exam_group</code></td>
+<td>String</td>
+<td style="text-align:center">Sim</td>
+<td>Grupo de exames: deve ser <code>AC</code> (Análises Clínicas), <code>EC</code> (Exames/Cardialógicos), <code>EG</code> (Exames/Ginecológicos), <code>EI</code> (Exames/Imagem), <code>EP</code> (Exames/Patológico) ou <code>NI</code> (Não Informado).</td>
+</tr>
+<tr>
+<td><code>best_hour</code></td>
+<td>String</td>
+<td style="text-align:center">Sim</td>
+<td>Melhor horário para o exame: pode ser <code>m</code> (Manhã), <code>t</code> (Tarde), <code>n</code> (Noite), <code>q</code> (Qualquer Período)</td>
+</tr>
+<tr>
+<td><code>best_days</code></td>
+<td>Array</td>
+<td style="text-align:center">Sim</td>
+<td>Melhores dias da semana para o exame: <code>Segunda</code>, <code>Terça</code>, <code>Quarta</code>, <code>Quinta</code>, <code>Sexta</code></td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>O estado para onde o exame deve ser agendada. Use a sigla da UF.</td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>O nome da cidade para onde o exame deve ser agendada.</td>
+</tr>
+<tr>
+<td><code>zone</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>A região para onde o exame deve ser agendada.</td>
+</tr>
+<tr>
+<td><code>patient_name</code></td>
+<td>String</td>
+<td style="text-align:center">Não<a href="#p">*</a></td>
+<td>Nome completo do paciente.</td>
+</tr>
+<tr>
+<td><code>patient_relationship</code></td>
+<td>String</td>
+<td style="text-align:center">Não<a href="#p">*</a></td>
+<td>Parentesco do paciente com o cliente: deve ser <code>CO</code> (cônjuge) ou <code>FI</code> (filho ou filha)</td>
+</tr>
+<tr>
+<td><code>patient_birthdate</code></td>
+<td>String</td>
+<td style="text-align:center">Não<a href="#p">*</a></td>
+<td>Data de nascimento do paciente no formato <code>yyyy-MM-dd</code>.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Qualquer informação adicional sobre o agendamento.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="">*</a> Os dados do paciente só devem ser informados quando o agendamemnto for para um depedente do cliente.</p>
+<h4 id="header-sobre-a-resposta-1">Sobre a resposta <a class="permalink" href="#header-sobre-a-resposta-1" aria-hidden="true">¶</a></h4>
+<p>Na resposta de sucesso, é retornado outro JSON:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>status</code></td>
+<td>String</td>
+<td>O mesmo código de resposta do HTTP.</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>String</td>
+<td>Descrição da resposta.</td>
+</tr>
+<tr>
+<td><code>ticket_id</code></td>
+<td>String</td>
+<td>O número do ticket.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="header-códigos-de-erro-1">Códigos de erro <a class="permalink" href="#header-códigos-de-erro-1" aria-hidden="true">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Código</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>400</code></td>
+<td>Para erros na requisição, como de sintaxe, campo faltante ou inválido.</td>
+</tr>
+<tr>
+<td><code>401</code></td>
+<td>Para erros relativos à autorização.</td>
+</tr>
+<tr>
+<td><code>404</code></td>
+<td>Se o cliente de CPF e Número da Cartão passado não foi encontrado.</td>
+</tr>
+<tr>
+<td><code>500</code></td>
+<td>Para erros indeterminados.</td>
+</tr>
+</tbody>
+</table>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/app/tickets/exam</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Transaction-Key</span>: <span class="hljs-string">&lt;KEY&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">cpf</span>": <span class="hljs-value"><span class="hljs-string">"05910470558"</span></span>,
   "<span class="hljs-attribute">card_number</span>": <span class="hljs-value"><span class="hljs-string">"6064070152759819"</span></span>,
-  "<span class="hljs-attribute">patient_name</span>": <span class="hljs-value"><span class="hljs-string">"Renata de Albuquerque Souza"</span></span>,
-  "<span class="hljs-attribute">patient_relationship</span>": <span class="hljs-value"><span class="hljs-string">"FI"</span></span>,
-  "<span class="hljs-attribute">patient_birthdate</span>": <span class="hljs-value"><span class="hljs-string">"1995-05-11"</span></span>,
   "<span class="hljs-attribute">exam_group</span>": <span class="hljs-value"><span class="hljs-string">"AC"</span></span>,
-  "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Gostaria que o profissional fosse homem"</span></span>,
   "<span class="hljs-attribute">best_hour</span>": <span class="hljs-value"><span class="hljs-string">"m"</span></span>,
   "<span class="hljs-attribute">best_days</span>": <span class="hljs-value">[
     <span class="hljs-string">"Segunda"</span>,
     <span class="hljs-string">"Terça"</span>
-  ]
+  ]</span>,
+  "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"SE"</span></span>,
+  "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Aracaju"</span></span>,
+  "<span class="hljs-attribute">zone</span>": <span class="hljs-value"><span class="hljs-string">"SP - Zona Leste"</span></span>,
+  "<span class="hljs-attribute">patient_name</span>": <span class="hljs-value"><span class="hljs-string">"Renata de Albuquerque Souza"</span></span>,
+  "<span class="hljs-attribute">patient_relationship</span>": <span class="hljs-value"><span class="hljs-string">"FI"</span></span>,
+  "<span class="hljs-attribute">patient_birthdate</span>": <span class="hljs-value"><span class="hljs-string">"1995-05-11"</span></span>,
+  "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Gostaria que o profissional fosse homem"</span>
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
@@ -141,6 +424,30 @@ o valor da chave a ser usada deve ser solicitada previamente.</p>
     "<span class="hljs-attribute">card_number</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número de cartão do cliente (somente números)."</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">exam_group</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Grupo de exames: deve ser AC (Análises Clínicas), EC (Exames/Cardialógicos), EG (Exames/Ginecológicos), EI (Exames/Imagem), EP (Exames/Patológico) ou NI (Não Informado)."</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">best_hour</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Melhor horário para o exame: pode ser 'm' (Manhã), 't' (Tarde), 'n' (Noite), 'q' (Qualquer Período)"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">best_days</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Melhores dias da semana para o exame: Segunda, Terça, Quarta, Quinta, Sexta"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">state</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"O estado para onde a consulta deve ser agendada. Use a sigla da UF."</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">city</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"O nome da cidade para onde a consulta deve ser agendada."</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">zone</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"A região para onde a consulta deve ser agendada."</span>
     </span>}</span>,
     "<span class="hljs-attribute">patient_name</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
@@ -154,21 +461,9 @@ o valor da chave a ser usada deve ser solicitada previamente.</p>
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Data de nascimento do paciente."</span>
     </span>}</span>,
-    "<span class="hljs-attribute">exam_group</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Grupo de exames: deve ser AC (Análises Clínicas), EC (Exames/Cardialógicos), EG (Exames/Ginecológicos), EI (Exames/Imagem), EP (Exames/Patológico) ou NI (Não Informado)."</span>
-    </span>}</span>,
     "<span class="hljs-attribute">description</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Observação feita pelo cliente no momento do agendamento."</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">best_hour</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Melhor horário para o exame: pode ser 'm' (Manhã), 't' (Tarde), 'n' (Noite), 'q' (Qualquer Período)"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">best_days</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Melhores dias da semana para o exame: Segunda, Terça, Quarta, Quinta, Sexta"</span>
     </span>}
   </span>}</span>,
   "<span class="hljs-attribute">required</span>": <span class="hljs-value">[

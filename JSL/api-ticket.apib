@@ -34,16 +34,45 @@ Transaction-Key: <KEY>
 
 Realiza o agendamento de consulta em um prestador conveniado à Rede TEM.
 
-A entrada deve ser um JSON com as informações de agendamento.
+#### Sobre a requisição
 
-Na resposta de sucesso, é retornado o id do ticket criado.
+A entrada deve ser um JSON com os seguintes campos:
 
-_Códigos de erro:_
+| Atributo               | Tipo   | Obrigatório | Descrição                                                                                              |
+| ---------------------- | ------ | :---------: | ------------------------------------------------------------------------------------------------------ |
+| `cpf`                  | String | Sim         | Número de CPF do cliente (somente números).                                                            |
+| `card_number`          | String | Sim         | Número de cartão do cliente (somente números).                                                         |
+| `specialty`            | String | Sim         | Nome da especialidade como está descrita na resposta da consulta de especialidades da API de SAC.      |
+| `best_hour`            | String | Sim         | Melhor horário para a consulta: pode ser `m` (Manhã), `t` (Tarde), `n` (Noite), `q` (Qualquer Período) |
+| `best_days`            | Array  | Sim         | Melhores dias da semana para a consulta: `Segunda`, `Terça`, `Quarta`, `Quinta`, `Sexta`               |
+| `state`                | String | Não         | O estado para onde a consulta deve ser agendada. Use a sigla da UF.                                    |
+| `city`                 | String | Não         | O nome da cidade para onde a consulta deve ser agendada.                                               |
+| `zone`                 | String | Não         | A região para onde a consulta deve ser agendada.                                                       |
+| `patient_name`         | String | Não[*]()    | Nome completo do paciente.                                                                             |
+| `patient_relationship` | String | Não[*]()    | Parentesco do paciente com o cliente: deve ser `CO` (cônjuge) ou `FI` (filho ou filha)                 |
+| `patient_birthdate`    | String | Não[*]()    | Data de nascimento do paciente no formato `yyyy-MM-dd`.                                                |
+| `description`          | String | Não         | Qualquer informação adicional sobre o agendamento.                                                     |
 
-- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
-- `401`: para erros relativos à autorização.
-- `404`: se o cliente de CPF e Número da Cartão passado não foi encontrado.
-- `500`: para erros indeterminados.
+[*]() Os dados do paciente só devem ser informados quando o agendamemnto for para um depedente do cliente.
+
+#### Sobre a resposta
+
+Na resposta de sucesso, é retornado outro JSON:
+
+| Campo       | Tipo   | Descrição                           |
+| ----------- | ------ | ----------------------------------- |
+| `status`    | String | O mesmo código de resposta do HTTP. |
+| `message`   | String | Descrição da resposta.              |
+| `ticket_id` | String | O número do ticket.                 |
+
+#### Códigos de erro
+
+| Código | Descrição                                                              |
+| ------ | ---------------------------------------------------------------------- |
+| `400`  | Para erros na requisição, como de sintaxe, campo faltante ou inválido. |
+| `401`  | Para erros relativos à autorização.                                    |
+| `404`  | Se o cliente de CPF e Número da Cartão passado não foi encontrado.     |
+| `500`  | Para erros indeterminados.                                             |
 
 + Request (application/json)
     + Headers
@@ -62,16 +91,45 @@ _Códigos de erro:_
 
 Realiza o agendamento de exame em um prestador conveniado à Rede TEM.
 
-A entrada deve ser um JSON com as informações de agendamento.
+#### Sobre a requisição
 
-Na resposta de sucesso, é retornado o id do ticket criado.
+A entrada deve ser um JSON com os seguintes campos:
 
-_Códigos de erro:_
+| Atributo               | Tipo   | Obrigatório | Descrição                                                                                                                                                                             |
+| ---------------------- | ------ | :---------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cpf`                  | String | Sim         | Número de CPF do cliente (somente números).                                                                                                                                           |
+| `card_number`          | String | Sim         | Número de cartão do cliente (somente números).                                                                                                                                        |
+| `exam_group`           | String | Sim         | Grupo de exames: deve ser `AC` (Análises Clínicas), `EC` (Exames/Cardialógicos), `EG` (Exames/Ginecológicos), `EI` (Exames/Imagem), `EP` (Exames/Patológico) ou `NI` (Não Informado). |
+| `best_hour`            | String | Sim         | Melhor horário para o exame: pode ser `m` (Manhã), `t` (Tarde), `n` (Noite), `q` (Qualquer Período)                                                                                   |
+| `best_days`            | Array  | Sim         | Melhores dias da semana para o exame: `Segunda`, `Terça`, `Quarta`, `Quinta`, `Sexta`                                                                                                 |
+| `state`                | String | Não         | O estado para onde o exame deve ser agendada. Use a sigla da UF.                                                                                                                      |
+| `city`                 | String | Não         | O nome da cidade para onde o exame deve ser agendada.                                                                                                                                 |
+| `zone`                 | String | Não         | A região para onde o exame deve ser agendada.                                                                                                                                         |
+| `patient_name`         | String | Não[*](#p)  | Nome completo do paciente.                                                                                                                                                            |
+| `patient_relationship` | String | Não[*](#p)  | Parentesco do paciente com o cliente: deve ser `CO` (cônjuge) ou `FI` (filho ou filha)                                                                                                |
+| `patient_birthdate`    | String | Não[*](#p)  | Data de nascimento do paciente no formato `yyyy-MM-dd`.                                                                                                                               |
+| `description`          | String | Não         | Qualquer informação adicional sobre o agendamento.                                                                                                                                    |
 
-- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
-- `401`: para erros relativos à autorização.
-- `404`: se o cliente de CPF e Número da Cartão passado não foi encontrado.
-- `500`: para erros indeterminados.
+[*]() Os dados do paciente só devem ser informados quando o agendamemnto for para um depedente do cliente.
+
+#### Sobre a resposta
+
+Na resposta de sucesso, é retornado outro JSON:
+
+| Campo       | Tipo   | Descrição                           |
+| ----------- | ------ | ----------------------------------- |
+| `status`    | String | O mesmo código de resposta do HTTP. |
+| `message`   | String | Descrição da resposta.              |
+| `ticket_id` | String | O número do ticket.                 |
+
+#### Códigos de erro
+
+| Código | Descrição                                                              |
+| ------ | ---------------------------------------------------------------------- |
+| `400`  | Para erros na requisição, como de sintaxe, campo faltante ou inválido. |
+| `401`  | Para erros relativos à autorização.                                    |
+| `404`  | Se o cliente de CPF e Número da Cartão passado não foi encontrado.     |
+| `500`  | Para erros indeterminados.                                             |
 
 + Request (application/json)
     + Headers
@@ -87,53 +145,34 @@ _Códigos de erro:_
 # Data Structures
 
 ## Appointment (object)
-+ cpf: 05910470558 (string, required)
-    Número de CPF do cliente (somente números).
-
-+ card_number: 6064070152759819 (string, required)
-    Número de cartão do cliente (somente números).
-
-+ specialty: ALERGIA E IMUNOLOGIA (string, required)
-    Nome da especialidade como está descrita na resposta da consulta de especialidades da API de SAC.
-
-+ description: Gostaria que o profissional fosse mulher (string)
-    Observação feita pelo cliente no momento do agendamento.
-
-+ best_hour: m (string, required)
-    Melhor horário para a consulta: pode ser 'm' (Manhã), 't' (Tarde), 'n' (Noite), 'q' (Qualquer Período)
-
-+ best_days: Segunda, Terça (array[string], required)
-    Melhores dias da semana para a consulta: Segunda, Terça, Quarta, Quinta, Sexta
++ cpf: `05910470558` (string, required) - Número de CPF do cliente (somente números).
++ card_number: `6064070152759819` (string, required) - Número de cartão do cliente (somente números).
++ specialty: `ALERGIA E IMUNOLOGIA` (string, required) - Nome da especialidade como está descrita na resposta da consulta de especialidades da API de SAC.
++ best_hour: `m` (string, required) - Melhor horário para a consulta: pode ser 'm' (Manhã), 't' (Tarde), 'n' (Noite), 'q' (Qualquer Período)
++ best_days: `Segunda`, `Terça` (array[string], required) - Melhores dias da semana para a consulta: Segunda, Terça, Quarta, Quinta, Sexta
++ state: `SE` (string) - O estado para onde a consulta deve ser agendada. Use a sigla da UF.
++ city: `Aracaju` (string) - O nome da cidade para onde a consulta deve ser agendada.
++ zone: `SP - Zona Leste` (string) - A região para onde a consulta deve ser agendada.
++ patient_name: `Renata de Albuquerque Souza` (string) - Nome completo do paciente.
++ patient_relationship: `FI` (string) - Parentesco do paciente com o cliente: deve ser CO (cônjuge) ou FI (filho ou filha)
++ patient_birthdate: `1995-05-11` (string) - Data de nascimento do paciente.
++ description: `Gostaria que o profissional fosse mulher` (string) - Observação feita pelo cliente no momento do agendamento.
 
 ## Exam
-+ cpf: 05910470558 (string, required)
-    Número de CPF do cliente (somente números).
-
-+ card_number: 6064070152759819 (string, required)
-    Número de cartão do cliente (somente números).
-
-+ patient_name: Renata de Albuquerque Souza (string)
-    Nome completo do paciente.
-
-+ patient_relationship: FI (string)
-    Parentesco do paciente com o cliente: deve ser CO (cônjuge) ou FI (filho ou filha)
-
-+ patient_birthdate: `1995-05-11` (string)
-    Data de nascimento do paciente.
-
-+ exam_group: AC (string, required)
-    Grupo de exames: deve ser AC (Análises Clínicas), EC (Exames/Cardialógicos), EG (Exames/Ginecológicos), EI (Exames/Imagem), EP (Exames/Patológico) ou NI (Não Informado).
-
-+ description: Gostaria que o profissional fosse homem (string)
-    Observação feita pelo cliente no momento do agendamento.
-
-+ best_hour: m (string, required)
-    Melhor horário para o exame: pode ser 'm' (Manhã), 't' (Tarde), 'n' (Noite), 'q' (Qualquer Período)
-
-+ best_days: Segunda, Terça (array[string], required)
-    Melhores dias da semana para o exame: Segunda, Terça, Quarta, Quinta, Sexta
++ cpf: `05910470558` (string, required) - Número de CPF do cliente (somente números).
++ card_number: `6064070152759819` (string, required) - Número de cartão do cliente (somente números).
++ exam_group: `AC` (string, required) - Grupo de exames: deve ser AC (Análises Clínicas), EC (Exames/Cardialógicos), EG (Exames/Ginecológicos), EI (Exames/Imagem), EP (Exames/Patológico) ou NI (Não Informado).
++ best_hour: `m` (string, required) - Melhor horário para o exame: pode ser 'm' (Manhã), 't' (Tarde), 'n' (Noite), 'q' (Qualquer Período)
++ best_days: `Segunda`, `Terça` (array[string], required) - Melhores dias da semana para o exame: Segunda, Terça, Quarta, Quinta, Sexta
++ state: `SE` (string) - O estado para onde a consulta deve ser agendada. Use a sigla da UF.
++ city: `Aracaju` (string) - O nome da cidade para onde a consulta deve ser agendada.
++ zone: `SP - Zona Leste` (string) - A região para onde a consulta deve ser agendada.
++ patient_name: `Renata de Albuquerque Souza` (string) - Nome completo do paciente.
++ patient_relationship: `FI` (string) - Parentesco do paciente com o cliente: deve ser CO (cônjuge) ou FI (filho ou filha)
++ patient_birthdate: `1995-05-11` (string) - Data de nascimento do paciente.
++ description: `Gostaria que o profissional fosse homem` (string) - Observação feita pelo cliente no momento do agendamento.
 
 ## Ticket
-+ status: 201 (number) - O mesmo código de resposta do HTTP.
-+ message: Agendamento realizado com sucesso. (string) - Descrição da resposta.
-+ ticket_id: 34209 (number) - O número do ticket.
++ status: `201` (number) - O mesmo código de resposta do HTTP.
++ message: `Agendamento realizado com sucesso.` (string) - Descrição da resposta.
++ ticket_id: `34209` (number) - O número do ticket.
