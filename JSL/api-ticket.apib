@@ -1,0 +1,139 @@
+FORMAT: 1A
+
+# API Agendamento
+
+API REST para agendamento de consultas e exames em prestadores conveniados à Rede TEM.
+
+## URL
+
+A URL base depende do ambiente:
+
+<dl>
+<dt>Homologação</dt>
+<dd>https://qa-api.meutem.com.br</dd>
+<dt>Produção</dt>
+<dd>https://api.meutem.com.br</dd>
+</dl>
+
+> O endereço de produção só funciona para IP previamente liberado.
+
+## Autenticação
+
+Essa API exige em toda requisição o envio de uma chave de transação nos cabeçalhos,
+o valor da chave a ser usada deve ser solicitada previamente.
+
+```
+Transaction-Key: <KEY>
+```
+
+# Group Agendamento
+
+## Agendamento de Consultas [/app/tickets/appointment]
+
+### POST
+
+Realiza o agendamento de consulta em um prestador conveniado à Rede TEM.
+
+A entrada deve ser um JSON com as informações de agendamento.
+
+Na resposta de sucesso, é retornado o id do ticket criado.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autorização.
+- `404`: se o cliente de CPF e Número da Cartão passado não foi encontrado.
+- `500`: para erros indeterminados.
+
++ Request (application/json)
+    + Headers
+
+            Transaction-Key: <KEY>
+
+    + Attributes (Appointment)
+
++ Response 201 (application/json)
+
+    + Attributes (Ticket)
+
+## Agendamento de Exames [/app/tickets/exam]
+
+### POST
+
+Realiza o agendamento de exame em um prestador conveniado à Rede TEM.
+
+A entrada deve ser um JSON com as informações de agendamento.
+
+Na resposta de sucesso, é retornado o id do ticket criado.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autorização.
+- `404`: se o cliente de CPF e Número da Cartão passado não foi encontrado.
+- `500`: para erros indeterminados.
+
++ Request (application/json)
+    + Headers
+
+            Transaction-Key: <KEY>
+
+    + Attributes (Exam)
+
++ Response 201 (application/json)
+
+    + Attributes (Ticket)
+
+# Data Structures
+
+## Appointment (object)
++ cpf: 05910470558 (string, required)
+    Número de CPF do cliente (somente números).
+
++ card_number: 6064070152759819 (string, required)
+    Número de cartão do cliente (somente números).
+
++ specialty: ALERGIA E IMUNOLOGIA (string, required)
+    Nome da especialidade como está descrita na resposta da consulta de especialidades da API de SAC.
+
++ description: Gostaria que o profissional fosse mulher (string)
+    Observação feita pelo cliente no momento do agendamento.
+
++ best_hour: m (string, required)
+    Melhor horário para a consulta: pode ser 'm' (Manhã), 't' (Tarde), 'n' (Noite), 'q' (Qualquer Período)
+
++ best_days: Segunda, Terça (array[string], required)
+    Melhores dias da semana para a consulta: Segunda, Terça, Quarta, Quinta, Sexta
+
+## Exam
++ cpf: 05910470558 (string, required)
+    Número de CPF do cliente (somente números).
+
++ card_number: 6064070152759819 (string, required)
+    Número de cartão do cliente (somente números).
+
++ patient_name: Renata de Albuquerque Souza (string)
+    Nome completo do paciente.
+
++ patient_relationship: FI (string)
+    Parentesco do paciente com o cliente: deve ser CO (cônjuge) ou FI (filho ou filha)
+
++ patient_birthdate: `1995-05-11` (string)
+    Data de nascimento do paciente.
+
++ exam_group: AC (string, required)
+    Grupo de exames: deve ser AC (Análises Clínicas), EC (Exames/Cardialógicos), EG (Exames/Ginecológicos), EI (Exames/Imagem), EP (Exames/Patológico) ou NI (Não Informado).
+
++ description: Gostaria que o profissional fosse homem (string)
+    Observação feita pelo cliente no momento do agendamento.
+
++ best_hour: m (string, required)
+    Melhor horário para o exame: pode ser 'm' (Manhã), 't' (Tarde), 'n' (Noite), 'q' (Qualquer Período)
+
++ best_days: Segunda, Terça (array[string], required)
+    Melhores dias da semana para o exame: Segunda, Terça, Quarta, Quinta, Sexta
+
+## Ticket
++ status: 201 (number) - O mesmo código de resposta do HTTP.
++ message: Agendamento realizado com sucesso. (string) - Descrição da resposta.
++ ticket_id: 34209 (number) - O número do ticket.
