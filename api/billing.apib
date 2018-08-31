@@ -80,11 +80,11 @@ A entrada deve ser um JSON com os seguintes campos:
 
 #### Sobre os códigos de resposta
 
-| Código | Descrição                                                              |
-| ------ | ---------------------------------------------------------------------- |
-| `204`  | A fatura foi incluída com sucesso.                                     |
-| `400`  | Para erros na requisição, como de sintaxe, campo faltante ou inválido. |
-| `500`  | Para erros indeterminados.                                             |
+| Código | Descrição                                                                                   |
+| ------ | ------------------------------------------------------------------------------------------- |
+| `204`  | O pagamento da fatura foi processado com sucesso. Uma fatura será incluída caso não exista. |
+| `400`  | Para erros na requisição, como de sintaxe, campo faltante ou inválido.                      |
+| `500`  | Para erros indeterminados.                                                                  |
 
 + Request (application/json)
     + Headers
