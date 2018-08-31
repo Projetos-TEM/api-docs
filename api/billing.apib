@@ -1,0 +1,149 @@
+FORMAT: 1A
+
+# API Faturamento
+
+API REST para o cadastro de dados de faturamento.
+
+## URL
+
+A URL base depende do ambiente:
+
+<dl>
+<dt>Homologação</dt>
+<dd>https://qa-api-sempre.temrede.com.br</dd>
+<dt>Produção</dt>
+<dd>https://api-sempre.temrede.com.br</dd>
+</dl>
+
+> O endereço de produção só funciona para IP previamente liberado.
+
+## Autenticação
+
+Essa API exige autenticação usando o método OAuth 2.0.
+As credenciais para obter o token devem ser solicitadas previamente.
+
+# Group Endpoints
+
+## Lançamento da Fatura [/api/sempre/billings/invoice]
+
+### POST
+
+Adiciona uma fatura de um cliente com base no CPF e no produto do cartão.
+
+#### Sobre a requisição
+
+A entrada deve ser um JSON com os seguintes campos:
+
+| Atributo    | Tipo   | Obrigatório | Descrição                                                  |
+| ----------- | ------ | :---------: | ---------------------------------------------------------- |
+| `cpf`       | String | Sim         | O número de CPF do cliente (somente números).              |
+| `onix_code` | String | Sim         | O código do produto (somente números).                     |
+| `due_date`  | String | Sim         | A data de vencimento da fatura no formato `yyyy-MM-dd`.    |
+| `reference` | String | Sim         | O ano e mês de referência da fatura, no formato `yyyy-MM`. |
+| `total`     | Number | Sim         | O valor total da fatura.                                   |
+
+#### Sobre os códigos de resposta
+
+| Código | Descrição                                                              |
+| ------ | ---------------------------------------------------------------------- |
+| `204`  | A fatura foi incluída com sucesso.                                     |
+| `400`  | Para erros na requisição, como de sintaxe, campo faltante ou inválido. |
+| `500`  | Para erros indeterminados.                                             |
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Attributes (Invoice)
+
++ Response 204 (application/json)
+
+## Lançamento do Pagamento [/api/sempre/billings/payment]
+
+### POST
+
+Adiciona o pagamento da fatura de um cliente com base no CPF e no produto do cartão.
+
+#### Sobre a requisição
+
+A entrada deve ser um JSON com os seguintes campos:
+
+| Atributo       | Tipo   | Obrigatório | Descrição                                                  |
+| -------------- | ------ | :---------: | ---------------------------------------------------------- |
+| `cpf`          | String | Sim         | O número de CPF do cliente (somente números).              |
+| `onix_code`    | String | Sim         | O código do produto (somente números).                     |
+| `due_date`     | String | Sim         | A data de vencimento da fatura no formato `yyyy-MM-dd`.    |
+| `reference`    | String | Sim         | O ano e mês de referência da fatura, no formato `yyyy-MM`. |
+| `total`        | Number | Sim         | O valor total da fatura.                                   |
+| `payment_date` | String | Sim         | A data de pagamento da fatura no formato `yyyy-MM-dd`.     |
+
+#### Sobre os códigos de resposta
+
+| Código | Descrição                                                              |
+| ------ | ---------------------------------------------------------------------- |
+| `204`  | A fatura foi incluída com sucesso.                                     |
+| `400`  | Para erros na requisição, como de sintaxe, campo faltante ou inválido. |
+| `500`  | Para erros indeterminados.                                             |
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Attributes (Payment)
+
++ Response 204 (application/json)
+
+# Group Autorização
+
+## Token [/api/sempre/oauth/token]
+
+### POST
+
+Obtém um token temporário para ser usado na API, esse token deve ser reutilizado até expirar.
+
+Utiliza o modo de autenticação _HTTP Basic_, seguindo o modo `client_credentials`.
+
++ Request (application/x-www-form-urlencoded)
+    + Headers
+
+            Authorization: Basic <CREDENTIALS>
+    
+    + Body
+
+            grant_type=client_credentials
+
++ Response 200 (application/json)
+
+        {
+            "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+            "token_type": "bearer",
+            "expires_in": 29999999,
+            "scope": "all",
+            "jti": "ab6abdb1-4d08-4a9c-9d49-3fdcb1a81611"
+        }
+
++ Response 401 (application/json)
+
+        {
+            "status": 401,
+            "timestamp": "2018-06-28",
+            "error": "Unauthorized",
+            "message": "Unauthorized",
+            "path": "/api/tim/oauth/token"
+        }
+
+# Data Structures
+
+## Invoice (object)
+
++ `cpf`: `00307528502` (string, required) - O número de CPF do cliente (somente números).
++ `onix_code`: `9999` (string, required) - O código do produto (somente números).
++ `due_date`: `2018-08-31` (string, required) - A data de vencimento da fatura no formato `yyyy-MM-dd`.
++ `reference`: `2018-08` (string, required) - O ano e mês de referência da fatura, no formato `yyyy-MM`.
++ `total`: `25.35` (number, required) - O valor total da fatura.
+
+## Payment (Invoice)
+
++ `payment_date`: `2018-09-15` (string, required) - A data de pagamento da fatura.

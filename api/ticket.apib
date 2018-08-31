@@ -48,12 +48,12 @@ A entrada deve ser um JSON com os seguintes campos:
 | `state`                | String | Não         | O estado para onde a consulta deve ser agendada. Use a sigla da UF.                                    |
 | `city`                 | String | Não         | O nome da cidade para onde a consulta deve ser agendada.                                               |
 | `zone`                 | String | Não         | A região para onde a consulta deve ser agendada.                                                       |
-| `patient_name`         | String | Não[*]()    | Nome completo do paciente.                                                                             |
-| `patient_relationship` | String | Não[*]()    | Parentesco do paciente com o cliente: deve ser `CO` (cônjuge) ou `FI` (filho ou filha)                 |
-| `patient_birthdate`    | String | Não[*]()    | Data de nascimento do paciente no formato `yyyy-MM-dd`.                                                |
+| `patient_name`         | String | Não[\*]()   | Nome completo do paciente.                                                                             |
+| `patient_relationship` | String | Não[\*]()   | Parentesco do paciente com o cliente: deve ser `CO` (cônjuge) ou `FI` (filho ou filha)                 |
+| `patient_birthdate`    | String | Não[\*]()   | Data de nascimento do paciente no formato `yyyy-MM-dd`.                                                |
 | `description`          | String | Não         | Qualquer informação adicional sobre o agendamento.                                                     |
 
-[*]() Os dados do paciente só devem ser informados quando o agendamemnto for para um depedente do cliente.
+[\*]() Os dados do paciente só devem ser informados quando o agendamemnto for para um depedente do cliente.
 
 #### Sobre a resposta
 
@@ -105,12 +105,12 @@ A entrada deve ser um JSON com os seguintes campos:
 | `state`                | String | Não         | O estado para onde o exame deve ser agendada. Use a sigla da UF.                                                                                                                      |
 | `city`                 | String | Não         | O nome da cidade para onde o exame deve ser agendada.                                                                                                                                 |
 | `zone`                 | String | Não         | A região para onde o exame deve ser agendada.                                                                                                                                         |
-| `patient_name`         | String | Não[*](#p)  | Nome completo do paciente.                                                                                                                                                            |
-| `patient_relationship` | String | Não[*](#p)  | Parentesco do paciente com o cliente: deve ser `CO` (cônjuge) ou `FI` (filho ou filha)                                                                                                |
-| `patient_birthdate`    | String | Não[*](#p)  | Data de nascimento do paciente no formato `yyyy-MM-dd`.                                                                                                                               |
+| `patient_name`         | String | Não[\*](#p) | Nome completo do paciente.                                                                                                                                                            |
+| `patient_relationship` | String | Não[\*](#p) | Parentesco do paciente com o cliente: deve ser `CO` (cônjuge) ou `FI` (filho ou filha)                                                                                                |
+| `patient_birthdate`    | String | Não[\*](#p) | Data de nascimento do paciente no formato `yyyy-MM-dd`.                                                                                                                               |
 | `description`          | String | Não         | Qualquer informação adicional sobre o agendamento.                                                                                                                                    |
 
-[*]() Os dados do paciente só devem ser informados quando o agendamemnto for para um depedente do cliente.
+[\*]() Os dados do paciente só devem ser informados quando o agendamemnto for para um depedente do cliente.
 
 #### Sobre a resposta
 
