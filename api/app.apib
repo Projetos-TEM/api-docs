@@ -24,9 +24,8 @@ A URL base da API depende do ambiente:
 A não ser nos endpoints especificados, essa API exige autenticação usando o método OAuth 2.0 com
 tokens descartáveis, obtidos previamente.
 
-> As credenciais para obter o token devem ser solicitadas previamente.
-
-### Sobre a utilização do token
+:::note
+### Utilizando o token
 
 Em toda requisição feita a endpoints protegidos, será preciso enviar o cabeçalho HTTP `Authorization`
 com o token temporário obtido previamente:
@@ -34,6 +33,7 @@ com o token temporário obtido previamente:
 ```http
 Authorization: Bearer <TOKEN>
 ```
+:::
 
 ## Token [/api/app/oauth/token]
 
@@ -43,8 +43,10 @@ O endpoint a seguir serve para obter o token de acesso.
 
 Obtém um token temporário para ser usado na API, esse token deve ser reutilizado até expirar.
 
-Para obter o token, deve ser utilizada a autenticação <u>HTTP Basic</u> e configurar o modo de concessão
+Para obter o token, as credenciais devem ser passadas utilizando a autenticação <u>HTTP Basic</u> e configurar o modo de concessão
 do token OAuth para `password`.
+
+> As credenciais para obter o token devem ser solicitadas previamente.
 
 + Request (application/x-www-form-urlencoded)
     + Headers
@@ -80,6 +82,7 @@ do token OAuth para `password`.
 A aplicação mobile da TEM deve detectar se o usuário já é um cliente cadastrado ou se é preciso
 realizar o cadastro, no caso de ser um cliente elegível.
 
+:::note
 ### O fluxo de entrada do app
 
 O fluxo inicial do app funciona de forma geral da seguinte forma:
@@ -88,13 +91,13 @@ O fluxo inicial do app funciona de forma geral da seguinte forma:
 
 1. Na tela inicial, é solicitado que o usuário digite o seu CPF.
 2. A aplicação faz uma chamada para `account/cpf` para obter as informações de cadastro do CPF digitado.
-3. Se a resposta tiver código HTTP `200`, então vai para o passo **10**, senão vai para o passo **4**.
+3. Se a resposta tiver código HTTP `200`, então vai para o passo **12**, senão vai para o passo **4**.
 4. Se a resposta tiver código HTTP `400`, existem 4 possibilidades:
     - O CPF digitado é inválido, nesse caso, volta para o passo **1**.
-    - O usuário não é um cliente, nesse caso, o fluxo é encerrado com uma mensagem amigável ⬤
+    - O usuário não é um cliente, nesse caso, o fluxo é encerrado com uma mensagem de erro amigável. ⬤
     - O usuário é um elegível, nesse caso vai para o passo **5**.
     - O usuário já é um cliente registrado, mas não possui senha cadastrada, nesse caso,
-      vai para o passo **11**.
+      vai para o passo **13**.
 
 **Cadastrar o usuário**
 
@@ -107,240 +110,129 @@ O fluxo inicial do app funciona de forma geral da seguinte forma:
    por SMS.
 8. A aplicação faz uma chamada para `account/confirm-sms/{apiCode}/{smsCode}` com o código de API e
    o código SMS digitado ou detectado no passo anterior.
-9. O usuário cria uma senha e escolhe em qual das ofertas disponíveis irá aderir **(FALTANDO DETALHAR)**.
-10. A aplicação utilizará o CPF e a senha do usuário para obter o [token de acesso](#autenticação-token) ⬤
+9. É solicitado ao usuário os dados pessoais restantes para o cadastro (nome e e-mail) e a senha de acesso ao app.
+10. É solicitado ao usuário escolher qual das ofertas de produtos disponíveis irá aderir
+    (os produtos ofertados estão no retorno de `account/cpf`).
+11. A aplicação faz uma chamada para `account/create/eligible/free` com o código de API, o código de SMS,
+    os dados pessoais, a senha e o produto escolhido para a adesão.
+12. A aplicação utilizará o CPF e a senha do usuário para obter o [token de acesso](#autenticação-token).
+    De posse do _token_, o usuário está logado. ⬤
 
 **Cadastrar a senha**
 
-11. Quando o usuário já é um cliente, mas ainda não possui senha, existe duas formas da aplicação lidar:
+13. Faz o mesmo processo de confirmação de SMS dos passos **5** a **8**.
+14. Quando o usuário já é um cliente, mas ainda não possui senha, existe duas formas da aplicação lidar:
     - O produto do cliente está configurado como baixa segurança, nesse caso, algumas validações não serão
-      realizadas e vai para o passo **13**.
+      realizadas: pula para o passo **16**.
     - O produto não possui a flag de baixa segurança, portanto todas as validações serão realizadas.
-12. É solicitado ao usuário o número do cartão e a data de nascimento do cliente.
-13. É solicitado ao usuário o telefone móvel do cliente para o recebimento de SMS.
-14. ...
+15. É solicitado ao usuário o número do cartão e a data de nascimento do cliente.
+16. ... ⬤
+:::
 
-> Todos os endpoints usados antes do login são considerados semi-abertos, isto significa que a aplicação
-> deve enviar no cabeçalho `Api-Token` um token fixo, usualmente configurado em um arquivo externo
-> acessível pela aplicação.
->
-> ```http
-> Api-Token: <API_TOKEN>
-> ```
->
-> O valor do `Api-Token` deve ser obtido previamente pelo parceiro.
+:::warning
+### Endpoints semi-abertos
+
+Todos os endpoints usados antes do login são considerados semi-abertos, isto significa que a aplicação
+deve enviar no cabeçalho `Api-Token` um token fixo, usualmente configurado em um arquivo externo
+acessível pela aplicação.
+```http
+Api-Token: <API_TOKEN>
+```
+O valor do `Api-Token` deve ser obtido previamente pelo parceiro.
+:::
 
 ## Informações de cadastro [/api/app/account/cpf/{cpf}]
 
 O seguinte endpoint serve para obter as informações de cadastro de um certo CPF.
 
+As informações de cadastro serão retornados no objeto do tipo <u>LoginResponse</u>, descrito a seguir.
+
+**LoginResponse (tipo de dados)** <a id="t-LoginResponse"></a>
+
+| Campo        | Tipo    | Descrição                                                                                                                                                                      |
+| ------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `canBuy`     | Boolean | Flag que indica que o cliente completou o cadastro, assim está habilitado a fazer [recarga do cartão](#).                                                               |
+| `membership` | Array   | <p>Uma lista de objetos <u>Membership</u> com as informações de associação do CPF solicitado. <p>Esse campo só é utilizado quando o usuário ainda não é um cliente cadastrado. |
+
+**Membership (tipo de dados)** <a id="t-Membership"></a>
+
+> A FAZER
+
+| Campo | Tipo | Descrição |
+| ----- | ---- | --------- |
+|       |      |           |
+
 ### GET
 
+#### Descrição
+
+Obtém as informações de cadastro de um certo CPF.
+
 > Endpoint semi-aberto
+
+#### Sobre resposta
+
+Na resposta de sucesso, é retornado um JSON com os seguintes campos:
+
+| Campo            | Tipo   | Descrição                                                                                             |
+| ---------------- | ------ | ----------------------------------------------------------------------------------------------------- |
+| `status`         | Número | O mesmo código de resposta do HTTP.                                                                   |
+| `defaultMessage` | String | A descrição da resposta.                                                                              |
+| `body`           | Objeto | Um objeto do tipo [LoginResponse](#t-LoginResponse) com as informações de cadastro do CPF solicitado. |
+
+#### Os códigos de resposta
+
+Esse endpoint pode responder com os seguintes códigos HTTP:
+
+| Código | Descrição                                                                                                                                                                                                |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `200`  | O CPF informado é de um cliente já cadastrado no sistema, podendo fazer login mediante o fornecimento da senha.                                                                                          |
+| `400`  | Para erros na requisição, como de sintaxe, campo faltante ou inválido. Esse código também pode indicar que o CPF é de um cliente elegível ao cadastro ou um cliente já cadastrado, mas não possui senha. |
+
+:::note
+#### Identificação do estado do cliente
+
+Quando o código de resposta é `400`, é necessário ler o conteúdo do JSON retornado para identificar o estado
+do cliente no sistema.
+
+A tabela a seguir descreve o JSON que deve ser retornado:
+
+| Campo            | Tipo   | Descrição                           |
+| ---------------- | ------ | ----------------------------------- |
+| `status`         | Número | O mesmo código de resposta do HTTP. |
+| `defaultMessage` | String | A descrição da resposta.            |
+| `error`          | Objeto | As informações do erro retornado.   |
+
+Para identificar o estado do cliente, é preciso ler o campo `error`, que deve conter as seguintes propriedades:
+
+| Campo          | Tipo   | Descrição                                                                                             |
+| -------------- | ------ | ----------------------------------------------------------------------------------------------------- |
+| `apiErrorCode` | String | Um código de erro da API. Veja os códigos possíveis a seguir.                                         |
+| `data`         | Objeto | Um objeto do tipo [LoginResponse](#t-LoginResponse) com as informações de cadastro do CPF solicitado. |
+
+**Códigos de erro da API**
+
+A depender do código retornado, o app seguirá com um comportamento diferente:
+
+| Código de erro                         | Descrição                                 | Comportamento esperado do app                                                                                       |
+| -------------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `INVALID_CPF`                          | CPF digitado inválido.                    | Pedir novamente o CPF do usuário, exibindo um erro de validação.                                                    |
+| `CPF_PANEL_DOES_NOT_EXIST`             | Usuário não é um cliente da Rede TEM.     | Exibir uma mensagem de erro amigável ao usuário.                                                                    |
+| `CPF_PANEL_EXISTS_AND_HAS_NO_PASSWORD` | Cliente registrado, mas não possui senha. | Deve ser solicitada a senha do usuário de acordo com o [fluxo descrito](#).                                         |
+| `CPF_ELIGIBLE`                         | Cliente é um elegível ao cadastro.        | Deve ser solicitado os dados de cadastro do cliente, isso ocorre no [chat](#).                                      |
+| `CPF_WITH_CARD_SEMPRE_DO_NOT_EXIST`    | Cliente sem registro no serviço do Sempre | Raramente esse código é retornado, no caso de retornar, o usuário deve ser informado a entrar em contato com o SAC. |
+:::
 
 + Parameters
     + cpf: `42605973883` (number) - O número de CPF do usuário.
 
-+ Response 200 (application/json)
-
-# Group Especialidades
-
-## Lista de especialidades [/api/app/specialties]
-
-Retorna todas as especialidades fornecidas pela Rede TEM.
-
-No retorno de sucesso, uma lista de prestadores é retornada.
-
-_Códigos de erro:_
-
-- `401`: para erros relativos à autenticação ou à autorização.
-
-### GET
-
 + Request
     + Headers
-
-            Authorization: Bearer <TOKEN>
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "id": 61,
-                "name": "ACUPUNTURA"
-            },
-            {
-                "id": 70,
-                "name": "ALERGIA E IMUNOLOGIA"
-            },
-            {
-                "id": 114,
-                "name": "ANALISES CLINICA"
-            },
-            {
-                "id": 115,
-                "name": "ANATOMIA PATOLOGICA"
-            },
-            {
-                "id": 50,
-                "name": "ANGIOLOGIA"
-            },
-            {
-                "id": 41,
-                "name": "CARDIOLOGIA"
-            },
-            ⋮
-        ]
-
-## Prestadores por especialidade [/api/app/specialties/{id}/providers{?latitude,longitude,radius,place}]
-
-Busca por prestadores conveniados de uma certa especialidade, em dadas coordenadas.
-
-No retorno de sucesso, uma lista de prestadores é retornada.
-
-_Códigos de erro:_
-
-- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
-- `401`: para erros relativos à autenticação ou à autorização.
-
-+ Parameters
-    + id: `61` (number) - o identificador único da especialidade.
-    + latitude: `-23.5815888` (number) - a posição da latitude.
-    + longitude: `-46.702628` (number) - a posição da longitude.
-    + radius: `6` (number) - raio da busca, em quilômetros. Pode-se indicar metros, usando frações.
-    + place (optional, string) - filtro do nome do local (cidade, estado ou bairro).
-
-### GET
-
-+ Request
-    + Headers
-
-            Authorization: Bearer <TOKEN>
+    
+            Api-Token: <API_TOKEN>
 
 + Response 200 (application/json)
 
-        {
-            "status": 200,
-            "defaultMessage": "Retorna prestadores baseado nos parâmetros passados",
-            "body": [
-                {
-                    "id": 1592,
-                    "cnpj": null,
-                    "idUnitCare": 156,
-                    "logo": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
-                    "name": "AME ASSISTENCIA MEDICA ESTELA",
-                    "city": "SÃO PAULO",
-                    "state": "SÃO PAULO",
-                    "neighborhood": "PARAÍSO",
-                    "telephone1": "(11) 5575-3031",
-                    "telephone2": null,
-                    "latitude": -23.57855660000000,
-                    "longitude": -46.64537860000000,
-                    "postalCode": null,
-                    "uf": null
-                },
-                {
-                    "id": 1031,
-                    "cnpj": null,
-                    "idUnitCare": 139,
-                    "logo": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
-                    "name": "CLINICA PENG LTDA",
-                    "city": "SÃO PAULO",
-                    "state": "SÃO PAULO",
-                    "neighborhood": "CHÁCARA SANTO ANTÔNIO (ZONA SUL)",
-                    "telephone1": "(11)5182-5721",
-                    "telephone2": null,
-                    "latitude": -23.63414830000000,
-                    "longitude": -46.69785130000000,
-                    "postalCode": null,
-                    "uf": null
-                },
-                {
-                    "id": 768,
-                    "cnpj": null,
-                    "idUnitCare": 3,
-                    "logo": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
-                    "name": "TEM ADMINISTRADORA DE CARTOES LTDA",
-                    "city": "SÃO PAULO",
-                    "state": "SÃO PAULO",
-                    "neighborhood": "CERQUEIRA CÉSAR",
-                    "telephone1": "(11)3065-3838",
-                    "telephone2": null,
-                    "latitude": -23.56194720000000,
-                    "longitude": -46.66013460000000,
-                    "postalCode": null,
-                    "uf": null
-                }
-            ]
-        }
+    dsds
 
-## Prestadores por filtro [/api/app/providers/filter{?latitude,longitude,radius,id,name,state,city,neighborhood,postalcode}]
-
-Busca por prestadores conveniados em dadas coordenadas.
-É semelhante à anterior, mas mais abrangente, pois permite mais filtros.
-
-No retorno de sucesso, uma lista de prestadores é retornada.
-
-_Códigos de erro:_
-
-- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
-- `401`: para erros relativos à autenticação ou à autorização.
-
-+ Parameters
-    + latitude: `-23.5815888` (number) - a posição da latitude.
-    + longitude: `-46.702628` (number) - a posição da longitude.
-    + radius: `2.3` (number) - raio da busca, em quilômetros. Pode-se indicar metros, usando frações.
-    + id: 61 (optional, number) - identificador único do prestador. Pode ser informado várias vezes para mais de um prestador.
-    + name (optional, string) - filtro do nome da especilidade.
-    + state (optional, string) - o estado buscado. Use a sigla da UF.
-    + city (optional, string) - o nome da cidade buscada.
-    + neighborhood (optional, string) - o bairro buscado.
-    + postalcode (optional, string) - o CEP buscado.
-
-### GET
-
-+ Request
-    + Headers
-
-            Authorization: Bearer <TOKEN>
-
-+ Response 200 (application/json)
-
-        {
-            "status": 200,
-            "defaultMessage": "Retorna prestadores baseado nos parâmetros passados",
-            "body": [
-                {
-                    "id": 1037,
-                    "cnpj": null,
-                    "idUnitCare": 320,
-                    "logo": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
-                    "name": "CENTRO MEDICO MMDC LTDA",
-                    "city": "SÃO PAULO",
-                    "state": "SÃO PAULO",
-                    "neighborhood": "BUTANTÃ",
-                    "telephone1": "(11) 3030-0050",
-                    "telephone2": null,
-                    "latitude": -23.57692620000000,
-                    "longitude": -46.70817630000000,
-                    "postalCode": "05512-000",
-                    "uf": "SP"
-                },
-                {
-                    "id": 1169,
-                    "cnpj": null,
-                    "idUnitCare": 416,
-                    "logo": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
-                    "name": "VISCLIN OFTALMOLOGIA LTDA",
-                    "city": "SÃO PAULO",
-                    "state": "SÃO PAULO",
-                    "neighborhood": "VILA OLÍMPIA",
-                    "telephone1": "(11) 3842-4480",
-                    "telephone2": null,
-                    "latitude": -23.59468210000000,
-                    "longitude": -46.68764550000000,
-                    "postalCode": "04552-000",
-                    "uf": "SP"
-                }
-            ]
-        }
+    + Body
