@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-while getopts t: param; do
+while getopts 3t: param; do
     case $param in
         t) themeColor=$OPTARG ;;
+        3) themeTemplate=triple ;;
         ?)
             echo "$0: opção desconhecida '-$param'"
             exit 255
@@ -28,6 +29,7 @@ for ((i=0; i < $#; i++)); do
 
     echo "'$src' -> '$dst'"
     aglio --theme-full-width --theme-variables ${themeColor:-default}   \
+        --theme-template ${themeTemplate:-default}  \
         -i "${src}" -o "${dst}" ||
     {
         echo "Erro inesperado"
