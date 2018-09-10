@@ -145,23 +145,6 @@ O valor do `Api-Token` deve ser obtido previamente pelo parceiro.
 
 O seguinte endpoint serve para obter as informações de cadastro de um certo CPF.
 
-As informações de cadastro serão retornados no objeto do tipo <u>LoginResponse</u>, descrito a seguir.
-
-**LoginResponse (tipo de dados)** <a id="t-LoginResponse"></a>
-
-| Campo        | Tipo    | Descrição                                                                                                                                                                      |
-| ------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `canBuy`     | Boolean | Flag que indica que o cliente completou o cadastro, assim está habilitado a fazer [recarga do cartão](#).                                                               |
-| `membership` | Array   | <p>Uma lista de objetos <u>Membership</u> com as informações de associação do CPF solicitado. <p>Esse campo só é utilizado quando o usuário ainda não é um cliente cadastrado. |
-
-**Membership (tipo de dados)** <a id="t-Membership"></a>
-
-> A FAZER
-
-| Campo | Tipo | Descrição |
-| ----- | ---- | --------- |
-|       |      |           |
-
 ### GET
 
 #### Descrição
@@ -174,11 +157,11 @@ Obtém as informações de cadastro de um certo CPF.
 
 Na resposta de sucesso, é retornado um JSON com os seguintes campos:
 
-| Campo            | Tipo   | Descrição                                                                                             |
-| ---------------- | ------ | ----------------------------------------------------------------------------------------------------- |
-| `status`         | Número | O mesmo código de resposta do HTTP.                                                                   |
-| `defaultMessage` | String | A descrição da resposta.                                                                              |
-| `body`           | Objeto | Um objeto do tipo [LoginResponse](#t-LoginResponse) com as informações de cadastro do CPF solicitado. |
+| Campo            | Tipo   | Descrição                                                                           |
+| ---------------- | ------ | ----------------------------------------------------------------------------------- |
+| `status`         | Número | O mesmo código de resposta do HTTP.                                                 |
+| `defaultMessage` | String | A descrição da resposta.                                                            |
+| `body`           | Objeto | Um objeto do tipo [LoginResponse] com as informações de cadastro do CPF solicitado. |
 
 #### Os códigos de resposta
 
@@ -205,10 +188,10 @@ A tabela a seguir descreve o JSON que deve ser retornado:
 
 Para identificar o estado do cliente, é preciso ler o campo `error`, que deve conter as seguintes propriedades:
 
-| Campo          | Tipo   | Descrição                                                                                             |
-| -------------- | ------ | ----------------------------------------------------------------------------------------------------- |
-| `apiErrorCode` | String | Um código de erro da API. Veja os códigos possíveis a seguir.                                         |
-| `data`         | Objeto | Um objeto do tipo [LoginResponse](#t-LoginResponse) com as informações de cadastro do CPF solicitado. |
+| Campo          | Tipo   | Descrição                                                                           |
+| -------------- | ------ | ----------------------------------------------------------------------------------- |
+| `apiErrorCode` | String | Um código de erro da API. Veja os códigos possíveis a seguir.                       |
+| `data`         | Objeto | Um objeto do tipo [LoginResponse] com as informações de cadastro do CPF solicitado. |
 
 **Códigos de erro da API**
 
@@ -321,3 +304,23 @@ A depender do código retornado, o app seguirá com um comportamento diferente:
                     ]
                 }
             }
+
+## Group Tipos de dados
+
+#### LoginResponse <a id="datatype-LoginResponse"></a>
+
+| Campo        | Tipo    | Descrição                                                                                                                                                                 |
+| ------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `canBuy`     | Boolean | Flag que indica que o cliente completou o cadastro, assim está habilitado a fazer [recarga do cartão](#).                                                                 |
+| `membership` | Array   | <p>Uma lista de objetos [Membership] com as informações de associação do CPF solicitado. <p>Esse campo só é utilizado quando o usuário ainda não é um cliente cadastrado. |
+
+#### Membership <a id="datatype-Membership"></a>
+
+> A FAZER
+
+| Campo | Tipo | Descrição |
+| ----- | ---- | --------- |
+|       |      |           |
+
+[LoginResponse]: #datatype-LoginResponse
+[Membership]: #datatype-Membership
