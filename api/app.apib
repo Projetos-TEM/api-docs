@@ -226,13 +226,98 @@ A depender do código retornado, o app seguirá com um comportamento diferente:
 + Parameters
     + cpf: `42605973883` (number) - O número de CPF do usuário.
 
-+ Request
++ Request Consulta CPF
     + Headers
     
             Api-Token: <API_TOKEN>
 
 + Response 200 (application/json)
 
-    dsds
+    > Cliente cadastrado
 
     + Body
+
+            {
+                "status": 200,
+                "defaultMessage": "Retorna dados do cliente se CPF for válido e existe cartão relacionado no sempre",
+                "body": {
+                    "status": 200,
+                    "message": "Cliente encontrado",
+                    "canBuy": true
+                }
+            }
+
++ Response 400 (application/json)
+
+    > Cliente não cadastrado
+
+    + Body
+
+            {
+                "status": 400,
+                "defaultMessage": "Cpf elegível para cadastro",
+                "error": {
+                    "exceptionLogCode": "20180910001936900",
+                    "errorType": "class br.com.meutem.api.exceptionhandler.BusinessException",
+                    "userMessage": "Cpf elegível para cadastro",
+                    "apiErrorCode": "CPF_ELIGIBLE",
+                    "data": [
+                        {
+                            "status": 404,
+                            "message": "Cliente não encontrado",
+                            "canBuy": false,
+                            "membership": [
+                                {
+                                    "name": "Sarah da Conceição",
+                                    "isFree": true,
+                                    "isDistributed": false,
+                                    "isGenerated": true,
+                                    "channel_id": "74",
+                                    "channel_name": "REDE TEM",
+                                    "card_src": "https://s3.amazonaws.com/media.meutem/landing_pages_logos/99999999.png",
+                                    "benefits": [
+                                        {
+                                            "icon": "https://loja.meutem.com.br/assets/images/ico-ben-especialidades.png",
+                                            "text": "Consultas a partir de R$ 70 em mais de 4 mil clínicas, consultórios e laboratórios."
+                                        }
+                                    ],
+                                    "products": [
+                                        {
+                                            "id": 1000,
+                                            "name": "REDE SAÚDE TEM COMPLETO",
+                                            "benefits": [
+                                                {
+                                                    "icon": "https://loja.meutem.com.br/assets/images/ico-ben-especialidades.png",
+                                                    "text": "Consultas a partir de R$ 70 em mais de 4 mil clínicas, consultórios e laboratórios."
+                                                }
+                                            ],
+                                            "value": 0.0,
+                                            "cycle": "",
+                                            "isFree": true,
+                                            "isDistributed": false,
+                                            "isGenerated": true,
+                                            "onix_code": "9185",
+                                            "variable_tax": 0.0,
+                                            "has_omt": true,
+                                            "has_aggregates": false,
+                                            "has_capitalization": false,
+                                            "has_drugstores": false,
+                                            "has_odonto": false,
+                                            "has_family": false,
+                                            "card_title": "",
+                                            "card_src": "",
+                                            "payment_method": "",
+                                            "slip_tax": "",
+                                            "is_active": false,
+                                            "date_start_validity": "2018-09-09",
+                                            "date_end_validity": "2018-10-09",
+                                            "is_third_party": false,
+                                            "has_low_security": false
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
