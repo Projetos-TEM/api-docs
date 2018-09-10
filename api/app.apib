@@ -48,7 +48,7 @@ do token OAuth para `password`.
 
 > As credenciais para obter o token devem ser solicitadas previamente.
 
-+ Request (application/x-www-form-urlencoded)
++ Request Obter token (application/x-www-form-urlencoded)
     + Headers
 
             Authorization: Basic <CREDENTIALS>
@@ -110,23 +110,29 @@ O fluxo inicial do app funciona de forma geral da seguinte forma:
    por SMS.
 8. A aplicação faz uma chamada para `account/confirm-sms/{apiCode}/{smsCode}` com o código de API e
    o código SMS digitado ou detectado no passo anterior.
-9. É solicitado ao usuário os dados pessoais restantes para o cadastro (nome e e-mail) e a senha de acesso ao app.
+9. É solicitado ao usuário a senha de acesso ao app.
 10. É solicitado ao usuário escolher qual das ofertas de produtos disponíveis irá aderir
     (os produtos ofertados estão no retorno de `account/cpf`).
 11. A aplicação faz uma chamada para `account/create/eligible/free` com o código de API, o código de SMS,
-    os dados pessoais, a senha e o produto escolhido para a adesão.
+    a senha e o produto escolhido para a adesão.
 12. A aplicação utilizará o CPF e a senha do usuário para obter o [token de acesso](#autenticação-token).
     De posse do _token_, o usuário está logado. ⬤
 
 **Cadastrar a senha**
 
-13. Faz o mesmo processo de confirmação de SMS dos passos **5** a **8**.
-14. Quando o usuário já é um cliente, mas ainda não possui senha, existe duas formas da aplicação lidar:
+13. Quando o usuário já é um cliente, mas ainda não possui senha, existe duas formas da aplicação lidar:
     - O produto do cliente está configurado como baixa segurança, nesse caso, algumas validações não serão
       realizadas: pula para o passo **16**.
     - O produto não possui a flag de baixa segurança, portanto todas as validações serão realizadas.
-15. É solicitado ao usuário o número do cartão e a data de nascimento do cliente.
-16. ... ⬤
+14. É solicitado ao usuário o número do cartão e a data de nascimento do cliente.
+15. A aplicação faz uma chamada para `authentication/validate` para validar os dados digitados com o do cliente já cadastrado.
+    - Se a resposta tiver código `200`, então continua o processo.
+    - Senão, volta para o passo **14**.
+16. É solicitado ao usuário o número de telefone móvel para enviar um SMS com um código de autorização.
+17. Faz o mesmo processo de confirmação de SMS dos passos **6** a **8**.
+18. A aplicação faz uma chamada para `authentication/save` com o código de API, o código de SMS, o CPF, telefone, 
+    os dados digitados (se exigido) e a senha.
+19. No sucesso, vai para o passo **12**. ⬤
 :::
 
 :::warning
@@ -157,11 +163,11 @@ Obtém as informações de cadastro de um certo CPF.
 
 Na resposta de sucesso, é retornado um JSON com os seguintes campos:
 
-| Campo            | Tipo   | Descrição                                                                           |
-| ---------------- | ------ | ----------------------------------------------------------------------------------- |
-| `status`         | Número | O mesmo código de resposta do HTTP.                                                 |
-| `defaultMessage` | String | A descrição da resposta.                                                            |
-| `body`           | Objeto | Um objeto do tipo [LoginResponse] com as informações de cadastro do CPF solicitado. |
+| Campo            | Tipo   | Descrição                                                                                                    |
+| ---------------- | ------ | ------------------------------------------------------------------------------------------------------------ |
+| `status`         | Número | O mesmo código de resposta do HTTP.                                                                          |
+| `defaultMessage` | String | A descrição da resposta.                                                                                     |
+| `body`           | Objeto | Um objeto do tipo [LoginResponse](#datatype-LoginResponse) com as informações de cadastro do CPF solicitado. |
 
 #### Os códigos de resposta
 
@@ -188,10 +194,10 @@ A tabela a seguir descreve o JSON que deve ser retornado:
 
 Para identificar o estado do cliente, é preciso ler o campo `error`, que deve conter as seguintes propriedades:
 
-| Campo          | Tipo   | Descrição                                                                           |
-| -------------- | ------ | ----------------------------------------------------------------------------------- |
-| `apiErrorCode` | String | Um código de erro da API. Veja os códigos possíveis a seguir.                       |
-| `data`         | Objeto | Um objeto do tipo [LoginResponse] com as informações de cadastro do CPF solicitado. |
+| Campo          | Tipo   | Descrição                                                                                                    |
+| -------------- | ------ | ------------------------------------------------------------------------------------------------------------ |
+| `apiErrorCode` | String | Um código de erro da API. Veja os códigos possíveis a seguir.                                                |
+| `data`         | Objeto | Um objeto do tipo [LoginResponse](#datatype-LoginResponse) com as informações de cadastro do CPF solicitado. |
 
 **Códigos de erro da API**
 
@@ -309,10 +315,10 @@ A depender do código retornado, o app seguirá com um comportamento diferente:
 
 #### LoginResponse <a id="datatype-LoginResponse"></a>
 
-| Campo        | Tipo    | Descrição                                                                                                                                                                 |
-| ------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `canBuy`     | Boolean | Flag que indica que o cliente completou o cadastro, assim está habilitado a fazer [recarga do cartão](#).                                                                 |
-| `membership` | Array   | <p>Uma lista de objetos [Membership] com as informações de associação do CPF solicitado. <p>Esse campo só é utilizado quando o usuário ainda não é um cliente cadastrado. |
+| Campo        | Tipo    | Descrição                                                                                                                                                                                       |
+| ------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `canBuy`     | Boolean | Flag que indica que o cliente completou o cadastro, assim está habilitado a fazer [recarga do cartão](#).                                                                                       |
+| `membership` | Array   | <p>Uma lista de objetos [Membership](#datatype-Membership) com as informações de associação do CPF solicitado. <p>Esse campo só é utilizado quando o usuário ainda não é um cliente cadastrado. |
 
 #### Membership <a id="datatype-Membership"></a>
 
@@ -321,6 +327,3 @@ A depender do código retornado, o app seguirá com um comportamento diferente:
 | Campo | Tipo | Descrição |
 | ----- | ---- | --------- |
 |       |      |           |
-
-[LoginResponse]: #datatype-LoginResponse
-[Membership]: #datatype-Membership

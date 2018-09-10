@@ -26,7 +26,7 @@ do token OAuth para <code>password</code>.</p>
 <blockquote>
 <p>As credenciais para obter o token devem ser solicitadas previamente.</p>
 </blockquote>
-<h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/api/app/oauth/token</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/x-www-form-urlencoded</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Basic &lt;CREDENTIALS&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>grant_type=password&amp;username=<span class="hljs-tag">&lt;<span class="hljs-title">CPF</span>&gt;</span>&amp;password=<span class="hljs-tag">&lt;<span class="hljs-title">PASSWORD</span>&gt;</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+<h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/api/app/oauth/token</span></div><div class="title"><strong>Request&nbsp;&nbsp;<code>Obter token</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/x-www-form-urlencoded</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Basic &lt;CREDENTIALS&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>grant_type=password&amp;username=<span class="hljs-tag">&lt;<span class="hljs-title">CPF</span>&gt;</span>&amp;password=<span class="hljs-tag">&lt;<span class="hljs-title">PASSWORD</span>&gt;</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">access_token</span>": <span class="hljs-value"><span class="hljs-string">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"</span></span>,
   "<span class="hljs-attribute">token_type</span>": <span class="hljs-value"><span class="hljs-string">"bearer"</span></span>,
   "<span class="hljs-attribute">expires_in</span>": <span class="hljs-value"><span class="hljs-number">29999999</span></span>,
@@ -85,7 +85,7 @@ por SMS.</p>
 o código SMS digitado ou detectado no passo anterior.</p>
 </li>
 <li>
-<p>É solicitado ao usuário os dados pessoais restantes para o cadastro (nome e e-mail) e a senha de acesso ao app.</p>
+<p>É solicitado ao usuário a senha de acesso ao app.</p>
 </li>
 <li>
 <p>É solicitado ao usuário escolher qual das ofertas de produtos disponíveis irá aderir
@@ -93,7 +93,7 @@ o código SMS digitado ou detectado no passo anterior.</p>
 </li>
 <li>
 <p>A aplicação faz uma chamada para <code>account/create/eligible/free</code> com o código de API, o código de SMS,
-os dados pessoais, a senha e o produto escolhido para a adesão.</p>
+a senha e o produto escolhido para a adesão.</p>
 </li>
 <li>
 <p>A aplicação utilizará o CPF e a senha do usuário para obter o <a href="#autentica%C3%A7%C3%A3o-token">token de acesso</a>.
@@ -102,9 +102,6 @@ De posse do <em>token</em>, o usuário está logado. ⬤</p>
 </ol>
 <p><strong>Cadastrar a senha</strong></p>
 <ol start="13">
-<li>
-<p>Faz o mesmo processo de confirmação de SMS dos passos <strong>5</strong> a <strong>8</strong>.</p>
-</li>
 <li>
 <p>Quando o usuário já é um cliente, mas ainda não possui senha, existe duas formas da aplicação lidar:</p>
 <ul>
@@ -117,7 +114,24 @@ realizadas: pula para o passo <strong>16</strong>.</li>
 <p>É solicitado ao usuário o número do cartão e a data de nascimento do cliente.</p>
 </li>
 <li>
-<p>… ⬤</p>
+<p>A aplicação faz uma chamada para <code>authentication/validate</code> para validar os dados digitados com o do cliente já cadastrado.</p>
+<ul>
+<li>Se a resposta tiver código <code>200</code>, então continua o processo.</li>
+<li>Senão, volta para o passo <strong>14</strong>.</li>
+</ul>
+</li>
+<li>
+<p>É solicitado ao usuário o número de telefone móvel para enviar um SMS com um código de autorização.</p>
+</li>
+<li>
+<p>Faz o mesmo processo de confirmação de SMS dos passos <strong>6</strong> a <strong>8</strong>.</p>
+</li>
+<li>
+<p>A aplicação faz uma chamada para <code>authentication/save</code> com o código de API, o código de SMS, o CPF, telefone,
+os dados digitados (se exigido) e a senha.</p>
+</li>
+<li>
+<p>No sucesso, vai para o passo <strong>12</strong>. ⬤</p>
 </li>
 </ol>
 </div>
@@ -159,7 +173,7 @@ acessível pela aplicação.</p>
 <tr>
 <td><code>body</code></td>
 <td>Objeto</td>
-<td>Um objeto do tipo [LoginResponse] com as informações de cadastro do CPF solicitado.</td>
+<td>Um objeto do tipo <a href="#datatype-LoginResponse">LoginResponse</a> com as informações de cadastro do CPF solicitado.</td>
 </tr>
 </tbody>
 </table>
@@ -232,7 +246,7 @@ do cliente no sistema.</p>
 <tr>
 <td><code>data</code></td>
 <td>Objeto</td>
-<td>Um objeto do tipo [LoginResponse] com as informações de cadastro do CPF solicitado.</td>
+<td>Um objeto do tipo <a href="#datatype-LoginResponse">LoginResponse</a> com as informações de cadastro do CPF solicitado.</td>
 </tr>
 </tbody>
 </table>
