@@ -1,0 +1,194 @@
+FORMAT: 1A
+
+# API Contratação PJ
+
+API REST para contratação empresarial à Rede TEM.
+
+## URL
+
+A URL base da API depende do ambiente:
+
+<dl>
+<dt>Homologação</dt>
+<dd>https://qa-api.meutem.com.br</dd>
+<dt>Produção</dt>
+<dd>https://api.meutem.com.br</dd>
+</dl>
+
+> O endereço de produção só funciona para IP previamente liberado.
+
+## Autenticação
+
+Essa API exige em toda requisição o envio de uma chave de transação nos cabeçalhos:
+
+```
+Transaction-Key: <KEY>
+```
+
+:::note
+O valor da <u>chave de transação</u> deve ser solicitada previamente pelo parceiro.
+:::
+
+## Group Endpoints
+
+### Buscar Produtos [/vendapj/produtos]
+
+Retorna todos os produtos disponíveis para contratação.
+
+No retorno de sucesso, uma lista de produtos é retornada.
+
+### GET
+
++ Request Consultar produtos
+    + Headers
+
+            Transaction-Key: <KEY>
+
++ Response 200 (application/json)
+
+        [
+            {
+                "code": "277"
+                "name": "TEM SAUDE",
+            },
+            {
+                "code": "278"
+                "name": "JSL TRIMESTRAL",
+            }
+        ]
+
+### Contratar Vidas [/vendapj]
+
+Realiza a contratação empresarial de um produto da Rede TEM.
+
+#### Sobre a requisição
+
+A entrada deve ser um JSON com os seguintes campos:
+
+| Campo                    | Tipo          | Obrigatório | Descrição                                           |
+| ------------------------ | ------------- | :---------: | --------------------------------------------------- |
+| `cnpj`                   | Número        | Sim         | Número de CNPJ da empresa contratante.              |
+| `social_reason`          | String        | Sim         | Razão Social da empresa contratante.                |
+| `state_inscription`      | String        | Não         | Inscrição Estadual da empresa contratante.          |
+| `city_inscription`       | String        | Não         | Inscrição Municipal da empresa contratante.         |
+| `address`                | [Endereço]    | Sim         | O endereço da empresa contratante.                  |
+| `commercial_responsible` | [Responsável] | Sim         | Contato Comercial/RH                                |
+| `financial_responsible`  | [Responsável] | Sim         | Contato Financeiro                                  |
+| `type_establishment`     | String        | Não         | Tipo de estabelecimento: `ESTABELECIMENTO` ou `RH`  |
+| `quantity_cards`         | Número        | Sim         | Número de cartões a ser contratado.                 |
+| `slip_email`             | String        | Sim         | E-mail do responsável pelo pagamento.               |
+| `product`                | Número        | Sim         | O código do produto a ser contratado.               |
+| `bank_code`              | Número        | Não         | Código [COMPE] para debitar.                        |
+| `bank_agency`            | String        | Não         | Agência para debitar.                               |
+| `bank_account`           | String        | Não         | Conta corrente para debitar.                        |
+
+[COMPE]: https://portal.febraban.org.br/pagina/3164/12/pt-br/associados
+
+[Endereço]: #datatype-Address
+[Responsável]: #datatype-Responsible
+
+#### Sobre a resposta
+
+Na resposta, é retornado os seguintes códigos HTTP:
+
+| Código | Descrição                                                              |
+| ------ | ---------------------------------------------------------------------- |
+| `200`  | Contratação feita com sucesso.                                         |
+| `400`  | Para erros na requisição, como de sintaxe, campo faltante ou inválido. |
+| `500`  | Para erros indeterminados.                                             |
+
+##### POST
+
++ Request Contratar produto (application/json)
+    + Headers
+
+            Transaction-Key: <KEY>
+
+    + Body
+
+            {
+                "cnpj": "01754184000148",
+                "social_reason": "teste",
+                "state_inscription": "",
+                "city_inscription": "",
+                "address": {
+                    "postal_code" : "49037370",
+                    "address" : "teste",
+                    "number" : 22,
+                    "complement" : "",
+                    "neighborhood" : "teste",
+                    "city" : "aracaju",
+                    "state" : "se"
+                },
+                "commercial_responsible": {
+                    "name" : "teste",
+                    "email" : "teste@teste.com",
+                    "position" : "cargo",
+                    "telephone_1" : "79999561339",
+                    "telephone_2" : "79999830267"
+                },
+                "financial_responsible": {
+                    "name" : "teste12",
+                    "email" : "teste@teste.com",
+                    "position" : "teste",
+                    "telephone_1" : "79999561339",
+                    "telephone_2" : "79999830267"
+                },
+                "type_establishment": "ESTABELECIMENTO",
+                "quantity_cards": 10,
+                "bank_code": 123,
+                "bank_agency": 1234,
+                "bank_account": 123456,
+                "slip_email": "teste@teste.com",
+                "product": 278
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "message": "Arquivo importado com sucesso"
+        }
+
++ Request Com erro (application/json)
+
+    Se for enviado uma requisição faltando dados, a API retornará erro.
+
+    + Headers
+
+            Transaction-Key: <KEY>
+
+    + Body
+
+            // Faltando campo CNPJ
+
++ Response 400 (application/json)
+
+        {
+            "status": 400,
+            "message": "CNPJ é obrigatório"
+        }
+
+## Group Tipos de dados
+
+#### Endereço <a id="datatype-Address"></a>
+
+| Campo          | Tipo   | Obrigatório | Descrição   |
+| -------------- | ------ | :---------: | ----------- |
+| `postal_code`  | Número | Sim         | CEP         |
+| `address`      | String | Sim         | Logradouro  |
+| `number`       | Número | Sim         | Número      |
+| `complement`   | String | Não         | Complemento |
+| `neighborhood` | String | Sim         | Bairro      |
+| `city`         | String | Sim         | Cidade      |
+| `state`        | String | Sim         | Estado      |
+
+#### Responsável <a id="datatype-Responsible"></a>
+
+| Campo         | Tipo   | Obrigatório | Descrição                         |
+| ------------- | ------ | :---------: | --------------------------------- |
+| `name`        | String | Sim         | Nome completo do responsável      |
+| `email`       | String | Sim         | E-mail do responsável             |
+| `position`    | String | Sim         | Cargo do responsável              |
+| `telephone_1` | Número | Sim         | Telefone para contato             |
+| `telephone_2` | Número | Não         | Telefone alternativo para contato |
