@@ -311,6 +311,141 @@ A depender do código retornado, o app seguirá com um comportamento diferente:
                 }
             }
 
+## Solicita o envio de SMS [/api/app/account/confirm-sms]
+
+### POST
+
+> Endpoint semi-aberto
+
++ Request Solicitar SMS (application/json)
+    + Headers
+    
+            Api-Token: <API_TOKEN>
+    
+    + Body
+
+            {
+                "cpf": "42605973883",
+                "telephone": "3174002975"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Envia um SMS para o celular cadastrado",
+            "body": {
+                "apiCode": 861,
+                "timeOut": 100,
+                "startPosition": 22,
+                "phoneNumber": "3174002975",
+                "smsCodeLength": 6
+            }
+        }
+
+## Confirmação do SMS [/api/app/account/confirm-sms/{apiCode}/{smsCode}]
+
+### GET
+
+> Endpoint semi-aberto
+
++ Parameters
+    + `apiCode`: 861 (number) - O código da API recebido pelo app ao solicitar o envio do SMS.
+    + `smsCode`: 149754 (number) - O código de SMS recebido pelo cliente.
+
++ Request Confirmar SMS (application/json)
+    + Headers
+    
+            Api-Token: <API_TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Verifica código de confirmação de número",
+            "body": "Número de celular confirmado com sucesso"
+        }
+
+## Cria um usuário elegível [/api/app/account/create/eligible/free]
+
+### POST
+
+> Endpoint semi-aberto
+
++ Request Criar usuário (application/json)
+    + Headers
+    
+            Api-Token: <API_TOKEN>
+
+    + Body
+
+            {
+                "apiCode": 861,
+                "smsCode": "149754",
+                "cpf": "42605973883",
+                "telephone": "3174002975",
+                "password": "zhahj8Ae",
+                "cardNumber": "6064070019728919",
+                "birthdate": "1944-01-12"
+            }
+
++ Response 200 (application/json)
+
+    > TODO: identificar resposta
+
+    + Body
+
+## Validar dados para alteração de senha [/api/app/authentication/validate]
+
+### POST
+
+> Endpoint semi-aberto
+
++ Request Validar (application/json)
+    + Headers
+    
+            Api-Token: <API_TOKEN>
+
+    + Body
+
+            {
+                "apiCode": 258,
+                "smsCode": "265897",
+                "cardNumber": "6064070019728919",
+                "birthdate": "1944-01-12"
+            }
+
++ Response 200 (application/json)
+
+## Atualizar a senha do app [/api/app/authentication/save]
+
+### POST
+
+> Endpoint semi-aberto
+
++ Request Atualizar (application/json)
+    + Headers
+    
+            Api-Token: <API_TOKEN>
+
+    + Body
+
+            {
+                "apiCode": 258,
+                "smsCode": "265897",
+                "cpf": "42605973883",
+                "telephone": "3174002975",
+                "cardNumber": "6064070019728919",
+                "birthdate": "1944-01-12",
+                "password": "zhahj8Ae"
+            }
+
++ Response 200 (application/json)
+
+    > TODO: identificar resposta
+
+    + Body
+
 ## Group Tipos de dados
 
 #### LoginResponse <a id="datatype-LoginResponse"></a>
