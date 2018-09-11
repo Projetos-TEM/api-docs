@@ -90,7 +90,7 @@ O fluxo inicial do app funciona de forma geral da seguinte forma:
 **Detectar o cliente**
 
 1. Na tela inicial, é solicitado que o usuário digite o seu CPF.
-2. A aplicação faz uma chamada para `account/cpf` para obter as informações de cadastro do CPF digitado.
+2. A aplicação faz uma chamada para [`account/cpf`] para obter as informações de cadastro do CPF digitado.
 3. Se a resposta tiver código HTTP `200`, então vai para o passo **12**, senão vai para o passo **4**.
 4. Se a resposta tiver código HTTP `400`, existem 4 possibilidades:
     - O CPF digitado é inválido, nesse caso, volta para o passo **1**.
@@ -102,19 +102,19 @@ O fluxo inicial do app funciona de forma geral da seguinte forma:
 **Cadastrar o usuário**
 
 5. É solicitado ao usuário o número de telefone móvel para enviar um SMS com um código de autorização.
-6. A aplicação faz uma chamada para `account/confirm-sms` com o CPF e o telefone do usuário, para
+6. A aplicação faz uma chamada para [`account/confirm-sms`][request-sms] com o CPF e o telefone do usuário, para
    solicitar que o SMS seja enviado. Na resposta dessa chamada, a aplicação irá receber um código de API
    para ser usado em seguida.
 7. Normalmente, o app detecta automaticamente o código de SMS recebido pelo aparelho, mas se não foi
    detectado (comum quando o número está em outro dispositivo), o usuário deve digitar o código recebido
    por SMS.
-8. A aplicação faz uma chamada para `account/confirm-sms/{apiCode}/{smsCode}` com o código de API e
+8. A aplicação faz uma chamada para [`account/confirm-sms/{apiCode}/{smsCode}`][confirm-sms] com o código de API e
    o código SMS digitado ou detectado no passo anterior.
 9. É solicitado ao usuário a senha de acesso ao app.
 10. É solicitado ao usuário escolher qual das ofertas de produtos disponíveis irá aderir
-    (os produtos ofertados estão no retorno de `account/cpf`).
-11. A aplicação faz uma chamada para `account/create/eligible/free` com o código de API, o código de SMS,
-    a senha e o produto escolhido para a adesão.
+    (os produtos ofertados estão no retorno de [`account/cpf`]).
+11. A aplicação faz uma chamada para [`account/create/eligible/free`][create-user] com o código de API, o código de SMS,
+    o CPF, o telefone, a senha e o produto escolhido para a adesão.
 12. A aplicação utilizará o CPF e a senha do usuário para obter o [token de acesso](#autenticação-token).
     De posse do _token_, o usuário está logado. ⬤
 
@@ -125,15 +125,22 @@ O fluxo inicial do app funciona de forma geral da seguinte forma:
       realizadas: pula para o passo **16**.
     - O produto não possui a flag de baixa segurança, portanto todas as validações serão realizadas.
 14. É solicitado ao usuário o número do cartão e a data de nascimento do cliente.
-15. A aplicação faz uma chamada para `authentication/validate` para validar os dados digitados com o do cliente já cadastrado.
+15. A aplicação faz uma chamada para [`authentication/validate`] para validar os dados digitados com o do cliente já cadastrado.
     - Se a resposta tiver código `200`, então continua o processo.
     - Senão, volta para o passo **14**.
 16. É solicitado ao usuário o número de telefone móvel para enviar um SMS com um código de autorização.
 17. Faz o mesmo processo de confirmação de SMS dos passos **6** a **8**.
-18. A aplicação faz uma chamada para `authentication/save` com o código de API, o código de SMS, o CPF, telefone, 
+18. A aplicação faz uma chamada para [`authentication/save`] com o código de API, o código de SMS, o CPF, telefone, 
     os dados digitados (se exigido) e a senha.
 19. No sucesso, vai para o passo **12**. ⬤
 :::
+
+[`account/cpf`]: #login-e-cadastro-informações-de-cadastro
+[request-sms]: #login-e-cadastro-solicita-o-envio-de-sms
+[confirm-sms]: #login-e-cadastro-confirmação-do-sms
+[create-user]: #login-e-cadastro-cria-um-usuário-elegível
+[`authentication/validate`]: #login-e-cadastro-validar-dados-para-alteração-de-senha
+[`authentication/save`]: #login-e-cadastro-atualizar-a-senha-do-app
 
 :::warning
 ### Endpoints semi-abertos
@@ -141,9 +148,11 @@ O fluxo inicial do app funciona de forma geral da seguinte forma:
 Todos os endpoints usados antes do login são considerados semi-abertos, isto significa que a aplicação
 deve enviar no cabeçalho `Api-Token` um token fixo, usualmente configurado em um arquivo externo
 acessível pela aplicação.
+
 ```http
 Api-Token: <API_TOKEN>
 ```
+
 O valor do `Api-Token` deve ser obtido previamente pelo parceiro.
 :::
 
@@ -159,15 +168,17 @@ Obtém as informações de cadastro de um certo CPF.
 
 > Endpoint semi-aberto
 
-#### Sobre resposta
+#### Sobre a resposta
 
 Na resposta de sucesso, é retornado um JSON com os seguintes campos:
 
-| Campo            | Tipo   | Descrição                                                                                                    |
-| ---------------- | ------ | ------------------------------------------------------------------------------------------------------------ |
-| `status`         | Número | O mesmo código de resposta do HTTP.                                                                          |
-| `defaultMessage` | String | A descrição da resposta.                                                                                     |
-| `body`           | Objeto | Um objeto do tipo [LoginResponse](#datatype-LoginResponse) com as informações de cadastro do CPF solicitado. |
+| Campo            | Tipo            | Descrição                                                   |
+| ---------------- | --------------- | ----------------------------------------------------------- |
+| `status`         | Número          | O mesmo código de resposta do HTTP.                         |
+| `defaultMessage` | String          | A descrição da resposta.                                    |
+| `body`           | [LoginResponse] | Um objeto com as informações de cadastro do CPF solicitado. |
+
+[LoginResponse]: #datatype-LoginResponse
 
 #### Os códigos de resposta
 
@@ -194,10 +205,12 @@ A tabela a seguir descreve o JSON que deve ser retornado:
 
 Para identificar o estado do cliente, é preciso ler o campo `error`, que deve conter as seguintes propriedades:
 
-| Campo          | Tipo   | Descrição                                                                                                    |
-| -------------- | ------ | ------------------------------------------------------------------------------------------------------------ |
-| `apiErrorCode` | String | Um código de erro da API. Veja os códigos possíveis a seguir.                                                |
-| `data`         | Objeto | Um objeto do tipo [LoginResponse](#datatype-LoginResponse) com as informações de cadastro do CPF solicitado. |
+| Campo          | Tipo            | Descrição                                                     |
+| -------------- | --------------- | ------------------------------------------------------------- |
+| `apiErrorCode` | String          | Um código de erro da API. Veja os códigos possíveis a seguir. |
+| `data`         | [LoginResponse] | As informações de cadastro do CPF solicitado.                 |
+
+[LoginResponse]: #datatype-LoginResponse
 
 **Códigos de erro da API**
 
@@ -450,15 +463,37 @@ A depender do código retornado, o app seguirá com um comportamento diferente:
 
 #### LoginResponse <a id="datatype-LoginResponse"></a>
 
-| Campo        | Tipo    | Descrição                                                                                                                                                                                       |
-| ------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `canBuy`     | Boolean | Flag que indica que o cliente completou o cadastro, assim está habilitado a fazer [recarga do cartão](#).                                                                                       |
-| `membership` | Array   | <p>Uma lista de objetos [Membership](#datatype-Membership) com as informações de associação do CPF solicitado. <p>Esse campo só é utilizado quando o usuário ainda não é um cliente cadastrado. |
+| Campo        | Tipo                | Descrição                                                                                                                                                 |
+| ------------ | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `canBuy`     | Boolean             | Flag que indica que o cliente completou o cadastro, assim está habilitado a fazer [recarga do cartão](#).                                                 |
+| `membership` | Array[[Membership]] | <p>Uma lista de objetos com informações de associação do CPF solicitado. <p>Esse campo só é utilizado quando o usuário ainda não é um cliente cadastrado. |
 
 #### Membership <a id="datatype-Membership"></a>
 
-> A FAZER
+| Campo          | Tipo             | Descrição                                                                                           |
+| -------------- | ---------------- | --------------------------------------------------------------------------------------------------- |
+| `name`         | String           | O nome do cliente encontrado.                                                                       |
+| `channel_id`   | String           | O identificador único do canal dessa associação.                                                    |
+| `channel_name` | String           | Campo informativo com o nome do canal.                                                              |
+| `products`     | Array[[Product]] | <p>Uma lista de produtos disponíveis para adesão. <p>O usuário só pode aderir a um desses produtos. |
 
-| Campo | Tipo | Descrição |
-| ----- | ---- | --------- |
-|       |      |           |
+#### Product <a id="datatype-Product"></a>
+
+| Campo           | Tipo             | Descrição                                                                                                             |
+| --------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `card_src`      | String           | URL com a imagem do cartão gerado por esse produto.                                                                   |
+| `isFree`        | Boolean          | Flag que indica se esse produto é grátis.                                                                             |
+| `isDistributed` | Boolean          | Flag que indica se o cartão desse produto é entregue em casa ou é virtual.                                            |
+| `isGenerated`   | Boolean          | Flag que indica se o cartão desse produto é gerado no ato da adesão ou o cliente já deve ter um cartão anteriormente. |
+| `benefits`      | Array[[Benefit]] | Uma lista com os benefícios oferecidos por esse produto.                                                              |
+
+#### Benefit <a id="datatype-Benefit"></a>
+
+| Campo  | Tipo   | Descrição                                                    |
+| ------ | ------ | ------------------------------------------------------------ |
+| `icon` | String | URL com a imagem para dar uma indicação visual do benefício. |
+| `text` | String | Descrição textual do que o benefício oferece.                |
+
+[Membership]: #datatype-Membership
+[Product]: #datatype-Product
+[Benefit]: #datatype-Benefit
