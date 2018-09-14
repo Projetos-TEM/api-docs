@@ -1,0 +1,157 @@
+FORMAT: 1A
+
+# API Pagamento
+
+API REST para o lançamento de pagamentos.
+
+## URL
+
+A URL base depende do ambiente:
+
+<dl>
+<dt>Homologação</dt>
+<dd>https://qa-api-sempre.temrede.com.br</dd>
+<dt>Produção</dt>
+<dd>https://api-sempre.temrede.com.br</dd>
+</dl>
+
+> O endereço de produção só funciona para IP previamente liberado.
+
+## Group Autenticação
+
+### Sobre a autenticação
+
+Essa API exige autenticação usando o método OAuth 2.0 com tokens descartáveis, obtidos previamente.
+
+:::note
+### Utilizando o token
+
+Em toda requisição feita a endpoints protegidos, será preciso enviar o cabeçalho HTTP `Authorization`
+com o token temporário obtido previamente:
+
+```http
+Authorization: Bearer <TOKEN>
+```
+:::
+
+## Token [/api/app/oauth/token]
+
+O endpoint a seguir serve para obter o token de acesso.
+
+### POST
+
+Obtém um token temporário para ser usado na API, esse token deve ser reutilizado até expirar.
+
+Para obter o token, as credenciais devem ser passadas utilizando a autenticação <u>HTTP Basic</u> e configurar o modo de concessão
+do token OAuth para `client_credentials`.
+
+> As credenciais para obter o token devem ser solicitadas previamente.
+
++ Request (application/x-www-form-urlencoded)
+    + Headers
+
+            Authorization: Basic <CREDENTIALS>
+    
+    + Body
+
+            grant_type=client_credentials
+
++ Response 200 (application/json)
+
+        {
+            "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+            "token_type": "bearer",
+            "expires_in": 29999999,
+            "scope": "all",
+            "jti": "ab6abdb1-4d08-4a9c-9d49-3fdcb1a81611"
+        }
+
++ Response 401 (application/json)
+
+        {
+            "status": 401,
+            "timestamp": "2018-06-28",
+            "error": "Unauthorized",
+            "message": "Unauthorized",
+            "path": "/api/tim/oauth/token"
+        }
+
+# Group Endpoints
+
+## Lançamento do Pagamento [/api/sempre/payments]
+
+### POST
+
+Adiciona um pagamento identificando um cliente a partir do CPF ou do número do cartão.
+
+#### Sobre a requisição
+
+A entrada deve ser um JSON com os seguintes campos:
+
+| Campo         | Tipo   | Obrigatório | Descrição                                                                                            |
+| ------------- | ------ | :---------: | ---------------------------------------------------------------------------------------------------- |
+| `type`        | String | Sim         | O tipo do pagamento: pode ser `MENSALIDADE` ou `RECARGA`.                                            |
+| `onix_code`   | Number | Sim         | O código do produto.                                                                                 |
+| `card_number` | Number | Sim/Não     | O número do cartão da TEM, se não tiver esse número, use o CPF do cliente.                           |
+| `cpf`         | Number | Sim/Não     | O número de CPF do cliente, caso o `card_number` seja informado, esse campo não deve ser preenchido. |
+| `value`       | Number | Sim         | O valor do pagamento.                                                                                |
+| `source`      | String | Não         | Um texto qualquer para identificar a origem do pagamento.                                            |
+| `reference`   | String | Não         | O ano e mês de referência do pagamento, no formato `yyyy-MM`.                                        |
+
+:::warning
+Para identificar o cliente detentor do cartão, é preferível passar o número do cartão (`card_number`),
+mas também é possível utilizar o CPF.
+
+Um dos dois deve ser passado, mas não pode ser passado os dois ao mesmo tempo.
+:::
+
+#### Sobre a resposta
+
+Na resposta, outro JSON será retornado, onde o campo `body` terá a seguinte informação:
+
+| Campo       | Tipo    | Descrição                                                           |
+| ----------- | ------- | ------------------------------------------------------------------- |
+| `date`      | String  | A data de lançamento do pagamento no formato `yyyy-MM-dd HH:mm:ss`. |
+| `status`    | String  | O estado do pagamento: `RECEBIDO` ou `PROCESSADO`.                  |
+| `processed` | Boolean | Flag indicando que o pagamento foi processado com sucesso.          |
+
+:::note
+Se a flag `processed` retornar como _false_, isso apenas indica que não foi possível processar
+imediatamente. O sistema reprocessa todos pagamentos que falharam!
+:::
+
+#### Sobre os códigos de resposta
+
+| Código | Descrição                                                              |
+| ------ | ---------------------------------------------------------------------- |
+| `200`  | O pagamento foi lançado com sucesso.                                   |
+| `400`  | Para erros na requisição, como de sintaxe, campo faltante ou inválido. |
+| `500`  | Para erros indeterminados.                                             |
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Body
+
+            {
+                "type": "MENSALIDADE",
+                "onix_code": "5014",
+                "card_number": "6000555333677377",
+                "value": 25.35,
+                "source": "MATRIZ",
+                "reference": "2018-08"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Faz o processamento de um pagamento",
+            "body": {
+                "date": "2018-09-13 21:39:01.044",
+                "status": "PROCESSADO",
+                "processed": true
+            }
+        }
