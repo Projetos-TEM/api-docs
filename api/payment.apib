@@ -88,21 +88,29 @@ Adiciona um pagamento identificando um cliente a partir do CPF ou do número do 
 
 A entrada deve ser um JSON com os seguintes campos:
 
-| Campo         | Tipo   | Obrigatório | Descrição                                                                                            |
-| ------------- | ------ | :---------: | ---------------------------------------------------------------------------------------------------- |
-| `type`        | String | Sim         | O tipo do pagamento: pode ser `MENSALIDADE` ou `RECARGA`.                                            |
-| `onix_code`   | Number | Sim         | O código do produto.                                                                                 |
-| `card_number` | Number | Sim/Não     | O número do cartão da TEM, se não tiver esse número, use o CPF do cliente.                           |
-| `cpf`         | Number | Sim/Não     | O número de CPF do cliente, caso o `card_number` seja informado, esse campo não deve ser preenchido. |
-| `value`       | Number | Sim         | O valor do pagamento.                                                                                |
-| `source`      | String | Não         | Um texto qualquer para identificar a origem do pagamento.                                            |
-| `reference`   | String | Não         | O ano e mês de referência do pagamento, no formato `yyyy-MM`.                                        |
+| Campo          | Tipo   | Obrigatório | Descrição                                                                                                |
+| -------------- | ------ | :---------: | -------------------------------------------------------------------------------------------------------- |
+| `type`         | String | Sim         | O tipo do pagamento: pode ser `MENSALIDADE` ou `RECARGA`.                                                |
+| `onix_code`    | Number | Sim         | O código do produto.                                                                                     |
+| `card_number`  | Number | Sim/Não     | O número do cartão da TEM, se não tiver esse número, use o CPF do cliente.                               |
+| `cpf`          | Number | Sim/Não     | O número de CPF do cliente, caso o `card_number` seja informado, esse campo não deve ser preenchido.     |
+| `value`        | Number | Sim         | O valor do pagamento.                                                                                    |
+| `payment_date` | String | Não         | A data do pagamento. Se não fornecida, será considerada a data de envio. Veja formatos possíveis abaixo. |
+| `source`       | String | Não         | Uma palavra qualquer para identificar a origem do pagamento.                                             |
+| `reference`    | String | Não         | O ano e mês de referência do pagamento, no formato `yyyy-MM`.                                            |
+| `comments`     | String | Não         | Observações adicionais sobre o pagamento.                                                                |
+
+Os formatos possíveis para o campo `payment_date` são:
+
+- `yyyy-MM-dd`
+- `yyyy-MM-dd HH:mm`
+- `yyyy-MM-dd HH:mm:ss`
 
 :::warning
-Para identificar o cliente detentor do cartão, é preferível passar o número do cartão (`card_number`),
-mas também é possível utilizar o CPF.
+Para identificar o cliente detentor do cartão, é preferível utilizar o **número do cartão**,
+mas também é possível utilizar o **CPF**.
 
-Um dos dois deve ser passado, mas não pode ser passado os dois ao mesmo tempo.
+Um dos dois deve ser passado, mas nunca os dois ao mesmo tempo.
 :::
 
 #### Sobre a resposta
