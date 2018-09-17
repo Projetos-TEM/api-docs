@@ -1,0 +1,701 @@
+FORMAT: 1A
+
+# Agendamento de Consultas e Exames (Aplicação TEM Saúde)
+
+Documentação de referência da API REST para a implementação da aplicação mobile da Rede TEM.
+
+## URL
+
+A URL base da API depende do ambiente:
+
+<dl>
+<dt>Homologação</dt>
+<dd>https://qa-api-app.temrede.com.br</dd>
+<dt>Produção</dt>
+<dd>https://api-app.temrede.com.br</dd>
+</dl>
+
+> O endereço de produção só funciona para IP previamente liberado.
+
+## Group Autenticação
+
+### Sobre a autenticação
+
+A não ser nos endpoints especificados, essa API exige autenticação usando o método OAuth 2.0 com
+tokens descartáveis, obtidos previamente.
+
+Consulte o endpoint de [obtenção de token] para mais detalhes.
+
+[obtenção de token]: login.html#autenticação-token
+
+## Group Informações gerais
+
+### Dias da semana [/api/app/scheduling/daysOfWeek]
+
+#### GET
+
+Obtém os identificadores dos dias da semana. 
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+            {
+                "status": 200,
+                "defaultMessage": "Retorna todos os dias da semana",
+                "body": [
+                    {"id": 1, "name": "Segunda"},
+                    {"id": 2, "name": "Terça"},
+                    {"id": 3, "name": "Quarta"},
+                    {"id": 4, "name": "Quinta"},
+                    {"id": 5, "name": "Sexta"},
+                    {"id": 6, "name": "Sábado"}
+                ]
+            }
+
+### Horários [/api/app/scheduling/schedulle-ranges]
+
+#### GET
+
+Obtém os ids de horários.
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+            {
+                "status": 200,
+                "defaultMessage": "Retorna todos os horários",
+                "body": [
+                    {"id": 1, "name": "Manhã"},
+                    {"id": 2, "name": "Tarde"},
+                    {"id": 3, "name": "Noite"},
+                    {"id": 4, "name": "Tanto faz"}
+                ]
+            }
+
+### Estados [/api/app/states]
+
+#### GET
+
+Obtém os ids dos estados brasileiros.
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna todos os Estados",
+            "body": [
+                {
+                    "sigla": "AC",
+                    "name": "ACRE",
+                    "id": 1
+                },
+                {
+                    "sigla": "AL",
+                    "name": "ALAGOAS",
+                    "id": 2
+                },
+                {
+                    "sigla": "AM",
+                    "name": "AMAZONAS",
+                    "id": 3
+                },
+                {
+                    "sigla": "AP",
+                    "name": "AMAPÁ",
+                    "id": 4
+                },
+                {
+                    "sigla": "BA",
+                    "name": "BAHIA",
+                    "id": 5
+                },
+                {
+                    "sigla": "CE",
+                    "name": "CEARÁ",
+                    "id": 6
+                },
+                {
+                    "sigla": "DF",
+                    "name": "DISTRITO FEDERAL",
+                    "id": 7
+                },
+                {
+                    "sigla": "ES",
+                    "name": "ESPÍRITO SANTO",
+                    "id": 8
+                },
+                {
+                    "sigla": "GO",
+                    "name": "GOIÁS",
+                    "id": 9
+                },
+                {
+                    "sigla": "MA",
+                    "name": "MARANHÃO",
+                    "id": 10
+                },
+                {
+                    "sigla": "MG",
+                    "name": "MINAS GERAIS",
+                    "id": 11
+                },
+                {
+                    "sigla": "MS",
+                    "name": "MATO GROSSO DO SUL",
+                    "id": 12
+                },
+                {
+                    "sigla": "MT",
+                    "name": "MATO GROSSO",
+                    "id": 13
+                },
+                {
+                    "sigla": "PA",
+                    "name": "PARÁ",
+                    "id": 14
+                },
+                {
+                    "sigla": "PB",
+                    "name": "PARAÍBA",
+                    "id": 15
+                },
+                {
+                    "sigla": "PE",
+                    "name": "PERNAMBUCO",
+                    "id": 16
+                },
+                {
+                    "sigla": "PI",
+                    "name": "PIAUÍ",
+                    "id": 17
+                },
+                {
+                    "sigla": "PR",
+                    "name": "PARANÁ",
+                    "id": 18
+                },
+                {
+                    "sigla": "RJ",
+                    "name": "RIO DE JANEIRO",
+                    "id": 19
+                },
+                {
+                    "sigla": "RN",
+                    "name": "RIO GRANDE DO NORTE",
+                    "id": 20
+                },
+                {
+                    "sigla": "RO",
+                    "name": "RONDONIA",
+                    "id": 21
+                },
+                {
+                    "sigla": "RR",
+                    "name": "RORAIMA",
+                    "id": 22
+                },
+                {
+                    "sigla": "RS",
+                    "name": "RIO GRANDE DO SUL",
+                    "id": 23
+                },
+                {
+                    "sigla": "SC",
+                    "name": "SANTA CATARINA",
+                    "id": 24
+                },
+                {
+                    "sigla": "SE",
+                    "name": "SERGIPE",
+                    "id": 25
+                },
+                {
+                    "sigla": "SP",
+                    "name": "SÃO PAULO",
+                    "id": 26
+                },
+                {
+                    "sigla": "TO",
+                    "name": "TOCANTINS",
+                    "id": 27
+                }
+            ]
+        }
+
+### Cidades [/api/app/states/{id}/cities]
+
+#### GET
+
+Obtém os ids das cidades de um certo estado.
+
++ Parameters
+    + `id`: `26` - Identificador único do estado
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna todas as cidades de um determinado Estado",
+            "body": [
+                {
+                    "name": "ADAMANTINA",
+                    "id": 8817
+                },
+                {
+                    "name": "ADOLFO",
+                    "id": 8818
+                },
+                {
+                    "name": "AGUAÍ",
+                    "id": 8821
+                },
+                {
+                    "name": "ÁGUAS DA PRATA",
+                    "id": 8822
+                },
+                {
+                    "name": "ÁGUAS DE LINDÓIA",
+                    "id": 8823
+                },
+                {
+                    "name": "ÁGUAS DE SANTA BÁRBARA",
+                    "id": 8824
+                },
+                {
+                    "name": "ÁGUAS DE SÃO PEDRO",
+                    "id": 8825
+                },
+                {
+                    "name": "AGUDOS",
+                    "id": 8826
+                },
+                {
+                    "name": "ALAMBARI",
+                    "id": 8829
+                },
+                {
+                    "name": "ALFREDO MARCONDES",
+                    "id": 8834
+                },
+                {
+                    "name": "ALTAIR",
+                    "id": 8835
+                },
+                {
+                    "name": "ALTINÓPOLIS",
+                    "id": 8836
+                },
+                {
+                    "name": "ALTO ALEGRE",
+                    "id": 8837
+                },
+                {
+                    "name": "ALUMÍNIO",
+                    "id": 8839
+                },
+                {
+                    "name": "ÁLVARES FLORENCE",
+                    "id": 8840
+                },
+                {
+                    "name": "ÁLVARES MACHADO",
+                    "id": 8841
+                },
+                {
+                    "name": "ÁLVARO DE CARVALHO",
+                    "id": 8842
+                },
+                {
+                    "name": "ALVINLÂNDIA",
+                    "id": 8843
+                },
+                {
+                    "name": "AMERICANA",
+                    "id": 8847
+                },
+                {
+                    "name": "AMÉRICO BRASILIENSE",
+                    "id": 8848
+                },
+                {
+                    "name": "AMÉRICO DE CAMPOS",
+                    "id": 8849
+                },
+                {
+                    "name": "AMPARO",
+                    "id": 8850
+                },
+                {
+                    "name": "ANALÂNDIA",
+                    "id": 8852
+                },
+                {
+                    "name": "ANDRADINA",
+                    "id": 8855
+                },
+                {
+                    "name": "ANGATUBA",
+                    "id": 8856
+                },
+                {
+                    "name": "ANHEMBI",
+                    "id": 8857
+                },
+                {
+                    "name": "ANHUMAS",
+                    "id": 8858
+                },
+                {
+                    "name": "APARECIDA",
+                    "id": 8859
+                },
+                {
+                    "name": "APARECIDA D'OESTE",
+                    "id": 8860
+                },
+                {
+                    "name": "APIAÍ",
+                    "id": 8864
+                },
+                {
+                    "name": "ARAÇARIGUAMA",
+                    "id": 8869
+                },
+                {
+                    "name": "ARAÇATUBA",
+                    "id": 8870
+                },
+                {
+                    "name": "ARAÇOIABA DA SERRA",
+                    "id": 8871
+                },
+                {
+                    "name": "ARAMINA",
+                    "id": 8872
+                },
+                {
+                    "name": "ARANDU",
+                    "id": 8873
+                },
+                {
+                    "name": "ARAPEÍ",
+                    "id": 8874
+                },
+                {
+                    "name": "ARARAQUARA",
+                    "id": 8875
+                },
+                ...
+            ]
+        }
+
+## Group Informações específicas
+
+### Prestadores [/api/app/providers/{query}/states/{stateId}/cities/{cityId}]
+
+#### GET
+
+Obtém os ids de prestadores de saúde com base em parâmetros.
+
++ Parameters
+    + `query`: `ROCHA` - O nome do prestador buscador (pode ser parcial).
+    + `stateId`: `26` - Identificador único do estado.
+    + `cityId`: `8875` - Identificador único da cidade.
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna prestadores baseado nos parâmetros passados",
+            "body": [
+                {
+                    "name": "CLINICA MEDICA ROCHA",
+                    "id": 2442
+                }
+            ]
+        }
+
+### Motivos de recusa [/api/app/scheduling/refusal-reason]
+
+#### GET
+
+Obtém os ids de motivos de recusa.
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna todos os motivos de recusa",
+            "body": [
+                {
+                    "id": 5,
+                    "name": "Não posso nesta data",
+                    "appAction": null
+                },
+                {
+                    "id": 6,
+                    "name": "Não posso neste endereço",
+                    "appAction": null
+                },
+                {
+                    "id": 7,
+                    "name": "Não posso pagar este valor",
+                    "appAction": null
+                },
+                {
+                    "id": 8,
+                    "name": "Falar com um atendente",
+                    "appAction": "falar_atendente"
+                },
+                {
+                    "id": 9,
+                    "name": "Outros",
+                    "appAction": "outros"
+                }
+            ]
+        }
+
+### Lista de Agendamentos [/api/app/scheduling/{cpf}/{cardNumber}]
+
+#### GET
+
+Obtém os agendamentos de um cliente
+
++Parameters
+    + `cpf`: `42605973883`
+    + `cardNumber`: `6064070019728919`
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna todos os agendamentos do cliente",
+            "body": [
+                {
+                    "amountSaved": 0.00,
+                    "photo": "http://qa-loja.meutem.com.br/assets/images/MedicoSemFoto.png",
+                    "prerequisite": "tome tal remedio 1",
+                    "itens": [
+                        {
+                            "address": "CENTRO",
+                            "complement": "",
+                            "number": "1",
+                            "city": "ANGRA DOS REIS",
+                            "postalCode": "20010120",
+                            "province": "RJ",
+                            "specialty": "CIRURGIA TORACICA",
+                            "providerName": "PRESTADOR TESTE 1",
+                            "amount": "600.00",
+                            "savedAmount": "0.00",
+                            "photo": "http://qa-loja.meutem.com.br/assets/images/MedicoSemFoto.png",
+                            "type": "CO",
+                            "weekDayAndTime": "2012-01-01 08:30:55"
+                        },
+                        {
+                            "address": "CENTRO",
+                            "complement": "",
+                            "number": "1",
+                            "city": "ANGRA DOS REIS",
+                            "postalCode": "20010120",
+                            "province": "RJ",
+                            "specialty": "CIRURGIA TORACICA",
+                            "providerName": "PRESTADOR TESTE 1",
+                            "amount": "1000.00",
+                            "savedAmount": "0.00",
+                            "photo": "http://qa-loja.meutem.com.br/assets/images/MedicoSemFoto.png",
+                            "type": "CO",
+                            "weekDayAndTime": "2012-01-01 08:30:55"
+                        }
+                    ],
+                    "status": "Aguardando pagamento"
+                }
+            ]
+        }
+
+## Group Agendamento
+
+### Agendamento de Consultas [/api/app/scheduling/ticket-appointment]
+
+Realiza o agendamento de consulta em um prestador conveniado à Rede TEM.
+
+#### Sobre a requisição
+
+A entrada deve ser um JSON com os seguintes campos:
+
+| Atributo                | Tipo   | Obrigatório | Descrição                                                                |
+| ----------------------- | ------ | :---------: | ------------------------------------------------------------------------ |
+| `cpf`                   | String | Sim         | Número de CPF do cliente (somente números).                              |
+| `cardNumber`            | String | Sim         | Número de cartão do cliente (somente números).                           |
+| `specialty`             | Number | Sim         | Identificador único da especialidade.                                    |
+| `bestHour`              | Number | Sim         | Identificador único do melhor horário para a consulta                    |
+| `bestDays`              | Array  | Sim         | Lista de identificadores com os melhores dias da semana para a Consulta. |
+| `uf`                    | String | Sim         | O estado para onde a consulta deve ser agendada. Use a sigla da UF.      |
+| `city`                  | String | Sim         | O nome da cidade para onde a consulta deve ser agendada.                 |
+| `zone`                  | String | Sim         | A região para onde a consulta deve ser agendada.                         |
+| `physicianId`           | Number | Não         | Identificador único do médico, se precisar especificar.                  |
+| `unitCareId`            | Number | Não         | Identificador único da unidade de atendimento, se precisar especificar.  |
+| `physicianGender`       | String | Não         | Gênero do médico de preferência: deve ser `FEMININO` ou `MASCULINO`.     |
+| `idDependent`           | Number | Não[\*]()   | Identificador único do dependente.                                       |
+| `dependentName`         | String | Não[\*]()   | Nome completo do dependente.                                             |
+| `dependentGender`       | String | Não[\*]()   | Gênero do dependente: deve ser `FEMININO` ou `MASCULINO`.                |
+| `dependentRelationship` | String | Não[\*]()   | Parentesco do dependente com o titular: deve ser `CONJUGE` ou `FILHO`.   |
+| `dependentBirthdate`    | String | Não[\*]()   | Data de nascimento do paciente no formato `yyyy-MM-dd`.                  |
+
+[\*]() Os dados do depedente só devem ser informados quando o agendamento não for para o próprio cliente.
+
+#### Sobre a resposta
+
+Na resposta de sucesso, é retornado outro JSON:
+
+| Campo       | Tipo   | Descrição                           |
+| ----------- | ------ | ----------------------------------- |
+| `status`    | String | O mesmo código de resposta do HTTP. |
+| `message`   | Array  | Lista de respostas (usado no chat). |
+| `ticket_id` | String | O número do ticket.                 |
+
+#### Códigos de erro
+
+| Código | Descrição                                                              |
+| ------ | ---------------------------------------------------------------------- |
+| `400`  | Para erros na requisição, como de sintaxe, campo faltante ou inválido. |
+| `401`  | Para erros relativos à autorização.                                    |
+| `500`  | Para erros indeterminados.                                             |
+
+### POST
+
++ Request (application/json)
+
+        {
+            "cpf": "36991423459",
+            "card_number": "6064070024962610",
+            "specialty": 71,
+            "bestHour": 1,
+            "bestDays": [2, 3],
+            "uf": "SP",
+            "city": "ARARAQUARA",
+            "zone": "SUL"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "status": 201,
+            "message": [
+                "Olá Sarah, ",
+                "Recebemos sua solicitação para agendamento de consulta e já estamos providenciando seu atendimento na região ARARAQUARA, SP, SUL, preferencialmente às terças e quartas, no período da manhã",
+                "Em até dois dias retornaremos com algumas opções"
+            ],
+            "ticket_id": 35935
+        }
+
+## Agendamento de Exames [/api/app/scheduling/ticket-exam]
+
+Realiza o agendamento de exame em um prestador conveniado à Rede TEM.
+
+#### Sobre a requisição
+
+A entrada é a mesma do agendamento de consulta com três diferenças:
+
+1. O conteúdo é enviado como parâmetros no formato `multipart/form-data` em vez de JSON.
+2. É adicionado o parâmetro obrigatório `attachment` para o paciente enviar uma foto da solicitação de exame assinada por um médico.
+
+#### Sobre a resposta
+
+Na resposta de sucesso, é retornado outro JSON:
+
+| Campo       | Tipo   | Descrição                           |
+| ----------- | ------ | ----------------------------------- |
+| `status`    | String | O mesmo código de resposta do HTTP. |
+| `message`   | Array  | Lista de respostas (usado no chat). |
+| `ticket_id` | String | O número do ticket.                 |
+
+#### Códigos de erro
+
+| Código | Descrição                                                              |
+| ------ | ---------------------------------------------------------------------- |
+| `400`  | Para erros na requisição, como de sintaxe, campo faltante ou inválido. |
+| `401`  | Para erros relativos à autorização.                                    |
+| `500`  | Para erros indeterminados.                                             |
+
+### POST
+
++ Request (multipart/form-data; boundary=AzB03x567)
+
+        --AzB03x567
+        Content-Disposition: form-data; name="attachment"; filename="exam-client.png"
+        Content-Type: image/png
+
+        <DADOS BINÁRIOS>
+        --AzB03x567
+        Content-Disposition: form-data; name="cpf"
+        
+        36991423459
+        --AzB03x567
+        Content-Disposition: form-data; name="cardNumber"
+        
+        6064070024962610
+        --AzB03x567
+        Content-Disposition: form-data; name="bestHour"
+        
+        1
+        --AzB03x567
+        Content-Disposition: form-data; name="bestDays"
+        
+        2,3
+        --AzB03x567
+        Content-Disposition: form-data; name="city"
+        ARARAQUARA
+        --AzB03x567
+        Content-Disposition: form-data; name="uf"
+        
+        SP
+        --AzB03x567
+        Content-Disposition: form-data; name="zone"
+        
+        SUL
+        --AzB03x567--
+
++ Response 200 (application/json)
+
+        {
+            "status": 201,
+            "message": [
+                "Olá Sarah, ",
+                "Recebemos sua solicitação para agendamento de exame e já estamos providenciando seu atendimento na região ARARAQUARA, SP, SUL, preferencialmente às terças e quartas, no período da manhã",
+                "Em até dois dias retornaremos com algumas opções"
+            ],
+            "ticket_id": 35935
+        }
