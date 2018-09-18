@@ -101,6 +101,8 @@ A entrada deve ser um JSON com os seguintes campos:
 | `comments`     | String | Não         | Observações adicionais sobre o pagamento.                                                                |
 
 :::note
+### Formatos da data de pagamento
+
 Os formatos possíveis para o campo `payment_date` são:
 
 - `yyyy-MM-dd`
@@ -109,6 +111,8 @@ Os formatos possíveis para o campo `payment_date` são:
 :::
 
 :::warning
+### Processamento da recarga
+
 Quando enviado um pagamento do tipo `RECARGA`, esta só conseguirá ser processada se for possível identificar o cartão do cliente.
 
 Para identificar o cliente detentor do cartão, é preferível utilizar o **número do cartão**,
