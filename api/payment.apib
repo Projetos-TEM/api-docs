@@ -91,26 +91,31 @@ A entrada deve ser um JSON com os seguintes campos:
 | Campo          | Tipo   | Obrigatório | Descrição                                                                                                |
 | -------------- | ------ | :---------: | -------------------------------------------------------------------------------------------------------- |
 | `type`         | String | Sim         | O tipo do pagamento: pode ser `MENSALIDADE` ou `RECARGA`.                                                |
-| `onix_code`    | Number | Sim         | O código do produto.                                                                                     |
-| `card_number`  | Number | Sim/Não     | O número do cartão da TEM, se não tiver esse número, use o CPF do cliente.                               |
-| `cpf`          | Number | Sim/Não     | O número de CPF do cliente, caso o `card_number` seja informado, esse campo não deve ser preenchido.     |
+| `onix_code`    | Number | Sim         | O código de produto do parceiro.                                                                         |
 | `value`        | Number | Sim         | O valor do pagamento.                                                                                    |
+| `card_number`  | Number | Não         | O número do cartão da TEM: se não tiver esse número, use o CPF do cliente.                               |
+| `cpf`          | Number | Não         | O número de CPF do cliente: utilize o número do cartão, se possível.                                     |
 | `payment_date` | String | Não         | A data do pagamento. Se não fornecida, será considerada a data de envio. Veja formatos possíveis abaixo. |
 | `source`       | String | Não         | Uma palavra qualquer para identificar a origem do pagamento.                                             |
 | `reference`    | String | Não         | O ano e mês de referência do pagamento, no formato `yyyy-MM`.                                            |
 | `comments`     | String | Não         | Observações adicionais sobre o pagamento.                                                                |
 
+:::note
 Os formatos possíveis para o campo `payment_date` são:
 
 - `yyyy-MM-dd`
 - `yyyy-MM-dd HH:mm`
 - `yyyy-MM-dd HH:mm:ss`
+:::
 
 :::warning
+Quando enviado um pagamento do tipo `RECARGA`, esta só conseguirá ser processada se for possível identificar o cartão do cliente.
+
 Para identificar o cliente detentor do cartão, é preferível utilizar o **número do cartão**,
 mas também é possível utilizar o **CPF**.
 
-Um dos dois deve ser passado, mas nunca os dois ao mesmo tempo.
+Se nenhum dos dois campos tiver sido passado, o registro do pagamento ainda será feita, mas o
+processamento irá falhar.
 :::
 
 #### Sobre a resposta
@@ -145,7 +150,7 @@ imediatamente. O sistema reprocessa todos pagamentos que falharam!
 
             {
                 "type": "MENSALIDADE",
-                "onix_code": "5014",
+                "onix_code": "9014",
                 "card_number": "6000555333677377",
                 "value": 25.35,
                 "source": "MATRIZ",
@@ -163,3 +168,48 @@ imediatamente. O sistema reprocessa todos pagamentos que falharam!
                 "processed": true
             }
         }
+
+## Conciliação de Vendas [/api/sempre/sales-conciliation]
+
+### POST
+
+Envia informações para a conciliação de vendas de cartões da TEM.
+
+#### Sobre a requisição
+
+A entrada deve ser um JSON com os seguintes campos:
+
+| Campo          | Tipo   | Obrigatório | Descrição                                                                                                               |
+| -------------- | ------ | :---------: | ----------------------------------------------------------------------------------------------------------------------- |
+| `salesStart`   | String | Sim         | A data inicial do período de venda de cartões informado, no formato `yyyy-MM-dd`.                                       |
+| `salesEnd`     | String | Não         | A data final do período de venda de cartões informado, no formato `yyyy-MM-dd`. Se não informado, será igual à inicial. |
+| `onixCode`     | Number | Sim         | O código de produto do parceiro.                                                                                        |
+| `quantity`     | Number | Sim         | A quantidade de cartões vendidas no período.                                                                            |
+| `source`       | String | Não         | Uma palavra qualquer para identificar a origem da venda.                                                                |
+
+#### Códigos de resposta
+
+A resposta é baseada nos código de retorno do HTTP:
+
+| Código | Descrição                                                              |
+| ------ | ---------------------------------------------------------------------- |
+| `201`  | A conciliação foi registrada com sucesso.                              |
+| `400`  | Para erros na requisição, como de sintaxe, campo faltante ou inválido. |
+| `500`  | Para erros indeterminados.                                             |
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Body
+
+            {
+                "salesStart": "2018-09-01",
+                "salesEnd": "2018-09-05",
+                "onixCode": "9014",
+                "quantity": "30",
+                "source": "MATRIZ"
+            }
+
++ Response 201 (application/json)
