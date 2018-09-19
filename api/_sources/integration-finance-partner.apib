@@ -185,10 +185,12 @@ A entrada deve ser um JSON com os seguintes campos:
 
 | Campo         | Tipo   | Obrigatório | Descrição                                                                                                               |
 | ------------- | ------ | :---------: | ----------------------------------------------------------------------------------------------------------------------- |
+| `type`        | String | Sim         | O tipo da conciliação: pode ser `CARTAO` ou `RECARGA`.                                                                  |
 | `sales_start` | String | Sim         | A data inicial do período de venda de cartões informado, no formato `yyyy-MM-dd`.                                       |
 | `sales_end`   | String | Não         | A data final do período de venda de cartões informado, no formato `yyyy-MM-dd`. Se não informado, será igual à inicial. |
 | `onix_code`   | Number | Sim         | O código de produto do parceiro.                                                                                        |
-| `quantity`    | Number | Sim         | A quantidade de cartões vendidas no período.                                                                            |
+| `quantity`    | Number | Sim         | A quantidade de unidades vendidas no período (cartões ou recargas).                                                     |
+| `value`       | Number | Não         | O valor total em R$ correspondente às vendas.                                                                           |
 | `source`      | String | Não         | Uma palavra qualquer para identificar a origem da venda.                                                                |
 
 #### Códigos de resposta
