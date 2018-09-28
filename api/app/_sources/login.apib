@@ -122,17 +122,18 @@ O fluxo inicial do app funciona de forma geral da seguinte forma:
 
 13. Quando o usuário já é um cliente, mas ainda não possui senha, existe duas formas da aplicação lidar:
     - O produto do cliente está configurado como baixa segurança, nesse caso, algumas validações não serão
-      realizadas: pula para o passo **16**.
+      realizadas: pula para o passo **15**.
     - O produto não possui a flag de baixa segurança, portanto todas as validações serão realizadas.
-14. É solicitado ao usuário o número do cartão e a data de nascimento do cliente.
-15. A aplicação faz uma chamada para [`authentication/validate`] para validar os dados digitados com o do cliente já cadastrado.
+14. É solicitado ao usuário o número do cartão de saúde (_não solicita em produto de baixa segurança_).
+15. É solicitado ao usuário a data de nascimento do cliente.
+16. A aplicação faz uma chamada para [`authentication/validate`] para validar os dados digitados com o do cliente já cadastrado.
     - Se a resposta tiver código `200`, então continua o processo.
-    - Senão, volta para o passo **14**.
-16. É solicitado ao usuário o número de telefone móvel para enviar um SMS com um código de autorização.
-17. Faz o mesmo processo de confirmação de SMS dos passos **6** a **8**.
-18. A aplicação faz uma chamada para [`authentication/save`] com o código de API, o código de SMS, o CPF, telefone, 
+    - Senão, solicita novamente os dados para o usuário.
+17. É solicitado ao usuário o número de telefone móvel para enviar um SMS com um código de autorização.
+18. Faz o mesmo processo de confirmação de SMS dos passos **6** a **8**.
+19. A aplicação faz uma chamada para [`authentication/save`] com o código de API, o código de SMS, o CPF, telefone, 
     os dados digitados (se exigido) e a senha.
-19. No sucesso, vai para o passo **12**. ⬤
+20. No sucesso, vai para o passo **12**. ⬤
 :::
 
 [`account/cpf`]: #login-e-cadastro-informações-de-cadastro
