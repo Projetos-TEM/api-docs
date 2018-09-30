@@ -22,12 +22,24 @@ for ((i=0; i < $#; i++)); do
     }
 done
 
+function basedirname() {
+    dirname "$1" | xargs basename
+}
+
+function relativepath() {
+    realpath --relative-to=. "$1"
+}
+
 # Cria a documentação
 for ((i=0; i < $#; i++)); do
-    src="${args[$i]}"
+    src="$(realpath "${args[$i]}")"
     dst="${src%.*}.html"
+    
+    if [[ "$(basedirname "$src")" == '_sources' ]]; then
+        dst="$(dirname "$src")/../$(basename "$dst")"
+    fi
 
-    echo "'$src' -> '$dst'"
+    echo "'$(relativepath "$src")' -> '$(relativepath "$dst")'"
     aglio --theme-full-width --theme-variables ${themeColor:-default}   \
         --theme-template ${themeTemplate:-default}  \
         -i "${src}" -o "${dst}" ||
