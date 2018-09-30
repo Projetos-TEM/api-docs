@@ -409,6 +409,204 @@ Obtém os ids das cidades de um certo estado.
 
 ## Group Informações específicas
 
+### Estados com prestadores [/api/app/providers/states]
+
+#### GET
+
+Obtém todos os estados que possuem prestadores conveniados à Rede TEM
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna todos os Estados que possuem prestadores",
+            "body": [
+                {
+                    "sigla": "AC",
+                    "name": "ACRE",
+                    "id": 1
+                },
+                {
+                    "sigla": "AL",
+                    "name": "ALAGOAS",
+                    "id": 2
+                },
+                {
+                    "sigla": "AP",
+                    "name": "AMAPÁ",
+                    "id": 4
+                },
+                {
+                    "sigla": "AM",
+                    "name": "AMAZONAS",
+                    "id": 3
+                },
+                {
+                    "sigla": "BA",
+                    "name": "BAHIA",
+                    "id": 5
+                },
+                {
+                    "sigla": "CE",
+                    "name": "CEARÁ",
+                    "id": 6
+                },
+                {
+                    "sigla": "DF",
+                    "name": "DISTRITO FEDERAL",
+                    "id": 7
+                },
+                {
+                    "sigla": "ES",
+                    "name": "ESPÍRITO SANTO",
+                    "id": 8
+                },
+                {
+                    "sigla": "GO",
+                    "name": "GOIÁS",
+                    "id": 9
+                },
+                {
+                    "sigla": "MA",
+                    "name": "MARANHÃO",
+                    "id": 10
+                },
+                {
+                    "sigla": "MT",
+                    "name": "MATO GROSSO",
+                    "id": 13
+                },
+                {
+                    "sigla": "MS",
+                    "name": "MATO GROSSO DO SUL",
+                    "id": 12
+                },
+                {
+                    "sigla": "MG",
+                    "name": "MINAS GERAIS",
+                    "id": 11
+                },
+                {
+                    "sigla": "PA",
+                    "name": "PARÁ",
+                    "id": 14
+                },
+                {
+                    "sigla": "PB",
+                    "name": "PARAÍBA",
+                    "id": 15
+                },
+                {
+                    "sigla": "PR",
+                    "name": "PARANÁ",
+                    "id": 18
+                },
+                {
+                    "sigla": "PE",
+                    "name": "PERNAMBUCO",
+                    "id": 16
+                },
+                {
+                    "sigla": "PI",
+                    "name": "PIAUÍ",
+                    "id": 17
+                },
+                {
+                    "sigla": "RJ",
+                    "name": "RIO DE JANEIRO",
+                    "id": 19
+                },
+                {
+                    "sigla": "RN",
+                    "name": "RIO GRANDE DO NORTE",
+                    "id": 20
+                },
+                {
+                    "sigla": "RS",
+                    "name": "RIO GRANDE DO SUL",
+                    "id": 23
+                },
+                {
+                    "sigla": "RR",
+                    "name": "RORAIMA",
+                    "id": 22
+                },
+                {
+                    "sigla": "SC",
+                    "name": "SANTA CATARINA",
+                    "id": 24
+                },
+                {
+                    "sigla": "SP",
+                    "name": "SÃO PAULO",
+                    "id": 26
+                },
+                {
+                    "sigla": "SE",
+                    "name": "SERGIPE",
+                    "id": 25
+                },
+                {
+                    "sigla": "TO",
+                    "name": "TOCANTINS",
+                    "id": 27
+                }
+            ]
+        }
+
+### Cidades com prestadores [/api/app/providers/states/{id}/cities]
+
+#### GET
+
+Obtém todas as cidades de um determinado estado que possuem prestadores conveniados à Rede TEM
+
++ Parameters
+    + `id`: 26 - Identificador único do estado
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna todas as cidades de um determinado Estado que possuem prestadores",
+            "body": [
+                {
+                    "name": "AMERICANA",
+                    "id": 8847
+                },
+                {
+                    "name": "APARECIDA",
+                    "id": 8859
+                },
+                {
+                    "name": "ARAÇATUBA",
+                    "id": 8870
+                },
+                {
+                    "name": "ARARAQUARA",
+                    "id": 8875
+                },
+                {
+                    "name": "ARUJÁ",
+                    "id": 8887
+                },
+                {
+                    "name": "ATIBAIA",
+                    "id": 8891
+                },
+                ...
+            ]
+        }
+
 ### Prestadores [/api/app/providers/{query}/states/{stateId}/cities/{cityId}]
 
 #### GET
