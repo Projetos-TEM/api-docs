@@ -19,13 +19,13 @@ com o token temporário obtido previamente:</p>
 <pre><code class="language-http"><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer &lt;TOKEN&gt;</span></code></pre>
 </div>
 <div id="autenticação-token" class="resource"><h3 class="resource-heading">Token <a href="#autenticação-token" class="permalink">&nbsp;&para;</a></h3><p>O endpoint a seguir serve para obter o token de acesso.</p>
-<div id="autenticação-token-post" class="action post"><h4 class="action-heading"><div class="name"></div><a href="#autenticação-token-post" class="method post">POST</a><code class="uri">/api/app/oauth/token</code></h4><p>Obtém um token temporário para ser usado na API, esse token deve ser reutilizado até expirar.</p>
+<div id="autenticação-token-post" class="action post"><h4 class="action-heading"><div class="name"></div><a href="#autenticação-token-post" class="method post">POST</a><code class="uri">/api/sempre/oauth/token</code></h4><p>Obtém um token temporário para ser usado na API, esse token deve ser reutilizado até expirar.</p>
 <p>Para obter o token, as credenciais devem ser passadas utilizando a autenticação <u>HTTP Basic</u> e configurar o modo de concessão
 do token OAuth para <code>client_credentials</code>.</p>
 <blockquote>
 <p>As credenciais para obter o token devem ser solicitadas previamente.</p>
 </blockquote>
-<h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/api/app/oauth/token</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/x-www-form-urlencoded</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Basic &lt;CREDENTIALS&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>grant_type=client_credentials</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+<h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/api/sempre/oauth/token</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/x-www-form-urlencoded</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Basic &lt;CREDENTIALS&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>grant_type=client_credentials</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">access_token</span>": <span class="hljs-value"><span class="hljs-string">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"</span></span>,
   "<span class="hljs-attribute">token_type</span>": <span class="hljs-value"><span class="hljs-string">"bearer"</span></span>,
   "<span class="hljs-attribute">expires_in</span>": <span class="hljs-value"><span class="hljs-number">29999999</span></span>,
@@ -254,8 +254,20 @@ imediatamente. O sistema reprocessa todos pagamentos que falharam!</p>
 <td style="text-align:center">Não</td>
 <td>Uma palavra qualquer para identificar a origem da venda.</td>
 </tr>
+<tr>
+<td><code>comments</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Observações adicionais sobre a conciliação.</td>
+</tr>
 </tbody>
 </table>
+<div class="warning">
+<h3 id="header-conciliação-negativa">Conciliação negativa <a class="permalink" href="#header-conciliação-negativa" aria-hidden="true">¶</a></h3>
+<p>Caso precise retificar uma conciliação anterior devido a um cancelamento ou devolução, envie a <code>quantity</code> e o <code>value</code> (se usado)
+com números negativos.</p>
+<p>É preciso atentar que, quando a conciliação for negativa, uma justificativa deve ser informada através do campo <code>comments</code>.</p>
+</div>
 <h4 id="header-códigos-de-resposta">Códigos de resposta <a class="permalink" href="#header-códigos-de-resposta" aria-hidden="true">¶</a></h4>
 <p>A resposta é baseada nos código de retorno do HTTP:</p>
 <table>
@@ -286,7 +298,7 @@ imediatamente. O sistema reprocessa todos pagamentos que falharam!</p>
   "<span class="hljs-attribute">onix_code</span>": <span class="hljs-value"><span class="hljs-string">"9014"</span></span>,
   "<span class="hljs-attribute">quantity</span>": <span class="hljs-value"><span class="hljs-string">"30"</span></span>,
   "<span class="hljs-attribute">source</span>": <span class="hljs-value"><span class="hljs-string">"MATRIZ"</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 19 Sep 2018</p><script>/* eslint-env browser */
+</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 02 Oct 2018</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 

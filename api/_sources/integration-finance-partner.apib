@@ -34,7 +34,7 @@ Authorization: Bearer <TOKEN>
 ```
 :::
 
-## Token [/api/app/oauth/token]
+## Token [/api/sempre/oauth/token]
 
 O endpoint a seguir serve para obter o token de acesso.
 
@@ -192,6 +192,16 @@ A entrada deve ser um JSON com os seguintes campos:
 | `quantity`    | Number | Sim         | A quantidade de unidades vendidas no período (cartões ou recargas).                                                     |
 | `value`       | Number | Não         | O valor total em R$ correspondente às vendas.                                                                           |
 | `source`      | String | Não         | Uma palavra qualquer para identificar a origem da venda.                                                                |
+| `comments`    | String | Não         | Observações adicionais sobre a conciliação.                                                                             |
+
+:::warning
+### Conciliação negativa
+
+Caso precise retificar uma conciliação anterior devido a um cancelamento ou devolução, envie a `quantity` e o `value` (se usado)
+com números negativos.
+
+É preciso atentar que, quando a conciliação for negativa, uma justificativa deve ser informada através do campo `comments`.
+:::
 
 #### Códigos de resposta
 
