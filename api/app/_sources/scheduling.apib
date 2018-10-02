@@ -607,6 +607,53 @@ Obtém todas as cidades de um determinado estado que possuem prestadores conveni
             ]
         }
 
+## Lista de especialidades [/api/app/specialties]
+
+Retorna todas as especialidades fornecidas pela Rede TEM.
+
+No retorno de sucesso, uma lista de prestadores é retornada.
+
+_Códigos de erro:_
+
+- `401`: para erros relativos à autenticação ou à autorização.
+
+### GET
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 61,
+                "name": "ACUPUNTURA"
+            },
+            {
+                "id": 70,
+                "name": "ALERGIA E IMUNOLOGIA"
+            },
+            {
+                "id": 114,
+                "name": "ANALISES CLINICA"
+            },
+            {
+                "id": 115,
+                "name": "ANATOMIA PATOLOGICA"
+            },
+            {
+                "id": 50,
+                "name": "ANGIOLOGIA"
+            },
+            {
+                "id": 41,
+                "name": "CARDIOLOGIA"
+            },
+            ⋮
+        ]
+
 ### Prestadores [/api/app/providers/{query}/states/{stateId}/cities/{cityId}]
 
 #### GET
