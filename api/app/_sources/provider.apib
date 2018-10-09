@@ -1,0 +1,240 @@
+FORMAT: 1A
+
+# API Prestadores e Farmácias
+
+API REST para busca de prestadores e farmácias conveniados à Rede TEM.
+
+Essa API deve ser usada em conjunto com a API do Google Maps (ou similar) para mostrar aos usuários
+os resultados da busca de uma forma gráfica, utilizando marcações.
+
+## URL
+
+A URL base depende do ambiente:
+
+<dl>
+<dt>Homologação</dt>
+<dd>https://qa-api-app.temrede.com.br</dd>
+<dt>Produção</dt>
+<dd>https://api-app.temrede.com.br</dd>
+</dl>
+
+> O endereço de produção só funciona para IP previamente liberado.
+
+## Group Autenticação
+
+### Sobre a autenticação
+
+A não ser nos endpoints especificados, essa API exige autenticação usando o método OAuth 2.0 com
+tokens descartáveis, obtidos previamente.
+
+Consulte o endpoint de [obtenção de token] para mais detalhes.
+
+[obtenção de token]: login.html#autenticação-token
+
+# Group Endpoints
+
+## Lista de especialidades [/api/app/specialties]
+
+Retorna todas as especialidades fornecidas pela Rede TEM.
+
+No retorno de sucesso, uma lista de especialidades é retornada.
+
+_Códigos de erro:_
+
+- `401`: para erros relativos à autenticação ou à autorização.
+
+### GET
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 61,
+                "name": "ACUPUNTURA"
+            },
+            {
+                "id": 70,
+                "name": "ALERGIA E IMUNOLOGIA"
+            },
+            {
+                "id": 114,
+                "name": "ANALISES CLINICA"
+            },
+            {
+                "id": 115,
+                "name": "ANATOMIA PATOLOGICA"
+            },
+            {
+                "id": 50,
+                "name": "ANGIOLOGIA"
+            },
+            {
+                "id": 41,
+                "name": "CARDIOLOGIA"
+            },
+            ⋮
+        ]
+
+## Especialidades por um filtro [/api/app/specialties/{query}]
+
+Busca de especialidades fornecidas pela Rede TEM por um filtro.
+
+No retorno de sucesso, uma lista de especialidades é retornada.
+
+_Códigos de erro:_
+
+- `401`: para erros relativos à autenticação ou à autorização.
+
+### GET
+
++ Parameters
+    + query (required, string) - filtro do nome da especialidade; pode passar qualquer parte do nome.
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna todas as especialidades de acordo com o parâmetro passado",
+            "body": [
+                {
+                    "name": "CARDIOLOGIA",
+                    "id": 41
+                },
+                {
+                    "name": "CARDIOLOGIA A DOMICILIO",
+                    "id": 212
+                },
+                {
+                    "name": "CARDIOLOGIA PEDIATRICA",
+                    "id": 72
+                },
+                {
+                    "name": "CIRURGIA CARDIOVASCULAR",
+                    "id": 73
+                },
+                {
+                    "name": "ECOCARDIOGRAFIA",
+                    "id": 81
+                },
+                {
+                    "name": "ECOCARDIOGRAFIA  BIDIMENSIONAL",
+                    "id": 177
+                },
+                {
+                    "name": "ECOCARDIOGRAFIA  UNIDIMENSIONAL",
+                    "id": 176
+                },
+                {
+                    "name": "ECOCARDIOGRAFIA BIDIMENSIONAL/ECOCARDIOG",
+                    "id": 175
+                },
+                {
+                    "name": "ECOCARDIOGRAMA  BIDIMENSIONAL MAPA FLUXO",
+                    "id": 174
+                },
+                {
+                    "name": "ECOCARDIOGRAMA BIDIMENSIONAL C/ DOPLLER ",
+                    "id": 173
+                },
+                {
+                    "name": "ELETROCARDIOGRAMA - ECG",
+                    "id": 165
+                },
+                {
+                    "name": "HEMODINAMICA E CARDIOLOGIA INTERVENCIONISTA",
+                    "id": 94
+                }
+            ]
+        }
+
+## Prestadores por especialidade [/api/app/specialties/{id}/providers{?latitude,longitude,radius,place}]
+
+Busca por prestadores conveniados de uma certa especialidade, em dadas coordenadas.
+
+No retorno de sucesso, uma lista de prestadores e suas coordenadas será retornada.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Parameters
+    + id: `61` (number) - o identificador único da especialidade.
+    + latitude: `-23.5815888` (number) - a posição da latitude.
+    + longitude: `-46.702628` (number) - a posição da longitude.
+    + radius: `6` (number) - raio da busca, em quilômetros. Pode-se indicar metros, usando frações.
+    + place (optional, string) - filtro do nome do local (cidade, estado ou bairro).
+
+### GET
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna prestadores baseado nos parâmetros passados",
+            "body": [
+                {
+                    "id": 1592,
+                    "cnpj": null,
+                    "idUnitCare": 156,
+                    "logo": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
+                    "name": "AME ASSISTENCIA MEDICA ESTELA",
+                    "city": "SÃO PAULO",
+                    "state": "SÃO PAULO",
+                    "neighborhood": "PARAÍSO",
+                    "telephone1": "(11) 5575-3031",
+                    "telephone2": null,
+                    "latitude": -23.57855660000000,
+                    "longitude": -46.64537860000000,
+                    "postalCode": null,
+                    "uf": null
+                },
+                {
+                    "id": 1031,
+                    "cnpj": null,
+                    "idUnitCare": 139,
+                    "logo": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
+                    "name": "CLINICA PENG LTDA",
+                    "city": "SÃO PAULO",
+                    "state": "SÃO PAULO",
+                    "neighborhood": "CHÁCARA SANTO ANTÔNIO (ZONA SUL)",
+                    "telephone1": "(11)5182-5721",
+                    "telephone2": null,
+                    "latitude": -23.63414830000000,
+                    "longitude": -46.69785130000000,
+                    "postalCode": null,
+                    "uf": null
+                },
+                {
+                    "id": 768,
+                    "cnpj": null,
+                    "idUnitCare": 3,
+                    "logo": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
+                    "name": "TEM ADMINISTRADORA DE CARTOES LTDA",
+                    "city": "SÃO PAULO",
+                    "state": "SÃO PAULO",
+                    "neighborhood": "CERQUEIRA CÉSAR",
+                    "telephone1": "(11)3065-3838",
+                    "telephone2": null,
+                    "latitude": -23.56194720000000,
+                    "longitude": -46.66013460000000,
+                    "postalCode": null,
+                    "uf": null
+                }
+            ]
+        }

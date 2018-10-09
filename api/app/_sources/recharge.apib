@@ -1,0 +1,414 @@
+FORMAT: 1A
+
+# Recarga e Pagamento (Aplicação TEM Saúde)
+
+Documentação de referência da API REST para a implementação da aplicação mobile da Rede TEM.
+
+## URL
+
+A URL base da API depende do ambiente:
+
+<dl>
+<dt>Homologação</dt>
+<dd>https://qa-api-app.temrede.com.br</dd>
+<dt>Produção</dt>
+<dd>https://api-app.temrede.com.br</dd>
+</dl>
+
+> O endereço de produção só funciona para IP previamente liberado.
+
+## Group Autenticação
+
+### Sobre a autenticação
+
+A não ser nos endpoints especificados, essa API exige autenticação usando o método OAuth 2.0 com
+tokens descartáveis, obtidos previamente.
+
+Consulte o endpoint de [obtenção de token] para mais detalhes.
+
+[obtenção de token]: login.html#autenticação-token
+
+## Group Orçamento de consulta ou exame
+
+Um orçamento é criado quando o usuário realiza um agendamento de consulta ou exames.
+
+### Aprovação de orçamento [/api/app/orders/schedulles]
+
+Para fazer a recarga pelo app, deve existir um pedido, que é feito quando o usuário aprova ítens de um orçamento.
+
+O seguinte endpoint é utilizado para isso.
+
+#### Sobre a requisição
+
+A entrada deve ser um JSON com os seguintes campos:
+
+| Campo        | Tipo          | Obrigatório | Descrição                                                 |
+| ------------ | ------------- | :---------: | --------------------------------------------------------- |
+| `cpf`        | Number        | Sim         | Número de CPF do cliente (somente números).               |
+| `cardNumber` | Number        | Sim         | Número de cartão de saúde do cliente (somente números).   |
+| `itensId`    | Array[Number] | Sim         | Uma lista de ids de ítens de orçamento a serem aprovados. |
+
+:::note
+### Sobre a lista do orçamento
+
+A lista de ítens é apresentada ao usuário na área do chat da aplicação.
+:::
+
+#### Sobre a resposta
+
+Na resposta, pode ser retornado um dos seguintes códigos HTTP.
+
+| Código | Descrição                                                              |
+| ------ | ---------------------------------------------------------------------- |
+| `200`  | O pedido foi criado com sucesso.                                       |
+| `400`  | Para erros na requisição, como de sintaxe, campo faltante ou inválido. |
+| `401`  | Para erros relativos à autorização.                                    |
+| `500`  | Para erros indeterminados.                                             |
+
+### POST
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Body
+
+            {
+                "cpf": "36991423459",
+                "cardNumber": "6064070024962610",
+                "itensId": [17, 23, 59]
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Seleciona orçamentos para gerar pedidos e agendamentos",
+            "body": "Pedido e agendamento realizados com sucesso"
+        }
+
+## Recusa de Orçamento [/api/app/budget/refusal]
+
+Recusa um orçamento feito anteriormente.
+
+#### Sobre a requisição
+
+A entrada deve ser um JSON com os seguintes campos:
+
+| Campo        | Tipo          | Obrigatório | Descrição                                               |
+| ------------ | ------------- | :---------: | ------------------------------------------------------- |
+| `cpf`        | Number        | Sim         | Número de CPF do cliente (somente números).             |
+| `cardNumber` | Number        | Sim         | Número de cartão de saúde do cliente (somente números). |
+| `budgetsId`  | Array[Number] | Sim         | Uma lista de ids de orçamentos a serem recusados.       |
+| `idRefuse`   | Number        | Sim         | Identificador único de motivos de recusa.               |
+| `refuseText` | String        | Não         | Informações adicionais do motivo da recusa.             |
+
+#### Sobre a resposta
+
+Na resposta de sucesso, o campo `body` retorna com uma lista de mensagens aptas a serem mostradas no [chat](#).
+
+### POST
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Body
+
+            {
+                "cpf": "36991423459",
+                "cardNumber": "6064070024962610",
+                "budgetsId": [180, 182],
+                "idRefuse": 19,
+                "refuseText": "Está muito caro para mim"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Recusa orçamentos",
+            "body": [
+                "Recebemos sua solicitação",
+                "Enviaremos novas opções em até dois dias úteis"
+            ]
+        }
+
+## Group Recarga e Pagamento
+
+### Valor da Recarga [/api/app/payment_methods/accounts/{cpf}/cards/{cardNumber}/recharge_amount]
+
+Retorna o valor a pagar na recarga, esse valor corresponde ao valor dos orçamentos aprovados descontando o saldo que
+o cartão pode ter.
+
+#### GET
+
++ Parameters
+    + `cpf`: `42605973883` (number, required) - Número de CPF do cliente (somente números).
+    + `cardNumber`: `6064070019728919` (number, required) - Número de cartão de saúde do cliente (somente números).
+
++ Request Solicita valor
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Deve retornar valor de recarga",
+            "body": 125.00
+        }
+
+### Métodos de Pagamento [/api/app/payment_methods/accounts/{cpf}/cards/{cardNumber}]
+
+Retorna os métodos de pagamento disponíveis para o usuário.
+
+No retorno de sucesso, uma lista de métodos de pagamento é retornada. A lista pode vir vazia.
+
+#### GET
+
++ Parameters
+    + `cpf`: `42605973883` (number, required) - Número de CPF do cliente (somente números).
+    + `cardNumber`: `6064070019728919` (number, required) - Número de cartão de saúde do cliente (somente números).
+
++ Request Solicita métodos de pagamento
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Deve listar formas de pagamento disponíveis",
+            "body": {
+                "status": 200,
+                "payment_methods": [
+                    {
+                        "token": "8f9e0203af484d329528f4af6cc4bcf5",
+                        "number": "4970 XXXX XXXX 0000",
+                        "brand": "VISA",
+                        "is_default": 0,
+                        "created_at": "2018-09-18 18:25:39"
+                    }
+                ]
+            }
+        }
+
+### Parcelamento [/api/app/card/{cardNumber}/installments{?value,paymentMethod}]
+
+Obtém as parcelas para um determinado valor.
+
+No retorno de sucesso, uma lista de parcelas com o valor individual e juros (se houver) é retornada. É garantido que a lista
+retorne pelo menos um item, o que indica no caso de parcelamento não ser possivel.
+
+#### GET
+
++ Parameters
+    + `cardNumber`: `6064070019728919` (number, required) - Número de cartão de saúde do cliente (somente números).
+    + `value`: 123.00 (number, required) - Valor total a pagar.
+    + `paymentMethod`: `CREDITO` (string, required) - Método de pagamento. Pode ser `CREDITO`, `DEBITO`, `BOLETO` ou `DINHEIRO`.
+
++ Request Solicita máximo de parcelas
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "",
+            "body": {
+                "status": 200,
+                "installments": [
+                    {
+                        "sequence": 1,
+                        "value": 41.0,
+                        "total": 123.0,
+                        "interestRate": 0.0
+                    },
+                    {
+                        "sequence": 2,
+                        "value": 41.0,
+                        "total": 123.0,
+                        "interestRate": 0.0
+                    }
+                    },
+                    {
+                        "sequence": 3,
+                        "value": 41.0,
+                        "total": 123.0,
+                        "interestRate": 0.0
+                    }
+                ]
+            }
+        }
+
+### Recarga com cartão de cŕedito [/api/app/cards/recharges]
+
+Realiza uma recarga do cartão de saúde utilizando um cartão de crédito informado.
+
+#### Sobre a requisição
+
+A entrada deve ser um JSON com os seguintes campos:
+
+| Campo            | Tipo    | Obrigatório | Descrição                                                                               |
+| ---------------- | ------- | :---------: | --------------------------------------------------------------------------------------- |
+| `cpf`            | Number  | Sim         | Número de CPF do cliente (somente números).                                             |
+| `cardNumber`     | Number  | Sim         | Número de cartão de saúde do cliente (somente números).                                 |
+| `totalAmount`    | Number  | Sim         | Valor total da recarga.                                                                 |
+| `card`           | Number  | Sim         | Número do cartão de crédito para ser usado no pagamento.                                |
+| `cardHolderName` | String  | Sim         | Nome impresso no cartão de crédito informado.                                           |
+| `cardBrand`      | String  | Sim         | Bandeira do cartão de crédito: `AMEX`, `AURA`, `DINERS`, `ELO`, `MASTERCARD` ou `VISA`. |
+| `cardCvv`        | Number  | Sim         | Código de segurança do cartão de crédito.                                               |
+| `expiresMonth`   | Number  | Sim         | Mês de validade do cartão de crédito.                                                   |
+| `expiresYear`    | Number  | Sim         | Ano de validade do cartão de crédito.                                                   |
+| `installments`   | Number  | Não         | Quantidade de parcelas para o pagamento. Se não informado, considera 1 parcela.         |
+| `saveCard`       | Boolean | Não         | Informa que deseja salvar o cartão de crédito para compras futuras por _one click_.     |
+| `isDefault`      | String  | Não         | Informa que este é o cartão padrão (relevante se solicitado para salvar cartão).        |
+
+#### Sobre a resposta
+
+Na resposta de sucesso, o campo `body` retorna os seguintes campos:
+
+| Campo        | Tipo   | Descrição                                                                                   |
+| ------------ | ------ | ------------------------------------------------------------------------------------------- |
+| `status`     | Number | Código de resposta (geralmente igual código HTTP).                                          |
+| `message`    | String | Uma mensagem amigável.                                                                      |
+| `card_token` | String | Se foi solicitado para salvar o cartão, esse token será usado para compras por _one click_. |
+
+### POST
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Body
+
+            {
+                "cpf": "36991423459",
+                "cardNumber": "6064070024962610",
+                "totalAmount": 123.0,
+                "card": "<número do cartão de crédito>",
+                "cardHolderName": "Fulano de Tal",
+                "cardBrand": "VISA",
+                "cardCvv": 123,
+                "expiresMonth": 4,
+                "expiresYear": 2020
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Recarga com cartão de crédito",
+            "body": {
+                "status": 200,
+                "message": "",
+                "card_token": "8f9e0203af484d329528f4af6cc4bcf7"
+            }
+        }
+
+### Recarga _one click_: usando método de pagamento salvo [/api/app/oneclick/recharges]
+
+Realiza uma recarga do cartão de saúde utilizando um cartão de crédito salvo.
+
+#### Sobre a requisição
+
+A entrada deve ser um JSON com os seguintes campos:
+
+| Campo          | Tipo   | Obrigatório | Descrição                                                                                 |
+| -------------- | ------ | :---------: | ----------------------------------------------------------------------------------------- |
+| `cpf`          | Number | Sim         | Número de CPF do cliente (somente números).                                               |
+| `cardNumber`   | Number | Sim         | Número de cartão de saúde do cliente (somente números).                                   |
+| `totalAmount`  | Number | Sim         | Valor total da recarga.                                                                   |
+| `cardToken`    | Number | Sim         | Token para o cartão salvo recebido ao salvar um cartão ou solicitar métodos de pagamento. |
+| `installments` | Number | Não         | Quantidade de parcelas para o pagamento. Se não informado, considera 1 parcela.           |
+
+#### Sobre a resposta
+
+Na resposta de sucesso, será retornado o código HTTP `200 OK`.
+
+### POST
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Body
+
+            {
+                "cpf": "36991423459",
+                "cardNumber": "6064070024962610",
+                "totalAmount": 123.0,
+                "cardToken": "8f9e0203af484d329528f4af6cc4bcf7"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Recarga com cartão de crédito",
+            "body": {
+                "status": 200,
+                "message": "",
+            }
+        }
+
+
+### Recarga com boleto [/api/app/billets/recharges]
+
+Realiza uma recarga do cartão de saúde utilizando um cartão de crédito informado.
+
+#### Sobre a requisição
+
+A entrada deve ser um JSON com os seguintes campos:
+
+| Campo         | Tipo   | Obrigatório | Descrição                                               |
+| ------------- | ------ | :---------: | ------------------------------------------------------- |
+| `cpf`         | Number | Sim         | Número de CPF do cliente (somente números).             |
+| `cardNumber`  | Number | Sim         | Número de cartão de saúde do cliente (somente números). |
+| `totalAmount` | Number | Sim         | Valor total da recarga.                                 |
+
+#### Sobre a resposta
+
+Na resposta de sucesso, o campo `body` retorna os seguintes campos:
+
+| Campo     | Tipo   | Descrição                                          |
+| --------- | ------ | -------------------------------------------------- |
+| `status`  | Number | Código de resposta (geralmente igual código HTTP). |
+| `message` | String | Uma mensagem amigável.                             |
+| `url`     | String | Endereço para visualizar o boleto de pagamento.    |
+
+### POST
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Body
+
+            {
+                "cpf": "36991423459",
+                "cardNumber": "6064070024962610",
+                "totalAmount": 123.0,
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Recarga com boleto",
+            "body": {
+                "status": 200,
+                "message": "",
+                "url": "https://seuboleto.com.br/visualize.php",
+            }
+        }

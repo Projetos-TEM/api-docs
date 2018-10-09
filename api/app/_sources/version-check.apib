@@ -1,0 +1,80 @@
+FORMAT: 1A
+
+# Checagem de Versão (Aplicação TEM Saúde)
+
+Documentação de referência da API REST para a implementação da aplicação mobile da Rede TEM.
+
+## URL
+
+A URL base da API depende do ambiente:
+
+<dl>
+<dt>Homologação</dt>
+<dd>https://qa-api-app.temrede.com.br</dd>
+<dt>Produção</dt>
+<dd>https://api-app.temrede.com.br</dd>
+</dl>
+
+> O endereço de produção só funciona para IP previamente liberado.
+
+## Checagem de Versão [/api/app/version/check]
+
+Na inicialização do app, de preferência antes de exibir qualquer tela interativa ao usuário, o app deve fazer uma
+verificação para identificar se a versão em uso precisa ser atualizada.
+
+### POST
+
+Obtém um status da versão atual em uso.
+
+> Endpoint aberto
+
+#### Sobre a requisição
+
+A entrada deve ser um JSON com os seguintes campos:
+
+| Atributo             | Tipo   | Obrigatório | Descrição                                                                                                                |
+| -------------------- | ------ | :---------: | ------------------------------------------------------------------------------------------------------------------------ |
+| `applicationVersion` | String | Sim         | Número de versão da aplicação no formato de versão descrita na nota abaixo.                                              |
+| `system`             | String | Sim         | Sistema ou plataforma da aplicação, pode ser `android` ou `ios`.                                                         |
+| `deviceId`           | String | Não         | Um valor que identifique o aparelho individual do usuário, se essa informação estiver disponível. Usado em estatísticas. |
+| `apiVersion`         | String | Não         | Número de versão da API esperada no formato de versão descrita.                                                          |
+
+:::note
+### Formato de Versão
+
+As versões devem ser passadas no formato `x.y.z` onde _x_, _y_ e _z_ são números.
+
+Correto:
+- `1.5.2`
+- `2.19.7`
+
+Incorreto:
+- `01.3.4`
+- `1.4`
+- `2.5.4-beta`
+:::
+
+#### Sobre a resposta
+
+Na resposta de sucesso, é retornado um JSON onde o campo `body` retorna uma string com um dos seguintes valores de estado:
+
+| Estado    | Ação esperada no app                                                                            |
+| --------- | ----------------------------------------------------------------------------------------------- |
+| `OK`      | Continuar a execução normal da aplicação.                                                       |
+| `WARNING` | Continuar a execução normal da aplicação. No futuro, pode haver uma ação específica.            |
+| `ERROR`   | Impedir a execução da aplicação e redirecionar o usuário para a loja de aplicativos do sistema. |
+
++ Request Verifica versão (application/json)
+
+        {
+            "applicationVersion": "1.2.5",
+            "system": "android" 
+        }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Obtém status de checagem da versão",
+            "body": "OK"
+        }
