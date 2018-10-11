@@ -1,0 +1,292 @@
+FORMAT: 1A
+
+# Chat (Aplicação TEM Saúde)
+
+Documentação de referência da API REST para a implementação da aplicação mobile da Rede TEM.
+
+## URL
+
+A URL base da API depende do ambiente:
+
+<dl>
+<dt>Homologação</dt>
+<dd>https://qa-api-app.temrede.com.br</dd>
+<dt>Produção</dt>
+<dd>https://api-app.temrede.com.br</dd>
+</dl>
+
+> O endereço de produção só funciona para IP previamente liberado.
+
+## Group Autenticação
+
+### Sobre a autenticação
+
+A não ser nos endpoints especificados, essa API exige autenticação usando o método OAuth 2.0 com
+tokens descartáveis, obtidos previamente.
+
+Consulte o endpoint de [obtenção de token] para mais detalhes.
+
+[obtenção de token]: login.html#autenticação-token
+
+## Group Introdução
+
+O chat é a principal funcionalidade do app da TEM, é o principal meio de interação com os usuários.
+
+O conceito por trás do chat é bem simples, ao iniciar, a aplicação solicita uma pergunta e o serviço fornecerá uma das seguintes opções:
+
+1. Uma pergunta com respostas para escolha única.
+2. Uma pergunta com respostas para escolha múltipla.
+3. Uma pergunta com resposta livre, por exemplo, para o usuário informar o e-mail.
+4. Uma pergunta sem resposta (com o objetivo de exibir a mensagem).
+
+Quando a aplicação envia as respostas, o serviço fornece novamente uma das quatro opções de pergunta.
+
+Toda a interação do chat é realizada pelo endpoint `/api/app/chat`.
+
+### Tipos de Pergunta
+
+#### Tipos Básicos
+
+| Tipo              | Descrição                                                   |
+| ----------------- | ----------------------------------------------------------- |
+| `SELECT_ONE`      | O usuário pode escolher uma das respostas exibidas.         |
+| `SELECT_MULTIPLE` | O usuário pode escolher mais de uma das respostas exibidas. |
+| `FREE_TEXT`       | O usuário pode escrever o que quiser.                       |
+
+:::note
+### Ações do aplicativo
+
+As perguntas do tipo `SELECT_ONE` também podem oferecer respostas como ações do aplicativo. Nesse caso, quando
+o usuário clicar na opção, o app irá realizar alguma ação. Segue as ações definidas até o momento:
+
+| Ação                   | Comportamento esperado                                      |
+| ---------------------- | ----------------------------------------------------------- |
+| `abrir_fazer_recarga`  | Abrir a tela para fazer recarga.                            |
+| `abrir_consulta`       | Abrir a tela para agendar consulta.                         |
+| `abrir_exame`          | Abrir a tela para agendar exame.                            |
+| `abrir_busca_farmacia` | Abrir a tela de busca de farmácia.                          |
+| `falar_atendente`      | Abrir o suporte com um atendente humano através do Zendesk. |
+| `ver_rede_tem`         | Abrir a tela de busca de prestadores.                       |
+| `enviar_respostas`     | Botão para enviar respostas múltiplas.                      |
+| `appstore`             | Botão para levar o usuário à loja de aplicativos.           |
+:::
+
+#### Tipos Específicos
+
+Os seguintes tipos de pergunta funcionam de maneira similar ao tipo `FREE_TEXT`, mas quando o aplicativo encontra
+um desses tipos de pergunta, deve ser usado campos especiais, com máscaras e validações específicas.
+
+| Tipo            | Descrição da resposta              |
+| --------------- | ---------------------------------- |
+| `CPF`           | Um CPF válido.                     |
+| `CEP`           | Um CEP válido.                     |
+| `PHONE`         | Um telefone brasileiro válido.     |
+| `NUMBER`        | Um número inteiro.                 |
+| `MONEY`         | Um número com duas casas decimais. |
+| `DATE`          | Uma data válida.                   |
+| `DATE_AND_TIME` | Uma data e hora válida             |
+
+## Group Endpoints
+
+### Pergunta [/api/app/chat{?cpf,cardNumber,idPainel,isFirstTime,applicationVersion,system,apiVersion}]
+
+[checagem de versão]: version-check.html
+
+#### GET
+
+Solicita uma pergunta do servidor.
+
++ Parameters
+    + `cpf`: `42605973883` (number, required) - Número de CPF do cliente (somente números).
+    + `cardNumber`: `6064070019728919` (number, required) - Número de cartão de saúde do cliente (somente números).
+    + `idPainel`: `78499` (number, required) - Identificador único do cliente no sistema do Painel.
+    + `isFirstTime`: `true` (boolean, required) - Flag para indicar que é a primeira vez que o endpoint está sendo chamado (nessã sessão).
+    + `applicationVersion`: `1.6.13` (string, required) - Número de versão da aplicação. Ver [checagem de versão].
+    + `system`: `android` (string, required) - Sistema ou plataforma da aplicação, pode ser `android` ou `ios`. Ver [checagem de versão].
+    + `apiVersion`: `0.1.0` (string, required) - Número de versão da API. Ver [checagem de versão].
+
++ Request Solicita uma pergunta
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Chamada principal do chat",
+            "body": {
+                "message": null,
+                "question": {
+                    "id": 48,
+                    "title": "Para que eu possa encontrar as melhores informações e serviços para você, gostaria de saber o que mais combina com seu momento de vida?",
+                    "appAction": null,
+                    "type": "SELECT_MULTIPLE",
+                    "answers": [
+                        {
+                            "id": 133,
+                            "text": "Estou grávida",
+                            "appAction": null,
+                            "type": "SELECT_MULTIPLE",
+                            "color": null
+                        },
+                        {
+                            "id": 134,
+                            "text": "Tenho filhos pequenos",
+                            "appAction": null,
+                            "type": "SELECT_MULTIPLE",
+                            "color": null
+                        },
+                        {
+                            "id": 135,
+                            "text": "Buscando uma vida saudável",
+                            "appAction": null,
+                            "type": "SELECT_MULTIPLE",
+                            "color": null
+                        },
+                        {
+                            "id": 136,
+                            "text": "Tenho alguma doença crônica",
+                            "appAction": null,
+                            "type": "SELECT_MULTIPLE",
+                            "color": null
+                        },
+                        {
+                            "id": 137,
+                            "text": "Não estou em nenhum dos grupos acima",
+                            "appAction": null,
+                            "type": "SELECT_MULTIPLE",
+                            "color": null
+                        }
+                    ]
+                },
+                "budgets": null,
+                "exam": null
+            }
+        }
+
+### Resposta [/api/app/chat]
+
+### POST
+
+Envia uma resposta ao servidors
+
++ Request (application/json)
+
+        {
+            "cpf": "05910470558",
+            "cardNumber": "6064070024939715",
+            "idPainel": 78499,
+            "text": null,
+            "idQuestion": 48,
+            "idAnswer": [133]
+        }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Post chat",
+            "body": {
+                "message": null,
+                "question": {
+                    "id": 49,
+                    "title": "Para finalizar, me conta um pouco como você paga por serviços de saúde quando precisa...",
+                    "appAction": null,
+                    "type": "SELECT_MULTIPLE",
+                    "answers": [
+                        {
+                            "id": 138,
+                            "text": "Eu pago plano de saúde",
+                            "appAction": null,
+                            "type": "SELECT_MULTIPLE",
+                            "color": null
+                        },
+                        {
+                            "id": 139,
+                            "text": "Tenho o plano da empresa",
+                            "appAction": null,
+                            "type": "SELECT_MULTIPLE",
+                            "color": null
+                        },
+                        {
+                            "id": 140,
+                            "text": "Não tenho plano e uso o SUS",
+                            "appAction": null,
+                            "type": "SELECT_MULTIPLE",
+                            "color": null
+                        },
+                        {
+                            "id": 141,
+                            "text": "Não tenho plano e pago particular",
+                            "appAction": null,
+                            "type": "SELECT_MULTIPLE",
+                            "color": null
+                        }
+                    ]
+                },
+                "budgets": null,
+                "exam": null
+            }
+        }
+
+### Pergunta padrão [/api/app/chat/defaultQuestion]
+
+#### GET
+
+Solicita a pergunta padrão ao servidor.
+
+Esse endpoint deve ser invocado quando a aplicação recebe o campo `question = null` na interação com o chat.
+
++ Request Solicita a pergunta padrão
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna a pergunta padrão",
+            "body": {
+                "message": null,
+                "question": {
+                    "id": 42,
+                    "title": "ATENÇÃO ESTE AMBIENTE É DE HOMOLOÇÃO \r O que você deseja fazer?",
+                    "appAction": null,
+                    "type": "SELECT_ONE",
+                    "answers": [
+                        {
+                            "id": 123,
+                            "text": "Marcar uma consulta",
+                            "appAction": "abrir_consulta",
+                            "type": null,
+                            "color": null
+                        },
+                        {
+                            "id": 124,
+                            "text": "Marcar um exame",
+                            "appAction": "abrir_exame",
+                            "type": null,
+                            "color": null
+                        },
+                        {
+                            "id": 125,
+                            "text": "Buscar farmácias",
+                            "appAction": "abrir_busca_farmacia",
+                            "type": null,
+                            "color": null
+                        },
+                        {
+                            "id": 126,
+                            "text": "Ver a rede Tem",
+                            "appAction": "ver_rede_tem",
+                            "type": null,
+                            "color": null
+                        }
+                    ]
+                },
+                "budgets": null,
+                "exam": null
+            }
+        }
