@@ -109,8 +109,10 @@ A entrada deve ser um JSON com os seguintes campos:
 | `patient_relationship` | String | Não[\*](#p) | Parentesco do paciente com o cliente: deve ser `CO` (cônjuge) ou `FI` (filho ou filha)                                                                                                |
 | `patient_birthdate`    | String | Não[\*](#p) | Data de nascimento do paciente no formato `yyyy-MM-dd`.                                                                                                                               |
 | `description`          | String | Não         | Qualquer informação adicional sobre o agendamento.                                                                                                                                    |
+| `attachment`           | Binary | Sim[\*\*]() | Uma foto da solicitação de exame assinada pelo médico.                                                                                                                                |
 
 [\*]() Os dados do paciente só devem ser informados quando o agendamemnto for para um depedente do cliente.
+[\*\*]() O anexo só poderá ser enviado com o formato `multipart/form-data` em vez de JSON.
 
 #### Sobre a resposta
 
@@ -131,12 +133,47 @@ Na resposta de sucesso, é retornado outro JSON:
 | `404`  | Se o cliente de CPF e Número da Cartão passado não foi encontrado.     |
 | `500`  | Para erros indeterminados.                                             |
 
-+ Request (application/json)
++ Request (multipart/form-data; boundary=AzB03x567)
     + Headers
 
             Transaction-Key: <KEY>
 
-    + Attributes (Exam)
+    + Body
+
+            --AzB03x567
+            Content-Disposition: form-data; name="attachment"; filename="exam-client.png"
+            Content-Type: image/png
+
+            <DADOS BINÁRIOS>
+            --AzB03x567
+            Content-Disposition: form-data; name="cpf"
+
+            05910470558
+            --AzB03x567
+            Content-Disposition: form-data; name="card_number"
+
+            6064070024962610
+            --AzB03x567
+            Content-Disposition: form-data; name="exam_group"
+
+            AC
+            --AzB03x567
+            Content-Disposition: form-data; name="best_hour"
+
+            m
+            --AzB03x567
+            Content-Disposition: form-data; name="best_days"
+
+            ["Segunda", "Terça"]
+            --AzB03x567
+            Content-Disposition: form-data; name="state"
+
+            SE
+            --AzB03x567
+            Content-Disposition: form-data; name="city"
+
+            Aracaju
+            --AzB03x567
 
 + Response 201 (application/json)
 
@@ -171,6 +208,7 @@ Na resposta de sucesso, é retornado outro JSON:
 + patient_relationship: `FI` (string) - Parentesco do paciente com o cliente: deve ser CO (cônjuge) ou FI (filho ou filha)
 + patient_birthdate: `1995-05-11` (string) - Data de nascimento do paciente.
 + description: `Gostaria que o profissional fosse homem` (string) - Observação feita pelo cliente no momento do agendamento.
++ attachment - Uma foto da solicitação de exame assinada pelo médico.
 
 ## Ticket
 + status: `201` (number) - O mesmo código de resposta do HTTP.

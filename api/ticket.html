@@ -339,9 +339,16 @@ o valor da chave a ser usada deve ser solicitada previamente.</p>
 <td style="text-align:center">Não</td>
 <td>Qualquer informação adicional sobre o agendamento.</td>
 </tr>
+<tr>
+<td><code>attachment</code></td>
+<td>Binary</td>
+<td style="text-align:center">Sim<a href="">**</a></td>
+<td>Uma foto da solicitação de exame assinada pelo médico.</td>
+</tr>
 </tbody>
 </table>
-<p><a href="">*</a> Os dados do paciente só devem ser informados quando o agendamemnto for para um depedente do cliente.</p>
+<p><a href="">*</a> Os dados do paciente só devem ser informados quando o agendamemnto for para um depedente do cliente.
+<a href="">**</a> O anexo só poderá ser enviado com o formato <code>multipart/form-data</code> em vez de JSON.</p>
 <h4 id="header-sobre-a-resposta-1">Sobre a resposta <a class="permalink" href="#header-sobre-a-resposta-1" aria-hidden="true">¶</a></h4>
 <p>Na resposta de sucesso, é retornado outro JSON:</p>
 <table>
@@ -397,83 +404,40 @@ o valor da chave a ser usada deve ser solicitada previamente.</p>
 </tr>
 </tbody>
 </table>
-<h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/app/tickets/exam</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Transaction-Key</span>: <span class="hljs-string">&lt;KEY&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">cpf</span>": <span class="hljs-value"><span class="hljs-string">"05910470558"</span></span>,
-  "<span class="hljs-attribute">card_number</span>": <span class="hljs-value"><span class="hljs-string">"6064070152759819"</span></span>,
-  "<span class="hljs-attribute">exam_group</span>": <span class="hljs-value"><span class="hljs-string">"AC"</span></span>,
-  "<span class="hljs-attribute">best_hour</span>": <span class="hljs-value"><span class="hljs-string">"m"</span></span>,
-  "<span class="hljs-attribute">best_days</span>": <span class="hljs-value">[
-    <span class="hljs-string">"Segunda"</span>,
-    <span class="hljs-string">"Terça"</span>
-  ]</span>,
-  "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"SE"</span></span>,
-  "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Aracaju"</span></span>,
-  "<span class="hljs-attribute">zone</span>": <span class="hljs-value"><span class="hljs-string">"SP - Zona Leste"</span></span>,
-  "<span class="hljs-attribute">patient_name</span>": <span class="hljs-value"><span class="hljs-string">"Renata de Albuquerque Souza"</span></span>,
-  "<span class="hljs-attribute">patient_relationship</span>": <span class="hljs-value"><span class="hljs-string">"FI"</span></span>,
-  "<span class="hljs-attribute">patient_birthdate</span>": <span class="hljs-value"><span class="hljs-string">"1995-05-11"</span></span>,
-  "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Gostaria que o profissional fosse homem"</span>
-</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
-  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">cpf</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número de CPF do cliente (somente números)."</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">card_number</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número de cartão do cliente (somente números)."</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">exam_group</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Grupo de exames: deve ser AC (Análises Clínicas), EC (Exames/Cardialógicos), EG (Exames/Ginecológicos), EI (Exames/Imagem), EP (Exames/Patológico) ou NI (Não Informado)."</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">best_hour</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Melhor horário para o exame: pode ser 'm' (Manhã), 't' (Tarde), 'n' (Noite), 'q' (Qualquer Período)"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">best_days</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Melhores dias da semana para o exame: Segunda, Terça, Quarta, Quinta, Sexta"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">state</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"O estado para onde a consulta deve ser agendada. Use a sigla da UF."</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">city</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"O nome da cidade para onde a consulta deve ser agendada."</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">zone</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"A região para onde a consulta deve ser agendada."</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">patient_name</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Nome completo do paciente."</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">patient_relationship</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Parentesco do paciente com o cliente: deve ser CO (cônjuge) ou FI (filho ou filha)"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">patient_birthdate</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Data de nascimento do paciente."</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Observação feita pelo cliente no momento do agendamento."</span>
-    </span>}
-  </span>}</span>,
-  "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
-    <span class="hljs-string">"cpf"</span>,
-    <span class="hljs-string">"card_number"</span>,
-    <span class="hljs-string">"exam_group"</span>,
-    <span class="hljs-string">"best_hour"</span>,
-    <span class="hljs-string">"best_days"</span>
-  ]
-</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+<h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/app/tickets/exam</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">multipart/form-data; boundary=AzB03x567</span><br><span class="hljs-attribute">Transaction-Key</span>: <span class="hljs-string">&lt;KEY&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>--AzB03x567
+Content-Disposition: form-data; name=<span class="hljs-string">"attachment"</span>; filename=<span class="hljs-string">"exam-client.png"</span>
+Content-Type: image/png
+
+&lt;DADOS BINÁRIOS&gt;
+--AzB03x567
+Content-Disposition: form-data; name=<span class="hljs-string">"cpf"</span>
+
+<span class="hljs-number">05910470558</span>
+--AzB03x567
+Content-Disposition: form-data; name=<span class="hljs-string">"card_number"</span>
+
+<span class="hljs-number">6064070024962610</span>
+--AzB03x567
+Content-Disposition: form-data; name=<span class="hljs-string">"exam_group"</span>
+
+AC
+--AzB03x567
+Content-Disposition: form-data; name=<span class="hljs-string">"best_hour"</span>
+
+m
+--AzB03x567
+Content-Disposition: form-data; name=<span class="hljs-string">"best_days"</span>
+
+[<span class="hljs-string">"Segunda"</span>, <span class="hljs-string">"Terça"</span>]
+--AzB03x567
+Content-Disposition: form-data; name=<span class="hljs-string">"state"</span>
+
+SE
+--AzB03x567
+Content-Disposition: form-data; name=<span class="hljs-string">"city"</span>
+
+Aracaju
+--AzB03x567</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-number">201</span></span>,
   "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Agendamento realizado com sucesso."</span></span>,
   "<span class="hljs-attribute">ticket_id</span>": <span class="hljs-value"><span class="hljs-number">34209</span>
@@ -494,7 +458,7 @@ o valor da chave a ser usada deve ser solicitada previamente.</p>
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"O número do ticket."</span>
     </span>}
   </span>}
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 16 Aug 2018</p><script>/* eslint-env browser */
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 24 Oct 2018</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
