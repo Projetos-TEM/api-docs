@@ -35,8 +35,8 @@ A entrada deve ser um JSON, informando a quantidade de cartões a ser gerada, o 
 ```json
 {
     "quantity": "1",
-    "onixCode": "9004",
-    "insertUser": "BOP"
+    "onixCode": "<ONIX_CODE>",
+    "insertUser": "<USUÁRIO>"
 }
 ```
 
@@ -54,8 +54,8 @@ _Códigos de erro:_
 
     + Attributes (object)
         + quantity: `1` (number) - Quantidade de cartões para gerar
-        + onixCode: `9004` (string) - O código do produto em que os cartões serão gerados
-        + insertUser: `BOP` (string) - Identificação de quem fez a operação
+        + onixCode: `<ONIX_CODE>` (string) - O código do produto em que os cartões serão gerados
+        + insertUser: `<USUÁRIO>` (string) - Identificação de quem fez a operação
 
 + Response 201 (application/json)
 
@@ -73,8 +73,8 @@ _Códigos de erro:_
 
             {
                 "quantity": 2,
-                "onixCode": "9004",
-                "insertUser": "BOP"
+                "onixCode": "<ONIX_CODE>",
+                "insertUser": "<USUÁRIO>"
             }
 
 + Response 201 (application/json)
@@ -89,7 +89,7 @@ _Códigos de erro:_
                     "way": "1",
                     "password": "874125",
                     "emitter": "755",
-                    "product": "9004"
+                    "product": "<ONIX_CODE>"
                 },
                 {
                     "cardNumber": "4687952416475856",
@@ -97,7 +97,7 @@ _Códigos de erro:_
                     "way": "1",
                     "password": "697453",
                     "emitter": "755",
-                    "product": "9004"
+                    "product": "<ONIX_CODE>"
                 }
             ]
         }
@@ -108,7 +108,36 @@ _Códigos de erro:_
 
 Faz a carga de um cliente a um cartão de saúde. O cartão pode ser um existente (o número do cartão deve ser passado) ou o cartão pode ser gerado na hora.
 
-A entrada deve ser um JSON, informando os dados do cliente, veja o esquema no exemplo de requisição para a descrição dos campos.
+A entrada deve ser um JSON, informando os dados do cliente, com os seguintes campos:
+
+| Campos               | Tipo   | Obrigatório | Descrição                                                                                                                                                                                                                                                                                              |
+| -------------------- | ------ | :---------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `currentUser`        | String | Sim         | Identificação de quem está fazendo a operação.                                                                                                                                                                                                                                                         |
+| `action`             | Number | Sim         | Ação a ser efetuada: `1` (Adesão) e `4` (Suspensão).                                                                                                                                                                                                                                                   |
+| `onixCode`           | Number | Sim         | Código do produto usado no cartão de saúde.                                                                                                                                                                                                                                                            |
+| `cpfOrCnpj`          | String | Sim         | Número de CPF do cliente.                                                                                                                                                                                                                                                                              |
+| `name`               | String | Sim         | Nome completo do cliente.                                                                                                                                                                                                                                                                              |
+| `birthdate`          | String | Sim         | Data de nascimento do cliente.                                                                                                                                                                                                                                                                         |
+| `telephone`          | String | Sim         | Número de celular do cliente com DDD.                                                                                                                                                                                                                                                                  |
+| `gender`             | String | Sim         | Gênero do cliente (`M`/`F`).                                                                                                                                                                                                                                                                           |
+| `cardNumber`         | String | Não         | Número do cartão de saúde (obrigatório em alguns produtos).                                                                                                                                                                                                                                            |
+| `majorCard`          | String | Não         | Número do cartão pai.                                                                                                                                                                                                                                                                                  |
+| `shortName`          | String | Não         | Nome abreviado (usado no cartão).                                                                                                                                                                                                                                                                      |
+| `externalIdentifier` | String | Não         | Identificador externo usado para identificar o cartão e/ou cliente no sistema externo do parceiro.                                                                                                                                                                                                     |
+| `email`              | String | Não         | Um e-mail válido para contato com o cliente.                                                                                                                                                                                                                                                           |
+| `address`            | String | Não         | Endereço do cliente (logradouro)                                                                                                                                                                                                                                                                       |
+| `number`             | String | Não         | Endereço do cliente (número)                                                                                                                                                                                                                                                                           |
+| `complement`         | String | Não         | Endereço do cliente (complemento)                                                                                                                                                                                                                                                                      |
+| `neighborhood`       | String | Não         | Endereço do cliente (bairro)                                                                                                                                                                                                                                                                           |
+| `city`               | String | Não         | Endereço do cliente (cidade)                                                                                                                                                                                                                                                                           |
+| `state`              | String | Não         | Endereço do cliente (UF)                                                                                                                                                                                                                                                                               |
+| `postalCode`         | String | Não         | Endereço do cliente (CEP) - somente números                                                                                                                                                                                                                                                            |
+| `rg`                 | String | Não         | Número do documento do cliente.                                                                                                                                                                                                                                                                        |
+| `documentType`       | Number | Não         | Tipo de documento: `1` (RG), `2` (PASSAPORTE), `3` (CTPS) ou `4` (CNH).                                                                                                                                                                                                                                |
+| `nationality`        | String | Não         | Naturalidade do cliente.                                                                                                                                                                                                                                                                               |
+| `race`               | Number | Não         | Etnia do cliente: `1` (Branca), `2` (Negra), `3` (Parda), `4` (Amarela), `5` (Indígena) ou `99` (sem informação).                                                                                                                                                                                      |
+| `scholarity`         | Number | Não         | Escolaridade do cliente: `1` (Analfabeto), `2` (Alfabetizado), `3` (1o Grau Incompleto), `4` (1o Grau Completo), `5` (2o Grau Incompleto) `6` (2o Grau Completo), `7` (Superior Incompleto), `8` (Superior Completo), `9` (Especialização), `10` (Mestrado), `11` (Doutorado) ou `99` (sem informação) |
+| `incomeClass`        | Number | Não         | Classe de rendimento: `1` (Até 1 salário mínimo), `2` (De 2 a 5 salários mínimos), `3` (De 5 a 10 salários mínimos), `4` (De 10 a 20 salários mínimos), `5` (Mais de 20 salários mínimos) ou `99` (Sem informação)                                                                                     |
 
 No retorno de sucesso, os dados do cartão, seja novo ou pré-existente são retornados.
 
@@ -171,23 +200,25 @@ Utiliza o modo de autenticação _HTTP Basic_, seguindo o modo `client_credentia
             "timestamp": "2018-06-28",
             "error": "Unauthorized",
             "message": "Unauthorized",
-            "path": "/api/tim/oauth/token"
+            "path": "/api/sempre/oauth/token"
         }
 
 # Data Structures
 
 ## Client (object)
 
-+ currentUser: `BOP` (string, required) - Identificação de quem fez a operação
-+ action: `1` (string, required) - Ação a ser efetuada (1: Adesão)
-+ cardNumber: `1234567654321234` (string, required) - Número do cartão
-+ onixCode: `9004` (string, required) - Código do produto
++ currentUser: `<USUÁRIO>` (string, required) - Identificação de quem fez a operação
++ action: `1` (number, required) - Ação a ser efetuada: 1 (Adesão) e 4 (Suspensão)
++ cardNumber: `1234567654321234` (string) - Número do cartão de saúde (obrigatório em alguns produtos)
++ majorCard: `null` (string) - Número do cartão pai
++ onixCode: `<ONIX_CODE>` (string, required) - Código do produto usado no cartão de saúde
 + cpfOrCnpj: `28937645173` (string, required) - Número de CPF do cliente
 + name: `Maria Vitória Cunha` (string, required) - Nome completo do cliente
 + shortName: `M. V. Cunha` (string) - Nome abreviado (usado no cartão)
 + birthdate: `1991-11-12` (string, required) - Data de nascimento do cliente
 + telephone: `81996762941` (string, required) - Número de celular do cliente com DDD
-+ email: `maria@exemplo.com` (string) - Um e-mail válido do cliente
++ externalIdentifier: null (string) - Identificador externo usado para identificar o cartão e/ou cliente no sistema externo do parceiro.
++ email: `maria@exemplo.com` (string) - Um e-mail válido para contato com o cliente
 + gender: `F` (string, required) - Gênero do cliente (M/F)
 + address: `Rua Teófilo Prado` (string) - Endereço do cliente (logradouro)
 + number: `561` (string) - Endereço do cliente (número)
@@ -195,10 +226,13 @@ Utiliza o modo de autenticação _HTTP Basic_, seguindo o modo `client_credentia
 + neighborhood: `Jardins` (string) - Endereço do cliente (bairro)
 + city: `Campinas` (string) - Endereço do cliente (cidade)
 + state: `SP` (string) - Endereço do cliente (UF)
-+ postalCode: `01310100` (string) - Endereço do cliente (CEP, somente números)
-+ rg: `100345` (string) - Número do RG
-+ documentType: `SSP/RJ` (string) - Tipo de documento (e.g. SSP, CNH, ...)
-+ nationality: `Brasileira` (string) - Nacionalidade do cliente
++ postalCode: `01310100` (string) - Endereço do cliente (CEP) - somente números
++ rg: `100345` (string) - Número do documento do cliente
++ documentType: `1` (number) - Tipo de documento: 1 (RG), 2 (PASSAPORTE), 3 (CTPS) ou 4 (CNH)
++ nationality: `Brasileira` (string) - Naturalidade do cliente.
++ race: 99 (number) - Etnia do cliente: 1 (Branca), 2 (Negra), 3 (Parda), 4 (Amarela), 5 (Indígena) ou 99 (sem informação)
++ scholarity: 99 (number) - Escolaridade do cliente: 1 (Analfabeto), 2 (Alfabetizado), 3 (1o Grau Incompleto), 4 (1o Grau Completo), 5 (2o Grau Incompleto) 6 (2o Grau Completo), 7 (Superior Incompleto), 8 (Superior Completo), 9 (Especialização), 10 (Mestrado), 11 (Doutorado) ou 99 (sem informação)
++ incomeClass: 99 (number) - Classe de rendimento: 1 (Até 1 salário mínimo), 2 (De 2 a 5 salários mínimos), 3 (De 5 a 10 salários mínimos), 4 (De 10 a 20 salários mínimos), 5 (Mais de 20 salários mínimos) ou 99 (Sem informação)
 
 ## Card (object)
 
@@ -207,4 +241,4 @@ Utiliza o modo de autenticação _HTTP Basic_, seguindo o modo `client_credentia
 + way: `1` (string) - Número da via
 + password: `874125` (string) - Senha inicial do cliente
 + emitter: `755` (string) - Código do emissor
-+ product: `9004` (string) - Código do produto
++ product: `<ONIX_CODE>` (string) - Código do produto

@@ -17,8 +17,8 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <p>A entrada deve ser um JSON, informando a quantidade de cartões a ser gerada, o código do produto e a identificação da operação:</p>
 <pre><code class="language-json">{
     "<span class="hljs-attribute">quantity</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
-    "<span class="hljs-attribute">onixCode</span>": <span class="hljs-value"><span class="hljs-string">"9004"</span></span>,
-    "<span class="hljs-attribute">insertUser</span>": <span class="hljs-value"><span class="hljs-string">"BOP"</span>
+    "<span class="hljs-attribute">onixCode</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ONIX_CODE&gt;"</span></span>,
+    "<span class="hljs-attribute">insertUser</span>": <span class="hljs-value"><span class="hljs-string">"&lt;USUÁRIO&gt;"</span>
 </span>}</code></pre>
 <p>No retorno de sucesso, uma lista de cartões é retornada (exemplos abaixo).</p>
 <p><em>Códigos de erro:</em></p>
@@ -32,8 +32,8 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 </ul>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/api/sempre/cards/generate</span></div><div class="title"><strong>Request&nbsp;&nbsp;<code>Gerar 1 cartão</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer &lt;TOKEN&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">quantity</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
-  "<span class="hljs-attribute">onixCode</span>": <span class="hljs-value"><span class="hljs-string">"9004"</span></span>,
-  "<span class="hljs-attribute">insertUser</span>": <span class="hljs-value"><span class="hljs-string">"BOP"</span>
+  "<span class="hljs-attribute">onixCode</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ONIX_CODE&gt;"</span></span>,
+  "<span class="hljs-attribute">insertUser</span>": <span class="hljs-value"><span class="hljs-string">"&lt;USUÁRIO&gt;"</span>
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
@@ -61,7 +61,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
       "<span class="hljs-attribute">way</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
       "<span class="hljs-attribute">password</span>": <span class="hljs-value"><span class="hljs-string">"874125"</span></span>,
       "<span class="hljs-attribute">emitter</span>": <span class="hljs-value"><span class="hljs-string">"755"</span></span>,
-      "<span class="hljs-attribute">product</span>": <span class="hljs-value"><span class="hljs-string">"9004"</span>
+      "<span class="hljs-attribute">product</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ONIX_CODE&gt;"</span>
     </span>}
   ]
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
@@ -82,8 +82,8 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Request&nbsp;&nbsp;<code>Gerar 2 cartões</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer &lt;TOKEN&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">quantity</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
-  "<span class="hljs-attribute">onixCode</span>": <span class="hljs-value"><span class="hljs-string">"9004"</span></span>,
-  "<span class="hljs-attribute">insertUser</span>": <span class="hljs-value"><span class="hljs-string">"BOP"</span>
+  "<span class="hljs-attribute">onixCode</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ONIX_CODE&gt;"</span></span>,
+  "<span class="hljs-attribute">insertUser</span>": <span class="hljs-value"><span class="hljs-string">"&lt;USUÁRIO&gt;"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-number">201</span></span>,
   "<span class="hljs-attribute">defaultMessage</span>": <span class="hljs-value"><span class="hljs-string">"Criação de cartões"</span></span>,
@@ -94,7 +94,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
       "<span class="hljs-attribute">way</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
       "<span class="hljs-attribute">password</span>": <span class="hljs-value"><span class="hljs-string">"874125"</span></span>,
       "<span class="hljs-attribute">emitter</span>": <span class="hljs-value"><span class="hljs-string">"755"</span></span>,
-      "<span class="hljs-attribute">product</span>": <span class="hljs-value"><span class="hljs-string">"9004"</span>
+      "<span class="hljs-attribute">product</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ONIX_CODE&gt;"</span>
     </span>},
     {
       "<span class="hljs-attribute">cardNumber</span>": <span class="hljs-value"><span class="hljs-string">"4687952416475856"</span></span>,
@@ -102,11 +102,179 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
       "<span class="hljs-attribute">way</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
       "<span class="hljs-attribute">password</span>": <span class="hljs-value"><span class="hljs-string">"697453"</span></span>,
       "<span class="hljs-attribute">emitter</span>": <span class="hljs-value"><span class="hljs-string">"755"</span></span>,
-      "<span class="hljs-attribute">product</span>": <span class="hljs-value"><span class="hljs-string">"9004"</span>
+      "<span class="hljs-attribute">product</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ONIX_CODE&gt;"</span>
     </span>}
   ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="endpoints-carga-de-cliente" class="resource"><h3 class="resource-heading">Carga de Cliente <a href="#endpoints-carga-de-cliente" class="permalink">&nbsp;&para;</a></h3><div id="endpoints-carga-de-cliente-post" class="action post"><h4 class="action-heading"><div class="name"></div><a href="#endpoints-carga-de-cliente-post" class="method post">POST</a><code class="uri">/api/sempre/clients/load</code></h4><p>Faz a carga de um cliente a um cartão de saúde. O cartão pode ser um existente (o número do cartão deve ser passado) ou o cartão pode ser gerado na hora.</p>
-<p>A entrada deve ser um JSON, informando os dados do cliente, veja o esquema no exemplo de requisição para a descrição dos campos.</p>
+<p>A entrada deve ser um JSON, informando os dados do cliente, com os seguintes campos:</p>
+<table>
+<thead>
+<tr>
+<th>Campos</th>
+<th>Tipo</th>
+<th style="text-align:center">Obrigatório</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>currentUser</code></td>
+<td>String</td>
+<td style="text-align:center">Sim</td>
+<td>Identificação de quem está fazendo a operação.</td>
+</tr>
+<tr>
+<td><code>action</code></td>
+<td>Number</td>
+<td style="text-align:center">Sim</td>
+<td>Ação a ser efetuada: <code>1</code> (Adesão) e <code>4</code> (Suspensão).</td>
+</tr>
+<tr>
+<td><code>onixCode</code></td>
+<td>Number</td>
+<td style="text-align:center">Sim</td>
+<td>Código do produto usado no cartão de saúde.</td>
+</tr>
+<tr>
+<td><code>cpfOrCnpj</code></td>
+<td>String</td>
+<td style="text-align:center">Sim</td>
+<td>Número de CPF do cliente.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>String</td>
+<td style="text-align:center">Sim</td>
+<td>Nome completo do cliente.</td>
+</tr>
+<tr>
+<td><code>birthdate</code></td>
+<td>String</td>
+<td style="text-align:center">Sim</td>
+<td>Data de nascimento do cliente.</td>
+</tr>
+<tr>
+<td><code>telephone</code></td>
+<td>String</td>
+<td style="text-align:center">Sim</td>
+<td>Número de celular do cliente com DDD.</td>
+</tr>
+<tr>
+<td><code>gender</code></td>
+<td>String</td>
+<td style="text-align:center">Sim</td>
+<td>Gênero do cliente (<code>M</code>/<code>F</code>).</td>
+</tr>
+<tr>
+<td><code>cardNumber</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Número do cartão de saúde (obrigatório em alguns produtos).</td>
+</tr>
+<tr>
+<td><code>majorCard</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Número do cartão pai.</td>
+</tr>
+<tr>
+<td><code>shortName</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Nome abreviado (usado no cartão).</td>
+</tr>
+<tr>
+<td><code>externalIdentifier</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Identificador externo usado para identificar o cartão e/ou cliente no sistema externo do parceiro.</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Um e-mail válido para contato com o cliente.</td>
+</tr>
+<tr>
+<td><code>address</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Endereço do cliente (logradouro)</td>
+</tr>
+<tr>
+<td><code>number</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Endereço do cliente (número)</td>
+</tr>
+<tr>
+<td><code>complement</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Endereço do cliente (complemento)</td>
+</tr>
+<tr>
+<td><code>neighborhood</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Endereço do cliente (bairro)</td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Endereço do cliente (cidade)</td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Endereço do cliente (UF)</td>
+</tr>
+<tr>
+<td><code>postalCode</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Endereço do cliente (CEP) - somente números</td>
+</tr>
+<tr>
+<td><code>rg</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Número do documento do cliente.</td>
+</tr>
+<tr>
+<td><code>documentType</code></td>
+<td>Number</td>
+<td style="text-align:center">Não</td>
+<td>Tipo de documento: <code>1</code> (RG), <code>2</code> (PASSAPORTE), <code>3</code> (CTPS) ou <code>4</code> (CNH).</td>
+</tr>
+<tr>
+<td><code>nationality</code></td>
+<td>String</td>
+<td style="text-align:center">Não</td>
+<td>Naturalidade do cliente.</td>
+</tr>
+<tr>
+<td><code>race</code></td>
+<td>Number</td>
+<td style="text-align:center">Não</td>
+<td>Etnia do cliente: <code>1</code> (Branca), <code>2</code> (Negra), <code>3</code> (Parda), <code>4</code> (Amarela), <code>5</code> (Indígena) ou <code>99</code> (sem informação).</td>
+</tr>
+<tr>
+<td><code>scholarity</code></td>
+<td>Number</td>
+<td style="text-align:center">Não</td>
+<td>Escolaridade do cliente: <code>1</code> (Analfabeto), <code>2</code> (Alfabetizado), <code>3</code> (1o Grau Incompleto), <code>4</code> (1o Grau Completo), <code>5</code> (2o Grau Incompleto) <code>6</code> (2o Grau Completo), <code>7</code> (Superior Incompleto), <code>8</code> (Superior Completo), <code>9</code> (Especialização), <code>10</code> (Mestrado), <code>11</code> (Doutorado) ou <code>99</code> (sem informação)</td>
+</tr>
+<tr>
+<td><code>incomeClass</code></td>
+<td>Number</td>
+<td style="text-align:center">Não</td>
+<td>Classe de rendimento: <code>1</code> (Até 1 salário mínimo), <code>2</code> (De 2 a 5 salários mínimos), <code>3</code> (De 5 a 10 salários mínimos), <code>4</code> (De 10 a 20 salários mínimos), <code>5</code> (Mais de 20 salários mínimos) ou <code>99</code> (Sem informação)</td>
+</tr>
+</tbody>
+</table>
 <p>No retorno de sucesso, os dados do cartão, seja novo ou pré-existente são retornados.</p>
 <p><em>Códigos de erro:</em></p>
 <ul>
@@ -119,15 +287,17 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
 </li>
 </ul>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/api/sempre/clients/load</span></div><div class="title"><strong>Request&nbsp;&nbsp;<code>Adesão</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer &lt;TOKEN&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">currentUser</span>": <span class="hljs-value"><span class="hljs-string">"BOP"</span></span>,
-  "<span class="hljs-attribute">action</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
+  "<span class="hljs-attribute">currentUser</span>": <span class="hljs-value"><span class="hljs-string">"&lt;USUÁRIO&gt;"</span></span>,
+  "<span class="hljs-attribute">action</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
   "<span class="hljs-attribute">cardNumber</span>": <span class="hljs-value"><span class="hljs-string">"1234567654321234"</span></span>,
-  "<span class="hljs-attribute">onixCode</span>": <span class="hljs-value"><span class="hljs-string">"9004"</span></span>,
+  "<span class="hljs-attribute">majorCard</span>": <span class="hljs-value"><span class="hljs-string">"null"</span></span>,
+  "<span class="hljs-attribute">onixCode</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ONIX_CODE&gt;"</span></span>,
   "<span class="hljs-attribute">cpfOrCnpj</span>": <span class="hljs-value"><span class="hljs-string">"28937645173"</span></span>,
   "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Maria Vitória Cunha"</span></span>,
   "<span class="hljs-attribute">shortName</span>": <span class="hljs-value"><span class="hljs-string">"M. V. Cunha"</span></span>,
   "<span class="hljs-attribute">birthdate</span>": <span class="hljs-value"><span class="hljs-string">"1991-11-12"</span></span>,
   "<span class="hljs-attribute">telephone</span>": <span class="hljs-value"><span class="hljs-string">"81996762941"</span></span>,
+  "<span class="hljs-attribute">externalIdentifier</span>": <span class="hljs-value"><span class="hljs-string">"null"</span></span>,
   "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"maria@exemplo.com"</span></span>,
   "<span class="hljs-attribute">gender</span>": <span class="hljs-value"><span class="hljs-string">"F"</span></span>,
   "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"Rua Teófilo Prado"</span></span>,
@@ -138,8 +308,11 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
   "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"SP"</span></span>,
   "<span class="hljs-attribute">postalCode</span>": <span class="hljs-value"><span class="hljs-string">"01310100"</span></span>,
   "<span class="hljs-attribute">rg</span>": <span class="hljs-value"><span class="hljs-string">"100345"</span></span>,
-  "<span class="hljs-attribute">documentType</span>": <span class="hljs-value"><span class="hljs-string">"SSP/RJ"</span></span>,
-  "<span class="hljs-attribute">nationality</span>": <span class="hljs-value"><span class="hljs-string">"Brasileira"</span>
+  "<span class="hljs-attribute">documentType</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+  "<span class="hljs-attribute">nationality</span>": <span class="hljs-value"><span class="hljs-string">"Brasileira"</span></span>,
+  "<span class="hljs-attribute">race</span>": <span class="hljs-value"><span class="hljs-number">99</span></span>,
+  "<span class="hljs-attribute">scholarity</span>": <span class="hljs-value"><span class="hljs-number">99</span></span>,
+  "<span class="hljs-attribute">incomeClass</span>": <span class="hljs-value"><span class="hljs-number">99</span>
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
@@ -149,16 +322,20 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Identificação de quem fez a operação"</span>
     </span>}</span>,
     "<span class="hljs-attribute">action</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Ação a ser efetuada (1: Adesão)"</span>
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Ação a ser efetuada: 1 (Adesão) e 4 (Suspensão)"</span>
     </span>}</span>,
     "<span class="hljs-attribute">cardNumber</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número do cartão"</span>
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número do cartão de saúde (obrigatório em alguns produtos)"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">majorCard</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número do cartão pai"</span>
     </span>}</span>,
     "<span class="hljs-attribute">onixCode</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Código do produto"</span>
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Código do produto usado no cartão de saúde"</span>
     </span>}</span>,
     "<span class="hljs-attribute">cpfOrCnpj</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
@@ -180,9 +357,13 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número de celular do cliente com DDD"</span>
     </span>}</span>,
+    "<span class="hljs-attribute">externalIdentifier</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Identificador externo usado para identificar o cartão e/ou cliente no sistema externo do parceiro."</span>
+    </span>}</span>,
     "<span class="hljs-attribute">email</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Um e-mail válido do cliente"</span>
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Um e-mail válido para contato com o cliente"</span>
     </span>}</span>,
     "<span class="hljs-attribute">gender</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
@@ -214,25 +395,36 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
     </span>}</span>,
     "<span class="hljs-attribute">postalCode</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Endereço do cliente (CEP, somente números)"</span>
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Endereço do cliente (CEP) - somente números"</span>
     </span>}</span>,
     "<span class="hljs-attribute">rg</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número do RG"</span>
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número do documento do cliente"</span>
     </span>}</span>,
     "<span class="hljs-attribute">documentType</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Tipo de documento (e.g. SSP, CNH, ...)"</span>
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Tipo de documento: 1 (RG), 2 (PASSAPORTE), 3 (CTPS) ou 4 (CNH)"</span>
     </span>}</span>,
     "<span class="hljs-attribute">nationality</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Nacionalidade do cliente"</span>
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Naturalidade do cliente."</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">race</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Etnia do cliente: 1 (Branca), 2 (Negra), 3 (Parda), 4 (Amarela), 5 (Indígena) ou 99 (sem informação)"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">scholarity</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Escolaridade do cliente: 1 (Analfabeto), 2 (Alfabetizado), 3 (1o Grau Incompleto), 4 (1o Grau Completo), 5 (2o Grau Incompleto) 6 (2o Grau Completo), 7 (Superior Incompleto), 8 (Superior Completo), 9 (Especialização), 10 (Mestrado), 11 (Doutorado) ou 99 (sem informação)"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">incomeClass</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Classe de rendimento: 1 (Até 1 salário mínimo), 2 (De 2 a 5 salários mínimos), 3 (De 5 a 10 salários mínimos), 4 (De 10 a 20 salários mínimos), 5 (Mais de 20 salários mínimos) ou 99 (Sem informação)"</span>
     </span>}
   </span>}</span>,
   "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
     <span class="hljs-string">"currentUser"</span>,
     <span class="hljs-string">"action"</span>,
-    <span class="hljs-string">"cardNumber"</span>,
     <span class="hljs-string">"onixCode"</span>,
     <span class="hljs-string">"cpfOrCnpj"</span>,
     <span class="hljs-string">"name"</span>,
@@ -251,7 +443,7 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
       "<span class="hljs-attribute">way</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
       "<span class="hljs-attribute">password</span>": <span class="hljs-value"><span class="hljs-string">"874125"</span></span>,
       "<span class="hljs-attribute">emitter</span>": <span class="hljs-value"><span class="hljs-string">"755"</span></span>,
-      "<span class="hljs-attribute">product</span>": <span class="hljs-value"><span class="hljs-string">"9004"</span>
+      "<span class="hljs-attribute">product</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ONIX_CODE&gt;"</span>
     </span>}</span>,
     "<span class="hljs-attribute">errors</span>": <span class="hljs-value">[]
   </span>}
@@ -322,8 +514,8 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
   "<span class="hljs-attribute">timestamp</span>": <span class="hljs-value"><span class="hljs-string">"2018-06-28"</span></span>,
   "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"Unauthorized"</span></span>,
   "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Unauthorized"</span></span>,
-  "<span class="hljs-attribute">path</span>": <span class="hljs-value"><span class="hljs-string">"/api/tim/oauth/token"</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 21 Jul 2018</p><script>/* eslint-env browser */
+  "<span class="hljs-attribute">path</span>": <span class="hljs-value"><span class="hljs-string">"/api/sempre/oauth/token"</span>
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 13 Nov 2018</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
