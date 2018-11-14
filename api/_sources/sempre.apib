@@ -164,6 +164,56 @@ _Códigos de erro:_
             + card (Card) - Informações do cartão ativada
             + errors (array) - Lista de erros
 
+## Atualiza Status do Cartão [/api/sempre/cards/update]
+
+### POST
+
+Faz a atualização de status de um cartão de saúde.
+
+A entrada deve ser um JSON com os seguintes campos:
+
+| Campos              | Tipo   | Obrigatório | Descrição                                                                                               |
+| ------------------- | ------ | :---------: | ------------------------------------------------------------------------------------------------------- |
+| `cardNumber`        | String | Sim         | Número do cartão de saúde.                                                                              |
+| `status`            | String | Sim         | O novo status para o cartão: `HABILITADO`, `SUSPENSO` ou `CANCELADO`.                                   |
+| `historyType`       | String | Sim         | O tipo de histórico da alteração do cartão: `HABILITACAO`, `SUSPENSAO`, `REATIVACAO` ou `CANCELAMENTO`. |
+| `reasonDescription` | String | Não         | Um texto qualquer para explicar o motivo da alteração de cartão.                                        |
+
+No retorno de sucesso, o status anterior e o novo são retornados.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido,
+  nesses casos, pode ser retornado uma lista dos erros encontrados.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Request Adesão (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Body
+    
+            {
+                "cardNumber": "6064070028552319", 
+                "status": "HABILITADO",
+                "historyType": "SUSPENSAO",
+                "reasonDescription": null
+            }
+
++ Response 202 (application/json)
+
+        {
+            "status": 202,
+            "defaultMessage": "Altera o status do cartão de saúde",
+            "body": {
+                "cardNumber": "6064070028552319",
+                "oldStatus": "SUSPENSO",
+                "newStatus": "HABILITADO",
+                "changed": true
+            }
+        }
+
 # Group Autorização
 
 ## Token [/api/sempre/oauth/token]
