@@ -112,6 +112,8 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <tr>
 <th>Campos</th>
 <th>Tipo</th>
+<th>Min.</th>
+<th>Máx.</th>
 <th style="text-align:center">Obrigatório</th>
 <th>Descrição</th>
 </tr>
@@ -120,156 +122,208 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <tr>
 <td><code>currentUser</code></td>
 <td>String</td>
+<td>1</td>
+<td>128</td>
 <td style="text-align:center">Sim</td>
 <td>Identificação de quem está fazendo a operação.</td>
 </tr>
 <tr>
 <td><code>action</code></td>
 <td>Number</td>
+<td>1</td>
+<td>1</td>
 <td style="text-align:center">Sim</td>
 <td>Ação a ser efetuada: <code>1</code> (Adesão) e <code>4</code> (Suspensão).</td>
 </tr>
 <tr>
 <td><code>onixCode</code></td>
 <td>Number</td>
+<td>4</td>
+<td>4</td>
 <td style="text-align:center">Sim</td>
 <td>Código do produto usado no cartão de saúde.</td>
 </tr>
 <tr>
 <td><code>cpfOrCnpj</code></td>
-<td>String</td>
+<td>Number</td>
+<td>11</td>
+<td>11</td>
 <td style="text-align:center">Sim</td>
 <td>Número de CPF do cliente.</td>
 </tr>
 <tr>
 <td><code>name</code></td>
 <td>String</td>
+<td>6</td>
+<td>50</td>
 <td style="text-align:center">Sim</td>
 <td>Nome completo do cliente.</td>
 </tr>
 <tr>
+<td><code>shortName</code></td>
+<td>String</td>
+<td>6</td>
+<td>20</td>
+<td style="text-align:center">Não</td>
+<td>Nome abreviado (usado no cartão).</td>
+</tr>
+<tr>
 <td><code>birthdate</code></td>
 <td>String</td>
+<td>10</td>
+<td>10</td>
 <td style="text-align:center">Sim</td>
-<td>Data de nascimento do cliente.</td>
+<td>Data de nascimento do cliente no formato yyyy-MM-dd.</td>
 </tr>
 <tr>
 <td><code>telephone</code></td>
 <td>String</td>
+<td>11</td>
+<td>11</td>
 <td style="text-align:center">Sim</td>
 <td>Número de celular do cliente com DDD.</td>
 </tr>
 <tr>
 <td><code>gender</code></td>
 <td>String</td>
+<td>1</td>
+<td>1</td>
 <td style="text-align:center">Sim</td>
 <td>Gênero do cliente (<code>M</code>/<code>F</code>).</td>
 </tr>
 <tr>
 <td><code>cardNumber</code></td>
 <td>String</td>
+<td>14</td>
+<td>16</td>
 <td style="text-align:center">Não</td>
 <td>Número do cartão de saúde (obrigatório em alguns produtos).</td>
 </tr>
 <tr>
 <td><code>majorCard</code></td>
 <td>String</td>
+<td>14</td>
+<td>16</td>
 <td style="text-align:center">Não</td>
 <td>Número do cartão pai.</td>
 </tr>
 <tr>
-<td><code>shortName</code></td>
-<td>String</td>
-<td style="text-align:center">Não</td>
-<td>Nome abreviado (usado no cartão).</td>
-</tr>
-<tr>
 <td><code>externalIdentifier</code></td>
 <td>String</td>
+<td>-</td>
+<td>20</td>
 <td style="text-align:center">Não</td>
 <td>Identificador externo usado para identificar o cartão e/ou cliente no sistema externo do parceiro.</td>
 </tr>
 <tr>
 <td><code>email</code></td>
 <td>String</td>
+<td>-</td>
+<td>200</td>
 <td style="text-align:center">Não</td>
 <td>Um e-mail válido para contato com o cliente.</td>
 </tr>
 <tr>
 <td><code>address</code></td>
 <td>String</td>
+<td>-</td>
+<td>40</td>
 <td style="text-align:center">Não</td>
 <td>Endereço do cliente (logradouro)</td>
 </tr>
 <tr>
 <td><code>number</code></td>
 <td>String</td>
+<td>-</td>
+<td>6</td>
 <td style="text-align:center">Não</td>
 <td>Endereço do cliente (número)</td>
 </tr>
 <tr>
 <td><code>complement</code></td>
 <td>String</td>
+<td>-</td>
+<td>20</td>
 <td style="text-align:center">Não</td>
 <td>Endereço do cliente (complemento)</td>
 </tr>
 <tr>
 <td><code>neighborhood</code></td>
 <td>String</td>
+<td>-</td>
+<td>50</td>
 <td style="text-align:center">Não</td>
 <td>Endereço do cliente (bairro)</td>
 </tr>
 <tr>
 <td><code>city</code></td>
 <td>String</td>
+<td>-</td>
+<td>50</td>
 <td style="text-align:center">Não</td>
 <td>Endereço do cliente (cidade)</td>
 </tr>
 <tr>
 <td><code>state</code></td>
 <td>String</td>
+<td>2</td>
+<td>2</td>
 <td style="text-align:center">Não</td>
 <td>Endereço do cliente (UF)</td>
 </tr>
 <tr>
 <td><code>postalCode</code></td>
 <td>String</td>
+<td>-</td>
+<td>8</td>
 <td style="text-align:center">Não</td>
 <td>Endereço do cliente (CEP) - somente números</td>
 </tr>
 <tr>
+<td><code>nationality</code></td>
+<td>String</td>
+<td>-</td>
+<td>20</td>
+<td style="text-align:center">Não</td>
+<td>Naturalidade do cliente.</td>
+</tr>
+<tr>
 <td><code>rg</code></td>
 <td>String</td>
+<td>-</td>
+<td>50</td>
 <td style="text-align:center">Não</td>
 <td>Número do documento do cliente.</td>
 </tr>
 <tr>
 <td><code>documentType</code></td>
 <td>Number</td>
+<td>1</td>
+<td>1</td>
 <td style="text-align:center">Não</td>
 <td>Tipo de documento: <code>1</code> (RG), <code>2</code> (PASSAPORTE), <code>3</code> (CTPS) ou <code>4</code> (CNH).</td>
 </tr>
 <tr>
-<td><code>nationality</code></td>
-<td>String</td>
-<td style="text-align:center">Não</td>
-<td>Naturalidade do cliente.</td>
-</tr>
-<tr>
 <td><code>race</code></td>
 <td>Number</td>
+<td>1</td>
+<td>1</td>
 <td style="text-align:center">Não</td>
 <td>Etnia do cliente: <code>1</code> (Branca), <code>2</code> (Negra), <code>3</code> (Parda), <code>4</code> (Amarela), <code>5</code> (Indígena) ou <code>99</code> (sem informação).</td>
 </tr>
 <tr>
 <td><code>scholarity</code></td>
 <td>Number</td>
+<td>1</td>
+<td>1</td>
 <td style="text-align:center">Não</td>
 <td>Escolaridade do cliente: <code>1</code> (Analfabeto), <code>2</code> (Alfabetizado), <code>3</code> (1o Grau Incompleto), <code>4</code> (1o Grau Completo), <code>5</code> (2o Grau Incompleto) <code>6</code> (2o Grau Completo), <code>7</code> (Superior Incompleto), <code>8</code> (Superior Completo), <code>9</code> (Especialização), <code>10</code> (Mestrado), <code>11</code> (Doutorado) ou <code>99</code> (sem informação)</td>
 </tr>
 <tr>
 <td><code>incomeClass</code></td>
 <td>Number</td>
+<td>1</td>
+<td>1</td>
 <td style="text-align:center">Não</td>
 <td>Classe de rendimento: <code>1</code> (Até 1 salário mínimo), <code>2</code> (De 2 a 5 salários mínimos), <code>3</code> (De 5 a 10 salários mínimos), <code>4</code> (De 10 a 20 salários mínimos), <code>5</code> (Mais de 20 salários mínimos) ou <code>99</code> (Sem informação)</td>
 </tr>
@@ -578,7 +632,7 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
   "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"Unauthorized"</span></span>,
   "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Unauthorized"</span></span>,
   "<span class="hljs-attribute">path</span>": <span class="hljs-value"><span class="hljs-string">"/api/sempre/oauth/token"</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 14 Nov 2018</p><script>/* eslint-env browser */
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 28 Nov 2018</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
