@@ -251,8 +251,8 @@ A depender do código retornado, o app seguirá com um comportamento diferente:
 | -------------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | `INVALID_CPF`                          | CPF digitado inválido.                    | Pedir novamente o CPF do usuário, exibindo um erro de validação.                                                    |
 | `CPF_PANEL_DOES_NOT_EXIST`             | Usuário não é um cliente da Rede TEM.     | Exibir uma mensagem de erro amigável ao usuário.                                                                    |
-| `CPF_PANEL_EXISTS_AND_HAS_NO_PASSWORD` | Cliente registrado, mas não possui senha. | Deve ser solicitada a senha do usuário de acordo com o [fluxo descrito](#).                                         |
-| `CPF_ELIGIBLE`                         | Cliente é um elegível ao cadastro.        | Deve ser solicitado os dados de cadastro do cliente, isso ocorre no [chat](#).                                      |
+| `CPF_PANEL_EXISTS_AND_HAS_NO_PASSWORD` | Cliente registrado, mas não possui senha. | Deve ser solicitada a senha do usuário de acordo com o [fluxo descrito](#login-e-cadastro).                         |
+| `CPF_ELIGIBLE`                         | Cliente é um elegível ao cadastro.        | Deve ser solicitado que o usuário escolha uma oferta e forneça os dados de cadastro para realizar a adesão.         |
 | `CPF_WITH_CARD_SEMPRE_DO_NOT_EXIST`    | Cliente sem registro no serviço do Sempre | Raramente esse código é retornado, no caso de retornar, o usuário deve ser informado a entrar em contato com o SAC. |
 :::
 
