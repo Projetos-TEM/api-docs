@@ -507,17 +507,63 @@ do cliente no sistema.</p>
 <p>Endpoint semi-aberto</p>
 </blockquote>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/api/app/account/create/eligible/free</span></div><div class="title"><strong>Request&nbsp;&nbsp;<code>Criar usuário</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Api-Token</span>: <span class="hljs-string">&lt;API_TOKEN&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">apiCode</span>": <span class="hljs-value"><span class="hljs-number">861</span></span>,
-  "<span class="hljs-attribute">smsCode</span>": <span class="hljs-value"><span class="hljs-string">"149754"</span></span>,
-  "<span class="hljs-attribute">cpf</span>": <span class="hljs-value"><span class="hljs-string">"42605973883"</span></span>,
-  "<span class="hljs-attribute">telephone</span>": <span class="hljs-value"><span class="hljs-string">"3174002975"</span></span>,
-  "<span class="hljs-attribute">password</span>": <span class="hljs-value"><span class="hljs-string">"zhahj8Ae"</span></span>,
-  "<span class="hljs-attribute">cardNumber</span>": <span class="hljs-value"><span class="hljs-string">"6064070019728919"</span></span>,
-  "<span class="hljs-attribute">birthdate</span>": <span class="hljs-value"><span class="hljs-string">"1944-01-12"</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><div class="description"><blockquote>
-<p>TODO: identificar resposta</p>
-</blockquote>
-</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div></div><div id="login-e-cadastro-validar-dados-para-alteração-de-senha" class="resource"><h3 class="resource-heading">Validar dados para alteração de senha <a href="#login-e-cadastro-validar-dados-para-alteração-de-senha" class="permalink">&nbsp;&para;</a></h3><div id="login-e-cadastro-validar-dados-para-alteração-de-senha-post" class="action post"><h4 class="action-heading"><div class="name"></div><a href="#login-e-cadastro-validar-dados-para-alteração-de-senha-post" class="method post">POST</a><code class="uri">/api/app/authentication/validate</code></h4><blockquote>
+    "<span class="hljs-attribute">apiCode</span>": <span class="hljs-value"><span class="hljs-number">861</span></span>,
+    "<span class="hljs-attribute">smsCode</span>": <span class="hljs-value"><span class="hljs-string">"149754"</span></span>,
+    "<span class="hljs-attribute">cpf</span>": <span class="hljs-value"><span class="hljs-string">"426.059.738-83"</span></span>,
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"João da Silva"</span></span>,
+    "<span class="hljs-attribute">gender</span>": <span class="hljs-value"><span class="hljs-string">"M"</span></span>,
+    "<span class="hljs-attribute">birthdate</span>": <span class="hljs-value"><span class="hljs-string">"1944-01-12"</span></span>,
+    "<span class="hljs-attribute">telephone</span>": <span class="hljs-value"><span class="hljs-string">"3174002975"</span></span>,
+    "<span class="hljs-attribute">password</span>": <span class="hljs-value"><span class="hljs-string">"zhahj8Ae"</span></span>,
+    "<span class="hljs-attribute">cardNumber</span>": <span class="hljs-value"><span class="hljs-string">"6064070019728919"</span></span>,
+    "<span class="hljs-attribute">cardValidator</span>": <span class="hljs-value"><span class="hljs-string">"233"</span></span>,
+    "<span class="hljs-attribute">channelId</span>": <span class="hljs-value"><span class="hljs-number">81</span></span>,
+    "<span class="hljs-attribute">idProduct</span>": <span class="hljs-value"><span class="hljs-number">257</span></span>,
+    "<span class="hljs-attribute">postalCode</span>": <span class="hljs-value"><span class="hljs-string">"49035-650"</span></span>,
+    "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"Rua da Paz"</span></span>,
+    "<span class="hljs-attribute">addressNumber</span>": <span class="hljs-value"><span class="hljs-string">"1770"</span></span>,
+    "<span class="hljs-attribute">complement</span>": <span class="hljs-value"><span class="hljs-string">"Casa"</span></span>,
+    "<span class="hljs-attribute">neighborhood</span>": <span class="hljs-value"><span class="hljs-string">"SUL DA ALMA"</span></span>,
+    "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Aracaju"</span></span>,
+    "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"SE"</span></span>,
+}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-number">200</span></span>,
+  "<span class="hljs-attribute">defaultMessage</span>": <span class="hljs-value"><span class="hljs-string">"Retorna dados do cliente elegível Free que foi criado"</span></span>,
+  "<span class="hljs-attribute">body</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-number">200</span></span>,
+    "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Cliente encontrado"</span></span>,
+    "<span class="hljs-attribute">client</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">121994</span></span>,
+      "<span class="hljs-attribute">birthdate</span>": <span class="hljs-value"><span class="hljs-string">"1973-06-18"</span></span>,
+      "<span class="hljs-attribute">cpf</span>": <span class="hljs-value"><span class="hljs-string">"426.059.738-83"</span></span>,
+      "<span class="hljs-attribute">telephone</span>": <span class="hljs-value"><span class="hljs-string">"(79) 99110-2728"</span></span>,
+      "<span class="hljs-attribute">hasAccount</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">product</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">325</span></span>,
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"CONTA FLEX - PLUS AP - POLIDOC TIMES"</span></span>,
+        "<span class="hljs-attribute">onix_code</span>": <span class="hljs-value"><span class="hljs-string">"5038"</span></span>,
+        "<span class="hljs-attribute">variable_tax</span>": <span class="hljs-value"><span class="hljs-string">"0.00"</span></span>,
+        "<span class="hljs-attribute">slip_tax</span>": <span class="hljs-value"><span class="hljs-string">"0.00"</span></span>,
+        "<span class="hljs-attribute">has_omt</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+        "<span class="hljs-attribute">has_aggregates</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+        "<span class="hljs-attribute">has_capitalization</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+        "<span class="hljs-attribute">has_drugstores</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+        "<span class="hljs-attribute">has_odonto</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+        "<span class="hljs-attribute">has_family</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+        "<span class="hljs-attribute">card_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">is_active</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+        "<span class="hljs-attribute">date_start_validity</span>": <span class="hljs-value"><span class="hljs-string">"2019-01-10"</span></span>,
+        "<span class="hljs-attribute">date_end_validity</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">has_low_security</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+        "<span class="hljs-attribute">hasInsurance</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+      </span>}</span>,
+      "<span class="hljs-attribute">card</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">number</span>": <span class="hljs-value"><span class="hljs-string">"6064070174258511"</span>
+      </span>}
+    </span>}</span>,
+    "<span class="hljs-attribute">membership</span>": <span class="hljs-value"><span class="hljs-literal">null</span>
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="login-e-cadastro-validar-dados-para-alteração-de-senha" class="resource"><h3 class="resource-heading">Validar dados para alteração de senha <a href="#login-e-cadastro-validar-dados-para-alteração-de-senha" class="permalink">&nbsp;&para;</a></h3><div id="login-e-cadastro-validar-dados-para-alteração-de-senha-post" class="action post"><h4 class="action-heading"><div class="name"></div><a href="#login-e-cadastro-validar-dados-para-alteração-de-senha-post" class="method post">POST</a><code class="uri">/api/app/authentication/validate</code></h4><blockquote>
 <p>Endpoint semi-aberto</p>
 </blockquote>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/api/app/authentication/validate</span></div><div class="title"><strong>Request&nbsp;&nbsp;<code>Validar</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Api-Token</span>: <span class="hljs-string">&lt;API_TOKEN&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{

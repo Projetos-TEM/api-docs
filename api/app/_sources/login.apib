@@ -543,18 +543,67 @@ A depender do código retornado, o app seguirá com um comportamento diferente:
             {
                 "apiCode": 861,
                 "smsCode": "149754",
-                "cpf": "42605973883",
+                "cpf": "426.059.738-83",
+                "name": "João da Silva",
+                "gender": "M",
+                "birthdate": "1944-01-12",
                 "telephone": "3174002975",
                 "password": "zhahj8Ae",
                 "cardNumber": "6064070019728919",
-                "birthdate": "1944-01-12"
+                "cardValidator": "233",
+                "channelId": 81,
+                "idProduct": 257,
+                "postalCode": "49035-650",
+                "address": "Rua da Paz",
+                "addressNumber": "1770",
+                "complement": "Casa",
+                "neighborhood": "SUL DA ALMA",
+                "city": "Aracaju",
+                "state": "SE",
             }
 
 + Response 200 (application/json)
 
-    > TODO: identificar resposta
-
     + Body
+
+            {
+                "status": 200,
+                "defaultMessage": "Retorna dados do cliente elegível Free que foi criado",
+                "body": {
+                    "status": 200,
+                    "message": "Cliente encontrado",
+                    "client": {
+                        "id": 121994,
+                        "birthdate": "1973-06-18",
+                        "cpf": "426.059.738-83",
+                        "telephone": "(79) 99110-2728",
+                        "hasAccount": true,
+                        "product": {
+                            "id": 325,
+                            "name": "CONTA FLEX - PLUS AP - POLIDOC TIMES",
+                            "onix_code": "5038",
+                            "variable_tax": "0.00",
+                            "slip_tax": "0.00",
+                            "has_omt": true,
+                            "has_aggregates": false,
+                            "has_capitalization": false,
+                            "has_drugstores": true,
+                            "has_odonto": false,
+                            "has_family": true,
+                            "card_title": null,
+                            "is_active": true,
+                            "date_start_validity": "2019-01-10",
+                            "date_end_validity": null,
+                            "has_low_security": false,
+                            "hasInsurance": true
+                        },
+                        "card": {
+                            "number": "6064070174258511"
+                        }
+                    },
+                    "membership": null
+                }
+            }
 
 ## Validar dados para alteração de senha [/api/app/authentication/validate]
 
