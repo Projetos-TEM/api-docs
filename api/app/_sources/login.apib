@@ -89,59 +89,89 @@ O fluxo inicial do app funciona de forma geral da seguinte forma:
 
 **Detectar o cliente**
 
-1. Na tela inicial, é solicitado que o usuário digite o seu CPF.
-2. A aplicação faz uma chamada para [`account/cpf`] para obter as informações de cadastro do CPF digitado.
-3. Se a resposta tiver código HTTP `200`, então vai para o passo **12**, senão vai para o passo **4**.
-4. Se a resposta tiver código HTTP `400`, existem 4 possibilidades:
-    - O CPF digitado é inválido, nesse caso, volta para o passo **1**.
+1. <a id="step-cpf-enter"></a>
+   Na tela inicial, é solicitado que o usuário digite o seu CPF.
+2. A aplicação faz uma chamada para <code>**[account/cpf]**</code> para obter as informações de cadastro do CPF digitado.
+3. Se a resposta tiver código HTTP `200`, então vai para o passo **[24]**, senão vai para o passo **[4]**.
+4. <a id="step-cpf-400"></a>
+   Se a resposta tiver código HTTP `400`, existem 4 possibilidades:
+    - O CPF digitado é inválido, nesse caso, volta para o passo **[1]**.
     - O usuário não é um cliente, nesse caso, o fluxo é encerrado com uma mensagem de erro amigável. ⬤
-    - O usuário é um elegível, nesse caso vai para o passo **5**.
-    - O usuário já é um cliente registrado, mas não possui senha cadastrada, nesse caso,
-      vai para o passo **13**.
+    - O usuário é um elegível, nesse caso vai para o passo **[5]**.
+    - O usuário já é um cliente registrado, mas não possui senha cadastrada, nesse caso, 
+      vai para o passo **[16]**.
 
 **Cadastrar o usuário**
 
-5. É solicitado ao usuário o número de telefone móvel para enviar um SMS com um código de autorização.
-6. A aplicação faz uma chamada para [`account/confirm-sms`][request-sms] com o CPF e o telefone do usuário, para
-   solicitar que o SMS seja enviado. Na resposta dessa chamada, a aplicação irá receber um código de API
-   para ser usado em seguida.
-7. Normalmente, o app detecta automaticamente o código de SMS recebido pelo aparelho, mas se não foi
-   detectado (comum quando o número está em outro dispositivo), o usuário deve digitar o código recebido
-   por SMS.
-8. A aplicação faz uma chamada para [`account/confirm-sms/{apiCode}/{smsCode}`][confirm-sms] com o código de API e
-   o código SMS digitado ou detectado no passo anterior.
-9. É solicitado ao usuário a senha de acesso ao app.
-10. É solicitado ao usuário escolher qual das ofertas de produtos disponíveis irá aderir
-    (os produtos ofertados estão no retorno de [`account/cpf`]).
-11. A aplicação faz uma chamada para [`account/create/eligible/free`][create-user] com o código de API, o código de SMS,
-    o CPF, o telefone, a senha e o produto escolhido para a adesão.
-12. A aplicação utilizará o CPF e a senha do usuário para obter o [token de acesso](#autenticação-token).
-    De posse do _token_, o usuário está logado. ⬤
+5. <a id="step-create-user"></a>
+   É solicitado ao usuário escolher qual das ofertas de produtos disponíveis irá aderir
+   (os produtos ofertados estão no retorno de <code>**[account/cpf]**</code>).
+6. É solicitado ao usuário os dados pessoais (nome, e-mail, data de nascimento, sexo), o número do cartão de saúde
+   (se o produto da oferta escolhida é _distributed_ - veja <code>**[account/cpf]**</code>) e os dados de endereço
+   (CEP, logradouro, número, complemento, bairro, cidade, estado).
+7. Com os dados pessoais preenchidos, a aplicação fará uma chamada para <code>**[account/email]**</code> afim de validar se o
+   e-mail informado é válido e já não está cadastrado (com outro CPF).
+8. Se o número do cartão de saúde é obrigatório, a aplicação também fará uma chamada para <code>**[cards/{number}/validate]**</code> afim
+   de validar se o cartão informado é válido e já não está associado a outro cliente.
+9. É solicitado ao usuário o número de telefone móvel para enviar um SMS com um código de autorização.
+10. <a id="step-sms-send"></a>
+    A aplicação faz uma chamada para <code>**[account/confirm-sms][request-sms]**</code> com o CPF e o telefone do usuário, para
+    solicitar que o SMS seja enviado. Na resposta dessa chamada, a aplicação irá receber um código de API
+    para ser usado em seguida.
+11. Normalmente, o app detecta automaticamente o código de SMS recebido pelo aparelho, mas se não foi
+    detectado (comum quando o número está em outro dispositivo), o usuário deve digitar o código recebido
+    por SMS.
+12. <a id="step-sms-confirm"></a>
+    A aplicação faz uma chamada para <code>**[account/confirm-sms/{apiCode}/{smsCode}][confirm-sms]**</code> com o código de API e
+    o código SMS digitado ou detectado no passo anterior.
+13. É solicitado ao usuário para cadastrar a senha de acesso ao app.
+14. A aplicação faz uma chamada para <code>**[account/create/eligible/free][create-user]**</code> com o código de API, o código de SMS,
+    os dados pessoais, de endereço, o número do cartão (se requerido), a senha e o produto escolhido para a adesão.
+15. No sucesso, o usuário está cadastrado, vai para o passo **[24]**. ⬤
 
 **Cadastrar a senha**
 
-13. Quando o usuário já é um cliente, mas ainda não possui senha, existem duas formas da aplicação lidar:
+16. <a id="step-password-create"></a>
+    Quando o usuário já é um cliente, mas ainda não possui senha, existem duas formas da aplicação lidar:
     - O produto do cliente está configurado como baixa segurança, nesse caso, algumas validações não serão
-      realizadas: pula para o passo **15**.
+      realizadas: pula para o passo **[18]**.
     - O produto não possui a flag de baixa segurança, portanto todas as validações serão realizadas.
-14. É solicitado ao usuário o número do cartão de saúde (_não solicita em produto de baixa segurança_).
-15. É solicitado ao usuário a data de nascimento do cliente.
-16. A aplicação faz uma chamada para [`authentication/validate`] para validar os dados digitados com o do cliente já cadastrado.
+17. É solicitado ao usuário o número do cartão de saúde (_não solicita em produto de baixa segurança_).
+18. <a id="step-password-skip-card"></a>
+    É solicitado ao usuário a data de nascimento do cliente.
+19. A aplicação faz uma chamada para <code>**[authentication/validate]**</code> para validar os dados digitados com o do cliente já cadastrado.
     - Se a resposta tiver código `200`, então continua o processo.
     - Senão, solicita novamente os dados para o usuário.
-17. É solicitado ao usuário o número de telefone móvel para enviar um SMS com um código de autorização.
-18. Faz o mesmo processo de confirmação de SMS dos passos **6** a **8**.
-19. A aplicação faz uma chamada para [`authentication/save`] com o código de API, o código de SMS, o CPF, telefone, 
-    os dados digitados (se exigido) e a senha.
-20. No sucesso, vai para o passo **12**. ⬤
+20. É solicitado ao usuário o número de telefone móvel para enviar um SMS com um código de autorização.
+21. Faz o mesmo processo de confirmação de SMS dos passos **[10]** a **[12]**.
+22. A aplicação faz uma chamada para <code>**[authentication/save]**</code> com o código de API, o código de SMS, o CPF, telefone, 
+    o número do cartão (se exigido) e a senha.
+23. No sucesso, vai para o passo **[24]**.
+
+**Autenticar**
+
+24. <a id="step-token"></a>
+    A aplicação utilizará o CPF e a senha do usuário para obter o [token de acesso](#autenticação-token).
+    De posse do _token_, o usuário está logado
+
+[1]: #step-cpf-enter
+[4]: #step-cpf-400
+[5]: #step-create-user
+[10]: #step-sms-send
+[12]: #step-sms-confirm
+[16]: #step-password-create
+[18]: #step-password-skip-card
+[24]: #step-token
 :::
 
-[`account/cpf`]: #login-e-cadastro-informações-de-cadastro
+[account/cpf]: #login-e-cadastro-informações-de-cadastro
+[account/email]: #login-e-cadastro-validação-do-e-mail
+[cards/{number}/validate]: #login-e-cadastro-validação-do-cartão-de-saúde
 [request-sms]: #login-e-cadastro-solicita-o-envio-de-sms
 [confirm-sms]: #login-e-cadastro-confirmação-do-sms
 [create-user]: #login-e-cadastro-cria-um-usuário-elegível
-[`authentication/validate`]: #login-e-cadastro-validar-dados-para-alteração-de-senha
-[`authentication/save`]: #login-e-cadastro-atualizar-a-senha-do-app
+[authentication/validate]: #login-e-cadastro-validar-dados-para-alteração-de-senha
+[authentication/save]: #login-e-cadastro-atualizar-a-senha-do-app
 
 :::warning
 ### Endpoints semi-abertos
@@ -323,6 +353,123 @@ A depender do código retornado, o app seguirá com um comportamento diferente:
                         }
                     ]
                 }
+            }
+
+## Validação do e-mail [/api/app/account/email{?email}]
+
+### GET
+
+> Endpoint semi-aberto
+
++ Parameters
+    + `email`: `joao@exemplo.com` (string) - O endereço de e-mail completo.
+
++ Request Validar e-mail (application/json)
+    + Headers
+    
+            Api-Token: <API_TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Verifica se o email passado existe nas bases",
+            "body": {
+                "emailSempre": true,
+                "emailPainel": true
+            }
+        }
+
+## Validação do cartão de saúde [/api/app/cards/{number}/validate{?cvv}]
+
+### GET
+
+> Endpoint semi-aberto
+
++ Parameters
+    + `number`: `6064070025032400` (number) - O número do cartão de saúde.
+    + `cvv`: `123` (number) - O código de segurança do cartão de saúde.
+
++ Request Validar cartão (application/json)
+    + Headers
+    
+            Api-Token: <API_TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "message": "O cartão informado é válido",
+            "body": {
+                "id": 250324,
+                "status": "Comercialização",
+                "statusCode": 6,
+                "number": "6064070025032400",
+                "cvv": "123",
+                "via": "1",
+                "validityDate": null,
+                "expireDate": "2023-09-20T20:53:47",
+                "insertDate": "2018-09-21T20:53:47",
+                "deletedAt": null,
+                "associationStartDate": null,
+                "acquisitionDate": "2018-09-21T20:53:47",
+                "balance": 0,
+                "emitter": "606407",
+                "client": null,
+                "product": {
+                    "id": 257,
+                    "onix_code": "1234",
+                    "card_title": "PRODUTO TEM",
+                    "benefits": [
+                        {
+                        "icon": "https://qa-loja.meutem.com.br/assets/images/clients/sidneyoliveira/ico-ben-especialidades.png",
+                        "text": "Consultas a partir de R$ 70 em mais de 4 mil clínicas, consultórios e laboratórios."
+                        },
+                        {
+                        "icon": "https://qa-loja.meutem.com.br/assets/images/clients/sidneyoliveira/ico-ben-dentistas.png",
+                        "text": "Atendimento odontológico para procedimentos e exames."
+                        },
+                        {
+                        "icon": "https://qa-loja.meutem.com.br/assets/images/clients/sidneyoliveira/ico-ben-exames.png",
+                        "text": "Consultas agendadas em até 10 dias."
+                        },
+                        {
+                        "icon": "https://qa-loja.meutem.com.br/assets/images/clients/sidneyoliveira/ico-radio-family.png",
+                        "text": "Plano familiar. Isso significa que poderá agendar atendimentos para você, seu cônjuge (marido/esposa) e filhos até 21 anos."
+                        },
+                        {
+                        "icon": "https://qa-loja.meutem.com.br/assets/images/clients/sidneyoliveira/ico-ben-family_funeral.png",
+                        "text": "Funeral familiar."
+                        },
+                        {
+                        "icon": "https://qa-loja.meutem.com.br/assets/images/clients/sidneyoliveira/ico-ben-health_tips.png",
+                        "text": "Dicas de saúde."
+                        }
+                    ]
+                }
+            }
+        }
+
++ Response 400 (application/json)
+
+    > Caso o cartão já esteja associado a um cliente!
+    
+    + Body
+
+            {
+                "status": 400,
+                "message": "Cartão informado já está ativado!"
+            }
+
++ Response 403 (application/json)
+
+    > Caso o código de segurança seja inválido!
+
+    + Body
+
+            {
+                "status": 403,
+                "message": "O código validador não confere com o cartão informado"
             }
 
 ## Solicita o envio de SMS [/api/app/account/confirm-sms]
