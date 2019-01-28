@@ -605,7 +605,7 @@ A depender do código retornado, o app seguirá com um comportamento diferente:
                 }
             }
 
-## Validar dados para alteração de senha [/api/app/authentication/validate]
+## Validar dados para criar senha [/api/app/authentication/validate]
 
 ### POST
 
@@ -619,21 +619,28 @@ A depender do código retornado, o app seguirá com um comportamento diferente:
     + Body
 
             {
-                "apiCode": 258,
-                "smsCode": "265897",
+                "cpf": "42605973883",
                 "cardNumber": "6064070019728919",
                 "birthdate": "1944-01-12"
             }
 
 + Response 200 (application/json)
 
-## Atualizar a senha do app [/api/app/authentication/save]
+        {
+            "status": 200,
+            "defaultMessage": "Valida dados do cliente",
+            "body": "Validação realizada com sucesso"
+        }
+
+## Criar a senha do app [/api/app/authentication/save]
 
 ### POST
 
 > Endpoint semi-aberto
 
-+ Request Atualizar (application/json)
+Cria uma senha para o acesso ao app: utilizado quando a senha do usuário não existe.
+
++ Request  (application/json)
     + Headers
     
             Api-Token: <API_TOKEN>
@@ -652,9 +659,108 @@ A depender do código retornado, o app seguirá com um comportamento diferente:
 
 + Response 200 (application/json)
 
-    > TODO: identificar resposta
+        {
+            "status": 200,
+            "defaultMessage": "Salva a senha do cliente",
+            "body": {
+                "id": 11636,
+                "name": null,
+                "email": null,
+                "linkPhoto": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
+                "hasAccount": true,
+                "cardNumber": "6064070019728919",
+                "useTermLink": null,
+                "ccv": null,
+                "emitter": null,
+                "copy": null,
+                "cardLink": null,
+                "cpf": "426.059.738-83"
+            }
+        }
+
+## Group Gerenciamento da senha
+
+### Esqueci a Senha [/api/app/account/forgot-password]
+
+#### POST
+
+> Endpoint semi-aberto
+
+Solicita um pedido de recuperação de senha.
+
+Ao chamar esse endpoint, uma mensagem de SMS será enviado com um código para autenticar.
+
++ Request  (application/json)
+    + Headers
+
+            Api-Token: <API_TOKEN>
 
     + Body
+
+            {
+                "cpf": "42605973883",
+                "telephone": "3174002975"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Envia um SMS para o celular cadastrado",
+            "body": {
+                "apiCode": 8386,
+                "timeOut": 100,
+                "startPosition": 21,
+                "phoneNumber": "3174002975",
+                "smsCodeLength": 6
+            }
+        }
+
+### Criar nova senha esquecida [/api/app/authentication/save-password]
+
+### POST
+
+> Endpoint semi-aberto
+
+Salva uma nova senha: esse endpoint é utilizado após o pedido de recuperação de senha.
+
++ Request  (application/json)
+    + Headers
+    
+            Api-Token: <API_TOKEN>
+
+    + Body
+
+            {
+                "apiCode": 258,
+                "smsCode": "265897",
+                "cpf": "42605973883",
+                "telephone": "3174002975",
+                "cardNumber": "6064070019728919",
+                "birthdate": "1944-01-12",
+                "password": "zhahj8Ae"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Salva a senha do cliente",
+            "body": {
+                "id": 11636,
+                "name": null,
+                "email": null,
+                "linkPhoto": "http://qa-loja.meutem.com.br/assets/images/UsuarioSemFoto.png",
+                "hasAccount": true,
+                "cardNumber": "6064070019728919",
+                "useTermLink": null,
+                "ccv": null,
+                "emitter": null,
+                "copy": null,
+                "cardLink": null,
+                "cpf": "426.059.738-83"
+            }
+        }
 
 ## Group Tipos de dados
 

@@ -31,19 +31,19 @@ Consulte o endpoint de [obtenção de token] para mais detalhes.
 
 [obtenção de token]: login.html#autenticação-token
 
-# Group Endpoints
+# Group Especialidades
 
 ## Lista de especialidades [/api/app/specialties]
 
-Retorna todas as especialidades fornecidas pela Rede TEM.
+### GET
+
+Retorna todas as especialidades oferecidas pela Rede TEM.
 
 No retorno de sucesso, uma lista de especialidades é retornada.
 
 _Códigos de erro:_
 
 - `401`: para erros relativos à autenticação ou à autorização.
-
-### GET
 
 + Request
     + Headers
@@ -82,7 +82,9 @@ _Códigos de erro:_
 
 ## Especialidades por um filtro [/api/app/specialties/{query}]
 
-Busca de especialidades fornecidas pela Rede TEM por um filtro.
+### GET
+
+Busca de especialidades oferecidas pela Rede TEM por um filtro.
 
 No retorno de sucesso, uma lista de especialidades é retornada.
 
@@ -90,10 +92,8 @@ _Códigos de erro:_
 
 - `401`: para erros relativos à autenticação ou à autorização.
 
-### GET
-
 + Parameters
-    + query (required, string) - filtro do nome da especialidade; pode passar qualquer parte do nome.
+    + query: `CARDIO` (required, string) - filtro do nome da especialidade; pode passar qualquer parte do nome.
 
 + Request
     + Headers
@@ -157,7 +157,80 @@ _Códigos de erro:_
             ]
         }
 
+## Especialidades e Sintomas [/api/app/specialties-symptoms/{query}]
+
+### GET
+
+Busca de especialidades oferecidas pela Rede TEM e seus sintomas por um filtro.
+
+No retorno de sucesso, são retornadas uma lista de especialidades e uma lista de sintomas.
+
+_Códigos de erro:_
+
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Parameters
+    + query: `CABECA` (required, string) - filtro do nome da especialidade; pode passar qualquer parte do nome.
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna todas as especialidades e sintomas de acordo com o parâmetro passado",
+            "body": {
+                "specialties": [
+                    {
+                        "name": "CIRURGIA DE CABECA E PESCOCO",
+                        "id": 75
+                    }
+                ],
+                "symptom": [
+                    {
+                        "name": "Dor de cabeça",
+                        "id": 1
+                    }
+                ]
+            }
+        }
+
+## Descrição da Especialidade [/api/app/specialties/description/{specialtyId}]
+
+### GET
+
+Obtém a descrição de uma certa especialidade.
+
+No retorno de sucesso, é retornado a descrição da especialidade.
+
+_Códigos de erro:_
+
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Parameters
+    + specialtyId: `61` (number, required) - o identificador único da especialidade.
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna a descrição da especialidade de acordo com o parâmetro passado",
+            "body": "Acunputura é ramo da medicina chinesa tradicional que consiste em introduzir agulhas metálicas em pontos precisos do corpo de um paciente, para tratar de diferentes doenças ou provocar efeito anestésico."
+        }
+
+# Group Prestadores
+
 ## Prestadores por especialidade [/api/app/specialties/{id}/providers{?latitude,longitude,radius,place}]
+
+### GET
 
 Busca por prestadores conveniados de uma certa especialidade, em dadas coordenadas.
 
@@ -174,8 +247,6 @@ _Códigos de erro:_
     + longitude: `-46.702628` (number) - a posição da longitude.
     + radius: `6` (number) - raio da busca, em quilômetros. Pode-se indicar metros, usando frações.
     + place (optional, string) - filtro do nome do local (cidade, estado ou bairro).
-
-### GET
 
 + Request
     + Headers
@@ -237,4 +308,58 @@ _Códigos de erro:_
                     "uf": null
                 }
             ]
+        }
+
+# Group Farmácias
+
+## Busca de Farmácias [/api/app/drugstores-custom?{latitude,longitude,radius,description}]
+
+### GET
+
+Busca por farmácias conveniadas, em dadas coordenadas e dada descrição.
+
+No retorno de sucesso, uma lista de farmácias e suas coordenadas será retornada.
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Parameters
+    + latitude: `-10.9225431` (number) - a posição da latitude.
+    + longitude: `-37.0756198` (number) - a posição da longitude.
+    + radius: `0.8` (number) - raio da busca, em quilômetros. Pode-se indicar metros, usando frações.
+    + description: DROGASIL (optional, string) - filtro com o nome da farmácia buscada.
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna todas as farmácias de acordo com os parâmetros passados",
+            "body": {
+                "status": 200,
+                "drugstores": [
+                    {
+                        "DT_RowId": "8201",
+                        "id": "8201",
+                        "name": "DROGASIL",
+                        "address": "AV. GONCALO ROLEMBERG",
+                        "number": "1813",
+                        "neighborhood": "LUZIA",
+                        "city": "ARACAJU",
+                        "state": "SE",
+                        "postal_code": "49045280",
+                        "telephone": "",
+                        "latitude": "-10.92896410",
+                        "longitude": "-37.06605320",
+                        "created_at": "2018-03-20 11:43:02",
+                        "distance": "0.7861996587577161"
+                    }
+                ]
+            }
         }

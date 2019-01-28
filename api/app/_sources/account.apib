@@ -1,0 +1,401 @@
+FORMAT: 1A
+
+# Informações da Conta (Aplicação TEM Saúde)
+
+Documentação de referência da API REST para a implementação da aplicação mobile da Rede TEM.
+
+## URL
+
+A URL base da API depende do ambiente:
+
+<dl>
+<dt>Homologação</dt>
+<dd>https://qa-api-app.temrede.com.br</dd>
+<dt>Produção</dt>
+<dd>https://api-app.temrede.com.br</dd>
+</dl>
+
+> O endereço de produção só funciona para IP previamente liberado.
+
+## Group Autenticação
+
+### Sobre a autenticação
+
+A não ser nos endpoints especificados, essa API exige autenticação usando o método OAuth 2.0 com
+tokens descartáveis, obtidos previamente.
+
+Consulte o endpoint de [obtenção de token] para mais detalhes.
+
+[obtenção de token]: login.html#autenticação-token
+
+## Group Endpoints
+
+### Dados do cliente logado [/api/app/authentication/autheticated-user]
+
+#### POST
+
+Obtém os dados do cliente autenticado.
+
++ Request  (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Body
+
+            {
+                "cpf": "05910470558",
+                "cardNumber": "6064070171849314"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna dados do cliente que está logado",
+            "body": {
+                "status": 200,
+                "message": "Cliente encontrado",
+                "client": {
+                    "id": 11636,
+                    "name": "ALICEFRAN",
+                    "gender": "feminino",
+                    "linkPhoto": null,
+                    "birthdate": "1991-07-13",
+                    "cpf": "059.104.705-58",
+                    "email": "FRANCO.LICEEE@GMAIL.COM",
+                    "telephone": "(79) 99128-3019",
+                    "telephone_2": null,
+                    "hasAccount": true,
+                    "createdAt": null,
+                    "product": {
+                        "id": 316,
+                        "name": "SIDNEY OLIVEIRA SAÚDE",
+                        "benefits": null,
+                        "value": null,
+                        "cycle": null,
+                        "isFree": null,
+                        "isDistributed": null,
+                        "isGenerated": null,
+                        "hasInsurance": true,
+                        "onix_code": "5032",
+                        "variable_tax": 0.00,
+                        "has_omt": false,
+                        "has_aggregates": false,
+                        "has_capitalization": false,
+                        "has_drugstores": false,
+                        "has_odonto": false,
+                        "has_family": true,
+                        "card_title": "SIDNEY OLIVEIRA SAÚDE",
+                        "card_src": null,
+                        "payment_method": null,
+                        "slip_tax": "2.50",
+                        "is_active": true,
+                        "date_start_validity": "2018-12-14",
+                        "date_end_validity": "2019-12-14",
+                        "is_third_party": null,
+                        "has_low_security": false
+                    },
+                    "channel": {
+                        "id": 81,
+                        "name": "SIDNEY OLIVEIRA SAÚDE",
+                        "onix_code": "5032",
+                        "variable_tax": 0.00,
+                        "has_omt": false,
+                        "has_aggregates": false,
+                        "has_capitalization": false,
+                        "has_drugstores": false,
+                        "has_odonto": false,
+                        "has_family": false,
+                        "minimum_value": null,
+                        "slip_tax": "0.00",
+                        "url_faq": "360001024791"
+                    },
+                    "card": {
+                        "id": 141377,
+                        "number": "6064070171849314",
+                        "validator": "813",
+                        "emitter": "606407",
+                        "copy": 1,
+                        "url": "https://s3-sa-east-1.amazonaws.com/qa.media.meutem/landing_pages_logos/1546029047.PNG",
+                        "partner_url": null
+                    },
+                    "address": {
+                        "id": 141074,
+                        "postal_code": "800352-30",
+                        "address": "CEL AMAZONAS MARCONDES",
+                        "number": "1065",
+                        "complement": "AP 302",
+                        "neighborhood": "CABRAL",
+                        "city": "CURITIBA",
+                        "state": "PR",
+                        "latitude": null,
+                        "longitude": null,
+                        "created_at": "2019-01-08 16:19:04",
+                        "updated_at": "2019-01-28 18:45:09",
+                        "deleted_at": null,
+                        "root_tmp_id_fk": null
+                    }
+                },
+                "membership": null
+            }
+        }
+
+### Saldo do cartão [/api/app/account/balance/{cardNumber}]
+
+#### GET
+
+Obtém o saldo do cartão de saúde.
+
++ Parameters
+    + `cardNumber`: `6064070019728919` (number, required) - Número de cartão de saúde do cliente (somente números).
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+            {
+                "status": 200,
+                "defaultMessage": "Retorna saldo do cartão",
+                "body": {
+                    "balance": 130.00,
+                    "saved": 0
+                }
+            }
+
+### Alteração de dados pessoais [/api/app/account/clients/{cpf}]
+
+### PUT
+
+Atualiza os dados pessoais da conta do usuário.
+
++ Parameters
+    + cpf: `42605973883` (number, required) - O número de CPF do usuário.
+
++ Request  (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Body
+
+            {
+                "cardNumber": "6064070171849314",
+                "address": "CEL AMAZONAS MARCONDES",
+                "city": "CURITIBA",
+                "neighborhood": "CABRAL",
+                "state": "PR",
+                "complement": "AP 1001",
+                "number": "999",
+                "postalCode": "80035230"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Atualiza dados de endereço do cliente",
+            "body": {
+                "message": "Atualizado com sucesso"
+            }
+        }
+
+### Alteração da senha de acesso [/api/app/account/clients/{cpf}/password]
+
+#### PUT
+
+<!-- FIXME: INVALID_PASSWORD -->
+
+Atualiza a senha de acesso ao aplicativo e à área restrita do site.
+
++ Parameters
+    + cpf: `42605973883` (number, required) - O número de CPF do usuário.
+
++ Request  (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Body
+
+            {
+                "newPassword": "12345678"
+            }
+
++ Response 200 (application/json)
+
+            {
+                "status": 200,
+                "defaultMessage": "Alteração de senha de acesso",
+                "body": "Senha alterada com sucesso"
+            }
+
+### Alteração da senha do cartão [/api/app/cards/{number}/password]
+
+#### PUT
+
+<!-- FIXME: CARD_BELONG_TO_OTHER_CPF, INVALID_PASSWORD -->
+
+Atualiza a senha do cartão de saúde (usado para pagar as consultas e exames).
+
++ Parameters
+    + `number`: `6064070019728919` (number, required) - Número de cartão de saúde do cliente (somente números).
+
++ Request  (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
+    + Body
+
+            {
+                "newPassword": "123456"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Alteração de senha do cartão de saúde",
+            "body": "Senha alterada e enviada por SMS para o telefone: (99) 99999-9999"
+        }
+
+### Números da Sorte [/api/app/cards/{number}/luckytickets]
+
+#### GET
+
+Obtém os números da sorte associados ao cartão de saúde solicitado.
+
++ Parameters
+    + `number`: `6064070019728919` (number, required) - Número de cartão de saúde do cliente (somente números).
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna os números da sorte do cartão",
+            "body": [
+                {
+                    "number": "175650",
+                    "serial": "001",
+                    "startDate": "2018-08-01",
+                    "endDate": null,
+                    "prize": 20000,
+                    "status": true
+                },
+                {
+                    "number": "091684",
+                    "serial": "001",
+                    "startDate": "2018-08-01",
+                    "endDate": null,
+                    "prize": 20000,
+                    "status": true
+                },
+                {
+                    "number": "024344",
+                    "serial": "001",
+                    "startDate": "2018-08-01",
+                    "endDate": null,
+                    "prize": 20000,
+                    "status": true
+                }
+            ]
+        }
+
+### Benefícios do Cartão [/api/app/cards/benefits/{number}]
+
+#### GET
+
+Obtém os benefícios do produto associado ao cartão de saúde solicitado.
+
++ Parameters
+    + `number`: `6064070019728919` (number, required) - Número de cartão de saúde do cliente (somente números).
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna dados relacionados ao cartão",
+            "body": {
+                "status": 200,
+                "message": "Benefícios encontrados",
+                "channel": null,
+                "product": null,
+                "benefits": [
+                    {
+                        "icon": "https://loja.meutem.com.br/assets/images/ico-ben-especialidades.png",
+                        "text": "Consultas a partir de R$ 70 em mais de 4 mil clínicas, consultórios e laboratórios."
+                    },
+                    {
+                        "icon": "https://loja.meutem.com.br/assets/images/ico-ben-daily_hospital_stay.png",
+                        "text": "Diária de internação hospitalar."
+                    },
+                    {
+                        "icon": "https://loja.meutem.com.br/assets/images/ico-ben-virtual_card.png",
+                        "text": "Cartão virtual."
+                    },
+                    {
+                        "icon": "https://loja.meutem.com.br/assets/images/ico-ben-familia.png",
+                        "text": "20% de desconto na compra de qualquer medicamento."
+                    },
+                    {
+                        "icon": "https://loja.meutem.com.br/assets/images/ico-ben-exames.png",
+                        "text": "Consultas agendadas em até 10 dias."
+                    },
+                    {
+                        "icon": "https://loja.meutem.com.br/assets/images/ico-radio-family.png",
+                        "text": "Plano familiar. Isso significa que poderá agendar atendimentos para você, seu cônjuge (marido/esposa) e filhos até 21 anos."
+                    },
+                    {
+                        "icon": "https://loja.meutem.com.br/assets/images/ico-ben-omt.png",
+                        "text": "Serviços de Orientação de Saúde 24h por dia por telefone."
+                    },
+                    {
+                        "icon": "https://loja.meutem.com.br/assets/images/ico-ben-capitalizacao.png",
+                        "text": "Concorra a prêmios de R$ 20 mil todo mês com um número da sorte."
+                    }
+                ]
+            }
+        }
+
+### Apólices [/api/app/apolices/pdf/{number}]
+
+#### GET
+
+Obtém as apólices vinculados ao cartão de saúde solicitado.
+
++ Parameters
+    + `number`: `6064070019728919` (number, required) - Número de cartão de saúde do cliente (somente números).
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna dados de apólice",
+            "body": {
+                "billet": "7182016600044",
+                "acquisitionDate": "2019-01-07 10:31:27",
+                "vigencyStart": "2019-01-25",
+                "vigencyEnd": "2019-02-24",
+                "insurance": true,
+                "url": "https://qa-api.meutem.com.br/app/cards/6064070173825315/billet/7182016600044/print"
+            }
+        }
