@@ -22,13 +22,13 @@ A URL base depende do ambiente:
 Essa API exige autenticação usando o método OAuth 2.0.
 As credenciais para obter o token devem ser solicitadas previamente.
 
-# Group Endpoints
+# Group Listagens Básicas
 
 ## Lista de especialidades [/api/app/specialties]
 
 Retorna todas as especialidades fornecidas pela Rede TEM.
 
-No retorno de sucesso, uma lista de prestadores é retornada.
+No retorno de sucesso, uma lista de especialidades é retornada.
 
 _Códigos de erro:_
 
@@ -43,33 +43,1032 @@ _Códigos de erro:_
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id": 61,
-                "name": "ACUPUNTURA"
-            },
-            {
-                "id": 70,
-                "name": "ALERGIA E IMUNOLOGIA"
-            },
-            {
-                "id": 114,
-                "name": "ANALISES CLINICA"
-            },
-            {
-                "id": 115,
-                "name": "ANATOMIA PATOLOGICA"
-            },
-            {
-                "id": 50,
-                "name": "ANGIOLOGIA"
-            },
-            {
-                "id": 41,
-                "name": "CARDIOLOGIA"
-            },
-            ⋮
-        ]
+        {
+            "status": 200,
+            "defaultMessage": "Retorna todas as especialidades",
+            "body": [
+                {
+                    "name": "ACUPUNTURA",
+                    "id": 61
+                },
+                {
+                    "name": "ALERGIA E IMUNOLOGIA",
+                    "id": 70
+                },
+                {
+                    "name": "ALERGIA E IMUNOLOGIA PEDIATRICA",
+                    "id": 71
+                },
+                {
+                    "name": "ALERGOLOGIA",
+                    "id": 58
+                },
+                {
+                    "name": "ANGIOLOGIA",
+                    "id": 50
+                },
+                {
+                    "name": "AUDIOMETRIA",
+                    "id": 215
+                },
+                {
+                    "name": "BUCO MAXILO",
+                    "id": 128
+                },
+                {
+                    "name": "CANCEROLOGIA",
+                    "id": 64
+                },
+                {
+                    "name": "CARDIOLOGIA",
+                    "id": 41
+                },
+                {
+                    "name": "CARDIOLOGIA PEDIATRICA",
+                    "id": 72
+                },
+                {
+                    "name": "CLINICA MEDICA",
+                    "id": 3
+                },
+                {
+                    "name": "CLINICA MEDICA PEDIATRICA",
+                    "id": 116
+                },
+                {
+                    "name": "COLOPROCTOLOGIA",
+                    "id": 4
+                },
+                {
+                    "name": "DERMATOLOGIA",
+                    "id": 5
+                },
+                {
+                    "name": "ENDOCRINOLOGIA",
+                    "id": 6
+                },
+                {
+                    "name": "ENDOCRINOLOGIA E METABOLOGIA",
+                    "id": 84
+                },
+                {
+                    "name": "ENDOCRINOLOGIA PEDIATRICA",
+                    "id": 85
+                },
+                {
+                    "name": "ENDODONTIA",
+                    "id": 195
+                },
+                {
+                    "name": "FISIOTERAPIA",
+                    "id": 59
+                },
+                {
+                    "name": "FONOAUDIOLOGIA",
+                    "id": 42
+                },
+                {
+                    "name": "GASTROENTEROLOGIA",
+                    "id": 8
+                },
+                {
+                    "name": "GASTROENTEROLOGIA PEDIATRICA",
+                    "id": 91
+                },
+                {
+                    "name": "GERIATRIA",
+                    "id": 10
+                },
+                {
+                    "name": "GINECOLOGIA",
+                    "id": 45
+                },
+                {
+                    "name": "GINECOLOGIA E OBSTETRICIA",
+                    "id": 11
+                },
+                {
+                    "name": "HEMATOLOGIA",
+                    "id": 65
+                },
+                {
+                    "name": "HOMEOPATIA",
+                    "id": 13
+                },
+                {
+                    "name": "IMPLANTODONTIA",
+                    "id": 197
+                },
+                {
+                    "name": "INFECTOLOGIA",
+                    "id": 14
+                },
+                {
+                    "name": "MASTOLOGIA",
+                    "id": 15
+                },
+                {
+                    "name": "MEDICINA DO TRABALHO",
+                    "id": 17
+                },
+                {
+                    "name": "NEFROLOGIA",
+                    "id": 25
+                },
+                {
+                    "name": "NEFROLOGIA PEDIATRICA",
+                    "id": 102
+                },
+                {
+                    "name": "NEUROLOGIA",
+                    "id": 27
+                },
+                {
+                    "name": "NEUROLOGIA PEDIATRICA",
+                    "id": 104
+                },
+                {
+                    "name": "NUTRICIONISTA",
+                    "id": 44
+                },
+                {
+                    "name": "NUTROLOGIA",
+                    "id": 28
+                },
+                {
+                    "name": "OBSTETRICIA",
+                    "id": 51
+                },
+                {
+                    "name": "ODONTOLOGIA",
+                    "id": 48
+                },
+                {
+                    "name": "ODONTOLOGIA",
+                    "id": 130
+                },
+                {
+                    "name": "ODONTOPEDIATRIA",
+                    "id": 192
+                },
+                {
+                    "name": "OFTALMOLOGIA",
+                    "id": 29
+                },
+                {
+                    "name": "ONCOLOGIA CLINICA",
+                    "id": 119
+                },
+                {
+                    "name": "ORTODONTIA",
+                    "id": 131
+                },
+                {
+                    "name": "ORTOPEDIA",
+                    "id": 54
+                },
+                {
+                    "name": "ORTOPEDIA E TRAUMATOLOGIA",
+                    "id": 30
+                },
+                {
+                    "name": "OTORRINOLARINGOLOGIA",
+                    "id": 31
+                },
+                {
+                    "name": "PEDIATRIA",
+                    "id": 34
+                },
+                {
+                    "name": "PERIODONTIA",
+                    "id": 193
+                },
+                {
+                    "name": "PNEUMOLOGIA",
+                    "id": 35
+                },
+                {
+                    "name": "PNEUMOLOGIA PEDIATRICA",
+                    "id": 107
+                },
+                {
+                    "name": "PROCTOLOGIA",
+                    "id": 60
+                },
+                {
+                    "name": "PSICANÁLISE",
+                    "id": 232
+                },
+                {
+                    "name": "PSICOLOGIA",
+                    "id": 43
+                },
+                {
+                    "name": "PSICOPEDAGOGIA",
+                    "id": 199
+                },
+                {
+                    "name": "PSICOTERAPIA",
+                    "id": 109
+                },
+                {
+                    "name": "PSIQUIATRIA",
+                    "id": 36
+                },
+                {
+                    "name": "REUMATOLOGIA",
+                    "id": 39
+                },
+                {
+                    "name": "REUMATOLOGIA PEDIATRICA",
+                    "id": 113
+                },
+                {
+                    "name": "TERAPIA OCUPACIONAL",
+                    "id": 185
+                },
+                {
+                    "name": "TRAUMATOLOGIA",
+                    "id": 67
+                },
+                {
+                    "name": "UROLOGIA",
+                    "id": 40
+                },
+                {
+                    "name": "VACINA",
+                    "id": 202
+                },
+                {
+                    "name": "VASCULAR",
+                    "id": 129
+                }
+            ]
+        }
+
+## Lista de estados com prestadores [/api/app/providers/states]
+
+Retorna todos os estados que possuem prestadores da Rede TEM.
+
+No retorno de sucesso, uma lista de estados é retornada.
+
+_Códigos de erro:_
+
+- `401`: para erros relativos à autenticação ou à autorização.
+
+### GET
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna todos os Estados que possuem prestadores",
+            "body": [
+                {
+                    "id": 1,
+                    "sigla": "AC",
+                    "name": "ACRE"
+                },
+                {
+                    "id": 2,
+                    "sigla": "AL",
+                    "name": "ALAGOAS"
+                },
+                {
+                    "id": 4,
+                    "sigla": "AP",
+                    "name": "AMAPÁ"
+                },
+                {
+                    "id": 3,
+                    "sigla": "AM",
+                    "name": "AMAZONAS"
+                },
+                {
+                    "id": 5,
+                    "sigla": "BA",
+                    "name": "BAHIA"
+                },
+                {
+                    "id": 6,
+                    "sigla": "CE",
+                    "name": "CEARÁ"
+                },
+                {
+                    "id": 7,
+                    "sigla": "DF",
+                    "name": "DISTRITO FEDERAL"
+                },
+                {
+                    "id": 8,
+                    "sigla": "ES",
+                    "name": "ESPÍRITO SANTO"
+                },
+                {
+                    "id": 9,
+                    "sigla": "GO",
+                    "name": "GOIÁS"
+                },
+                {
+                    "id": 10,
+                    "sigla": "MA",
+                    "name": "MARANHÃO"
+                },
+                {
+                    "id": 13,
+                    "sigla": "MT",
+                    "name": "MATO GROSSO"
+                },
+                {
+                    "id": 12,
+                    "sigla": "MS",
+                    "name": "MATO GROSSO DO SUL"
+                },
+                {
+                    "id": 11,
+                    "sigla": "MG",
+                    "name": "MINAS GERAIS"
+                },
+                {
+                    "id": 14,
+                    "sigla": "PA",
+                    "name": "PARÁ"
+                },
+                {
+                    "id": 15,
+                    "sigla": "PB",
+                    "name": "PARAÍBA"
+                },
+                {
+                    "id": 18,
+                    "sigla": "PR",
+                    "name": "PARANÁ"
+                },
+                {
+                    "id": 16,
+                    "sigla": "PE",
+                    "name": "PERNAMBUCO"
+                },
+                {
+                    "id": 17,
+                    "sigla": "PI",
+                    "name": "PIAUÍ"
+                },
+                {
+                    "id": 19,
+                    "sigla": "RJ",
+                    "name": "RIO DE JANEIRO"
+                },
+                {
+                    "id": 20,
+                    "sigla": "RN",
+                    "name": "RIO GRANDE DO NORTE"
+                },
+                {
+                    "id": 23,
+                    "sigla": "RS",
+                    "name": "RIO GRANDE DO SUL"
+                },
+                {
+                    "id": 22,
+                    "sigla": "RR",
+                    "name": "RORAIMA"
+                },
+                {
+                    "id": 24,
+                    "sigla": "SC",
+                    "name": "SANTA CATARINA"
+                },
+                {
+                    "id": 26,
+                    "sigla": "SP",
+                    "name": "SÃO PAULO"
+                },
+                {
+                    "id": 25,
+                    "sigla": "SE",
+                    "name": "SERGIPE"
+                },
+                {
+                    "id": 27,
+                    "sigla": "TO",
+                    "name": "TOCANTINS"
+                }
+            ]
+        }           
+
+## Lista de cidades com prestadores [/api/app/providers/states/{id}/cities]
+
+Retorna todas cidades (por um estado) que possuem prestadores da Rede TEM.
+
+No retorno de sucesso, uma lista de cidades é retornada.
+
+_Códigos de erro:_
+
+- `401`: para erros relativos à autenticação ou à autorização.
+
+### GET
+
++ Parameters
+    + id: `26` (number) - o identificador único do estado.
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna todas as cidades de um determinado Estado que possuem prestadores",
+            "body": [
+                {
+                    "id": 8847,
+                    "name": "AMERICANA"
+                },
+                {
+                    "id": 8859,
+                    "name": "APARECIDA"
+                },
+                {
+                    "id": 8870,
+                    "name": "ARAÇATUBA"
+                },
+                {
+                    "id": 8875,
+                    "name": "ARARAQUARA"
+                },
+                {
+                    "id": 8887,
+                    "name": "ARUJÁ"
+                },
+                {
+                    "id": 8891,
+                    "name": "ATIBAIA"
+                },
+                {
+                    "id": 8917,
+                    "name": "BARRETOS"
+                },
+                {
+                    "id": 8919,
+                    "name": "BARUERI"
+                },
+                {
+                    "id": 8921,
+                    "name": "BATATAIS"
+                },
+                {
+                    "id": 8924,
+                    "name": "BAURU"
+                },
+                {
+                    "id": 8930,
+                    "name": "BERTIOGA"
+                },
+                {
+                    "id": 8955,
+                    "name": "BRAGANÇA PAULISTA"
+                },
+                {
+                    "id": 8976,
+                    "name": "CAIEIRAS"
+                },
+                {
+                    "id": 8979,
+                    "name": "CAJATI"
+                },
+                {
+                    "id": 8988,
+                    "name": "CAMPINAS"
+                },
+                {
+                    "id": 8989,
+                    "name": "CAMPO LIMPO PAULISTA"
+                },
+                {
+                    "id": 9006,
+                    "name": "CARAGUATATUBA"
+                },
+                {
+                    "id": 9007,
+                    "name": "CARAPICUÍBA"
+                },
+                {
+                    "id": 9015,
+                    "name": "CATANDUVA"
+                },
+                {
+                    "id": 9045,
+                    "name": "COTIA"
+                },
+                {
+                    "id": 9050,
+                    "name": "CRUZEIRO"
+                },
+                {
+                    "id": 9051,
+                    "name": "CUBATÃO"
+                },
+                {
+                    "id": 9057,
+                    "name": "DIADEMA"
+                },
+                {
+                    "id": 9077,
+                    "name": "EMBU-GUAÇU"
+                },
+                {
+                    "id": 9099,
+                    "name": "FERNANDÓPOLIS"
+                },
+                {
+                    "id": 9101,
+                    "name": "FERRAZ DE VASCONCELOS"
+                },
+                {
+                    "id": 9107,
+                    "name": "FRANCA"
+                },
+                {
+                    "id": 9108,
+                    "name": "FRANCISCO MORATO"
+                },
+                {
+                    "id": 9109,
+                    "name": "FRANCO DA ROCHA"
+                },
+                {
+                    "id": 9140,
+                    "name": "GUARATINGUETÁ"
+                },
+                {
+                    "id": 9145,
+                    "name": "GUARUJÁ"
+                },
+                {
+                    "id": 9146,
+                    "name": "GUARULHOS"
+                },
+                {
+                    "id": 9150,
+                    "name": "HOLAMBRA"
+                },
+                {
+                    "id": 9152,
+                    "name": "HORTOLÂNDIA"
+                },
+                {
+                    "id": 9179,
+                    "name": "INDAIATUBA"
+                },
+                {
+                    "id": 9200,
+                    "name": "ITANHAÉM"
+                },
+                {
+                    "id": 9202,
+                    "name": "ITAPECERICA DA SERRA"
+                },
+                {
+                    "id": 9203,
+                    "name": "ITAPETININGA"
+                },
+                {
+                    "id": 9206,
+                    "name": "ITAPEVI"
+                },
+                {
+                    "id": 9213,
+                    "name": "ITAQUAQUECETUBA"
+                },
+                {
+                    "id": 9217,
+                    "name": "ITATIBA"
+                },
+                {
+                    "id": 9223,
+                    "name": "ITU"
+                },
+                {
+                    "id": 9224,
+                    "name": "ITUPEVA"
+                },
+                {
+                    "id": 9225,
+                    "name": "ITUVERAVA"
+                },
+                {
+                    "id": 9230,
+                    "name": "JACAREÍ"
+                },
+                {
+                    "id": 9240,
+                    "name": "JANDIRA"
+                },
+                {
+                    "id": 9258,
+                    "name": "JUNDIAÍ"
+                },
+                {
+                    "id": 9264,
+                    "name": "JUQUITIBA"
+                },
+                {
+                    "id": 9280,
+                    "name": "LIMEIRA"
+                },
+                {
+                    "id": 9282,
+                    "name": "LINS"
+                },
+                {
+                    "id": 9286,
+                    "name": "LOUVEIRA"
+                },
+                {
+                    "id": 9301,
+                    "name": "MAIRIPORÃ"
+                },
+                {
+                    "id": 9311,
+                    "name": "MARÍLIA"
+                },
+                {
+                    "id": 9318,
+                    "name": "MAUÁ"
+                },
+                {
+                    "id": 9332,
+                    "name": "MOGI DAS CRUZES"
+                },
+                {
+                    "id": 9333,
+                    "name": "MOGI GUAÇU"
+                },
+                {
+                    "id": 9337,
+                    "name": "MONGAGUÁ"
+                },
+                {
+                    "id": 9345,
+                    "name": "MONTE MOR"
+                },
+                {
+                    "id": 9378,
+                    "name": "NOVA ODESSA"
+                },
+                {
+                    "id": 9395,
+                    "name": "OSASCO"
+                },
+                {
+                    "id": 9401,
+                    "name": "OUROESTE"
+                },
+                {
+                    "id": 9443,
+                    "name": "PERUÍBE"
+                },
+                {
+                    "id": 9456,
+                    "name": "PIRACICABA"
+                },
+                {
+                    "id": 9471,
+                    "name": "POÁ"
+                },
+                {
+                    "id": 9490,
+                    "name": "PRAIA GRANDE"
+                },
+                {
+                    "id": 9495,
+                    "name": "PRESIDENTE PRUDENTE"
+                },
+                {
+                    "id": 9498,
+                    "name": "PROMISSÃO"
+                },
+                {
+                    "id": 9512,
+                    "name": "REGISTRO"
+                },
+                {
+                    "id": 9522,
+                    "name": "RIBEIRÃO PIRES"
+                },
+                {
+                    "id": 9523,
+                    "name": "RIBEIRÃO PRETO"
+                },
+                {
+                    "id": 9529,
+                    "name": "RIO CLARO"
+                },
+                {
+                    "id": 9531,
+                    "name": "RIO GRANDE DA SERRA"
+                },
+                {
+                    "id": 9558,
+                    "name": "SANTA BÁRBARA D'OESTE"
+                },
+                {
+                    "id": 9571,
+                    "name": "SANTA ISABEL"
+                },
+                {
+                    "id": 9585,
+                    "name": "SANTANA DE PARNAÍBA"
+                },
+                {
+                    "id": 9588,
+                    "name": "SANTO ANDRÉ"
+                },
+                {
+                    "id": 9599,
+                    "name": "SANTOS"
+                },
+                {
+                    "id": 9603,
+                    "name": "SÃO BERNARDO DO CAMPO"
+                },
+                {
+                    "id": 9605,
+                    "name": "SÃO CAETANO DO SUL"
+                },
+                {
+                    "id": 9606,
+                    "name": "SÃO CARLOS"
+                },
+                {
+                    "id": 9622,
+                    "name": "SÃO JOSÉ DO RIO PRETO"
+                },
+                {
+                    "id": 9623,
+                    "name": "SÃO JOSÉ DOS CAMPOS"
+                },
+                {
+                    "id": 9631,
+                    "name": "SÃO PAULO"
+                },
+                {
+                    "id": 9636,
+                    "name": "SÃO SEBASTIÃO"
+                },
+                {
+                    "id": 9641,
+                    "name": "SÃO VICENTE"
+                },
+                {
+                    "id": 9659,
+                    "name": "SOROCABA"
+                },
+                {
+                    "id": 9663,
+                    "name": "SUMARÉ"
+                },
+                {
+                    "id": 9666,
+                    "name": "SUZANO"
+                },
+                {
+                    "id": 9670,
+                    "name": "TABOÃO DA SERRA"
+                },
+                {
+                    "id": 9689,
+                    "name": "TAUBATÉ"
+                },
+                {
+                    "id": 9719,
+                    "name": "UBATUBA"
+                },
+                {
+                    "id": 9731,
+                    "name": "VALINHOS"
+                },
+                {
+                    "id": 9738,
+                    "name": "VÁRZEA PAULISTA"
+                },
+                {
+                    "id": 9746,
+                    "name": "VINHEDO"
+                },
+                {
+                    "id": 9751,
+                    "name": "VOTORANTIM"
+                }
+            ]
+        }
+
+## Lista de cidades com prestadores [/api/app/cities/{id}/neighborhoods]
+
+Retorna todos os bairros de uma cidade.
+
+No retorno de sucesso, uma lista de bairros é retornada.
+
+_Códigos de erro:_
+
+- `401`: para erros relativos à autenticação ou à autorização.
+
+### GET
+
++ Parameters
+    + id: `8734` (number) - o identificador único da cidade.
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna todos os bairros de uma determinada cidade",
+            "body": [
+                {
+                    "id": 20789,
+                    "name": "AEROPORTO"
+                },
+                {
+                    "id": 20790,
+                    "name": "AMÉRICA"
+                },
+                {
+                    "id": 20791,
+                    "name": "ATALAIA"
+                },
+                {
+                    "id": 20792,
+                    "name": "BUGIO"
+                },
+                {
+                    "id": 20793,
+                    "name": "CAPUCHO"
+                },
+                {
+                    "id": 20794,
+                    "name": "CENTRO"
+                },
+                {
+                    "id": 20795,
+                    "name": "CIDADE NOVA"
+                },
+                {
+                    "id": 20796,
+                    "name": "CIRURGIA"
+                },
+                {
+                    "id": 20797,
+                    "name": "COROA DO MEIO"
+                },
+                {
+                    "id": 20798,
+                    "name": "DEZOITO DO FORTE"
+                },
+                {
+                    "id": 20799,
+                    "name": "FAROLÂNDIA"
+                },
+                {
+                    "id": 20800,
+                    "name": "GETÚLIO VARGAS"
+                },
+                {
+                    "id": 20801,
+                    "name": "GRAGERU"
+                },
+                {
+                    "id": 20802,
+                    "name": "INÁCIO BARBOSA"
+                },
+                {
+                    "id": 20803,
+                    "name": "INDUSTRIAL"
+                },
+                {
+                    "id": 20804,
+                    "name": "JABOTIANA"
+                },
+                {
+                    "id": 20805,
+                    "name": "JARDIM CENTENÁRIO"
+                },
+                {
+                    "id": 20806,
+                    "name": "JARDINS"
+                },
+                {
+                    "id": 20807,
+                    "name": "JOSÉ CONRADO DE ARAÚJO"
+                },
+                {
+                    "id": 20808,
+                    "name": "LAMARÃO"
+                },
+                {
+                    "id": 20809,
+                    "name": "LUZIA"
+                },
+                {
+                    "id": 20810,
+                    "name": "MOSQUEIRO"
+                },
+                {
+                    "id": 20811,
+                    "name": "NOVO PARAÍSO"
+                },
+                {
+                    "id": 20812,
+                    "name": "OLARIA"
+                },
+                {
+                    "id": 20813,
+                    "name": "PALESTINA"
+                },
+                {
+                    "id": 20814,
+                    "name": "PEREIRA LOBO"
+                },
+                {
+                    "id": 20815,
+                    "name": "PONTO NOVO"
+                },
+                {
+                    "id": 20816,
+                    "name": "PORTO D'ANTAS"
+                },
+                {
+                    "id": 20817,
+                    "name": "ROBALO"
+                },
+                {
+                    "id": 20818,
+                    "name": "SALGADO FILHO"
+                },
+                {
+                    "id": 20819,
+                    "name": "SANTO ANTÔNIO"
+                },
+                {
+                    "id": 20820,
+                    "name": "SANTOS DUMONT"
+                },
+                {
+                    "id": 20821,
+                    "name": "SÃO CONRADO"
+                },
+                {
+                    "id": 20822,
+                    "name": "SÃO JOSÉ"
+                },
+                {
+                    "id": 20823,
+                    "name": "SIQUEIRA CAMPOS"
+                },
+                {
+                    "id": 20824,
+                    "name": "SOLEDADE"
+                },
+                {
+                    "id": 20825,
+                    "name": "SUÍSSA"
+                },
+                {
+                    "id": 20826,
+                    "name": "SANTA MARIA"
+                },
+                {
+                    "id": 20827,
+                    "name": "TREZE DE JULHO"
+                },
+                {
+                    "id": 33541,
+                    "name": "ARUANA"
+                },
+                {
+                    "id": 33542,
+                    "name": "AREIA BRANCA"
+                },
+                {
+                    "id": 33545,
+                    "name": "POVOADO SÃO JOSÉ"
+                }
+            ]
+        }
+
+# Group Busca de Prestadores
 
 ## Prestadores por especialidade [/api/app/specialties/{id}/providers{?latitude,longitude,radius,place}]
 
@@ -153,10 +1152,921 @@ _Códigos de erro:_
             ]
         }
 
+## Prestadores: busca completa [/api/app/providers/search{?specialty,state,city,neighborhood,page,size}]
+
+Busca paginada por todos os prestadores ou filtrado por alguns parâmetros.
+
+No retorno de sucesso, uma lista de prestadores é retornada.
+
+> O tamanho padrão da página é 10
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Parameters
+    + specialty: `3` (optional, number) - o identificador único da especialidade, pode ser passado várias vezes.
+    + state: `26` (optional, number) - o identificador único do estado, pode ser passado várias vezes.
+    + city (optional, number) - o identificador único da cidade, pode ser passado várias vezes.
+    + neighborhood (optional, number) - o identificador único do bairro, pode ser passado várias vezes.
+    + page (optional, number) - o número da página de resultados, iniciando por 0 (valor padrão: 0).
+    + size (optional, number) - o tamanho da página de resultados (valor padrão: 10).
+
+### GET
+
++ Request
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Retorna prestadores filtrando por especialidades e/ou local",
+            "body": {
+                "first": true,
+                "last": false,
+                "number": 0,
+                "numberOfElements": 10,
+                "totalPages": 19,
+                "totalElements": 189,
+                "sort": null,
+                "size": 10,
+                "content": [
+                    {
+                        "id": 1022,
+                        "name": "A & F SERVICOS MEDICOS LTDA ME",
+                        "shortName": "FDC CONSULTORIOS",
+                        "unitId": 118,
+                        "unitName": "FDC CONSULTORIOS MEDICOS",
+                        "street": "HILARIO BUZARELLO",
+                        "number": "179",
+                        "complement": "",
+                        "postalCode": "05798-160",
+                        "telephone": "(11)5811-0570",
+                        "neighborhood": "JARDIM AVENIDA",
+                        "city": "SÃO PAULO",
+                        "state": "SP",
+                        "specialtyId": 3,
+                        "specialtyName": "CLINICA MEDICA",
+                        "specialtyDescription": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos",
+                        "allSpecialties": [
+                            {
+                                "id": 3,
+                                "name": "CLINICA MEDICA",
+                                "description": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos"
+                            },
+                            {
+                                "id": 5,
+                                "name": "DERMATOLOGIA",
+                                "description": "É a especialidade médica que se ocupa do diagnóstico e tratamento clínico-cirúrgico das enfermidades relacionados à pele e aos anexos cutâneos (unhas, pelos, mucosas, cabelos)"
+                            },
+                            {
+                                "id": 41,
+                                "name": "CARDIOLOGIA",
+                                "description": "Cardiologia  é a especialidade médica que se ocupa do diagnóstico e tratamento das doenças que acometem o coração bem como os outros componentes do sistema circulatório."
+                            },
+                            {
+                                "id": 31,
+                                "name": "OTORRINOLARINGOLOGIA",
+                                "description": "A otorrinolaringologia  é uma especialidade médica com características clínicas e cirúrgicas. Seu campo de atuação envolve as doenças do ouvido, do nariz e seios paranasais, faringe, laringe, cabeça e pescoço."
+                            },
+                            {
+                                "id": 45,
+                                "name": "GINECOLOGIA",
+                                "description": "A ginecologia é a pratica da medicina que lida diretamente com a saúde do aparelho reprodutor feminino (vagina, útero ovários) e mamas. Seu significado literal é \"a ciência da mulher\"."
+                            },
+                            {
+                                "id": 40,
+                                "name": "UROLOGIA",
+                                "description": "Urologia é uma especialidade cirúrgica da medicina que trata do trato urinário de homens e de mulheres e do sistema reprodutor dos homens. Os médicos que possuem especialização nesta área são os urologistas, sendo treinados para diagnosticar, tratar e acompanhar pacientes com distúrbios urológicos. Os órgãos estudados pelos urologistas incluem os rins, ureteres, bexiga urinária, uretra e os órgãos do sistema reprodutor masculino (testículos, epidídimos, ducto deferente, vesículas seminais, próstata e pênis)."
+                            },
+                            {
+                                "id": 36,
+                                "name": "PSIQUIATRIA",
+                                "description": "Psiquiatria é uma especialidade da Medicina que lida com a prevenção, atendimento, diagnóstico, tratamento e reabilitação das diferentes formas de sofrimentos mentais, sejam elas de cunho orgânico ou funcional, com manifestações psicológicas severas. São exemplos: adepressão, o transtorno bipolar, a esquizofrenia, a demência e os transtornos de ansiedade."
+                            },
+                            {
+                                "id": 54,
+                                "name": "ORTOPEDIA",
+                                "description": "A ortopedia é a especialidade médica que cuida das doenças e deformidades relacionadas aos elementos do aparelho locomotor, como ossos, músculos, ligamentos e articulações. A traumatologia é a especialidade médica que lida com o trauma do aparelho músculo-esquelético."
+                            }
+                        ]
+                    },
+                    {
+                        "id": 2849,
+                        "name": "ACESSO SAÚDE",
+                        "shortName": "ROCHA & CARVALHO",
+                        "unitId": 2539,
+                        "unitName": "ACESSO SAÚDE",
+                        "street": "ARAÚJO LEITE",
+                        "number": "13/44",
+                        "complement": "",
+                        "postalCode": "17015-340",
+                        "telephone": "(14) 3208-5559",
+                        "neighborhood": "CENTRO",
+                        "city": "BAURU",
+                        "state": "SP",
+                        "specialtyId": 3,
+                        "specialtyName": "CLINICA MEDICA",
+                        "specialtyDescription": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos",
+                        "allSpecialties": [
+                            {
+                                "id": 41,
+                                "name": "CARDIOLOGIA",
+                                "description": "Cardiologia  é a especialidade médica que se ocupa do diagnóstico e tratamento das doenças que acometem o coração bem como os outros componentes do sistema circulatório."
+                            },
+                            {
+                                "id": 3,
+                                "name": "CLINICA MEDICA",
+                                "description": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos"
+                            },
+                            {
+                                "id": 5,
+                                "name": "DERMATOLOGIA",
+                                "description": "É a especialidade médica que se ocupa do diagnóstico e tratamento clínico-cirúrgico das enfermidades relacionados à pele e aos anexos cutâneos (unhas, pelos, mucosas, cabelos)"
+                            },
+                            {
+                                "id": 45,
+                                "name": "GINECOLOGIA",
+                                "description": "A ginecologia é a pratica da medicina que lida diretamente com a saúde do aparelho reprodutor feminino (vagina, útero ovários) e mamas. Seu significado literal é \"a ciência da mulher\"."
+                            },
+                            {
+                                "id": 10,
+                                "name": "GERIATRIA",
+                                "description": "Medicina geriátrica ou geriatria é o ramo da medicina que foca o estudo, a prevenção e o tratamento de doenças e da incapacidade em idades avançadas. O termo deve ser distinto de gerontologia, que é o estudo do envelhecimento em si."
+                            },
+                            {
+                                "id": 29,
+                                "name": "OFTALMOLOGIA",
+                                "description": "A oftalmologia é uma especialidade da medicina que estuda e trata as doenças relacionadas ao olho, à refração e aos olhos e seus anexos. O médico oftalmologista realiza cirurgias, prescreve tratamentos e correções para os distúrbios de visão. A oftalmologia tem várias sub-especialidades, entre elas a oftalmo-pediatria, a plástica ocular, doenças orbitárias, doenças das vias lacrimais, o estrabismo, o glaucoma, a cirurgia refrativa, retina,córnea, etc."
+                            },
+                            {
+                                "id": 31,
+                                "name": "OTORRINOLARINGOLOGIA",
+                                "description": "A otorrinolaringologia  é uma especialidade médica com características clínicas e cirúrgicas. Seu campo de atuação envolve as doenças do ouvido, do nariz e seios paranasais, faringe, laringe, cabeça e pescoço."
+                            },
+                            {
+                                "id": 54,
+                                "name": "ORTOPEDIA",
+                                "description": "A ortopedia é a especialidade médica que cuida das doenças e deformidades relacionadas aos elementos do aparelho locomotor, como ossos, músculos, ligamentos e articulações. A traumatologia é a especialidade médica que lida com o trauma do aparelho músculo-esquelético."
+                            },
+                            {
+                                "id": 36,
+                                "name": "PSIQUIATRIA",
+                                "description": "Psiquiatria é uma especialidade da Medicina que lida com a prevenção, atendimento, diagnóstico, tratamento e reabilitação das diferentes formas de sofrimentos mentais, sejam elas de cunho orgânico ou funcional, com manifestações psicológicas severas. São exemplos: adepressão, o transtorno bipolar, a esquizofrenia, a demência e os transtornos de ansiedade."
+                            }
+                        ]
+                    },
+                    {
+                        "id": 1696,
+                        "name": "ACOR CLINICA MEDICA LTDA",
+                        "shortName": "ACOR CLINICA",
+                        "unitId": 749,
+                        "unitName": "ACOR CLINICA MEDICA",
+                        "street": "DOM JOSE DE BARROS",
+                        "number": "79",
+                        "complement": "",
+                        "postalCode": "01038-100",
+                        "telephone": "(11) 5094-0300",
+                        "neighborhood": "REPÚBLICA",
+                        "city": "SÃO PAULO",
+                        "state": "SP",
+                        "specialtyId": 3,
+                        "specialtyName": "CLINICA MEDICA",
+                        "specialtyDescription": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos",
+                        "allSpecialties": [
+                            {
+                                "id": 41,
+                                "name": "CARDIOLOGIA",
+                                "description": "Cardiologia  é a especialidade médica que se ocupa do diagnóstico e tratamento das doenças que acometem o coração bem como os outros componentes do sistema circulatório."
+                            },
+                            {
+                                "id": 3,
+                                "name": "CLINICA MEDICA",
+                                "description": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos"
+                            },
+                            {
+                                "id": 2,
+                                "name": "CIRURGIA VASCULAR",
+                                "description": "Cirurgia vascular é a especialidade médica que se ocupa do tratamento cirúrgico de doenças das artérias, veias e vasos linfáticos. Atua junto à Angiologia, especialidade responsável pelo estudo clínico dessas doenças."
+                            },
+                            {
+                                "id": 5,
+                                "name": "DERMATOLOGIA",
+                                "description": "É a especialidade médica que se ocupa do diagnóstico e tratamento clínico-cirúrgico das enfermidades relacionados à pele e aos anexos cutâneos (unhas, pelos, mucosas, cabelos)"
+                            },
+                            {
+                                "id": 30,
+                                "name": "ORTOPEDIA E TRAUMATOLOGIA",
+                                "description": "A ortopedia é a especialidade médica que cuida das doenças e deformidades relacionadas aos elementos do aparelho locomotor, como ossos, músculos, ligamentos e articulações. A traumatologia é a especialidade médica que lida com o trauma do aparelho músculo-esquelético."
+                            },
+                            {
+                                "id": 36,
+                                "name": "PSIQUIATRIA",
+                                "description": "Psiquiatria é uma especialidade da Medicina que lida com a prevenção, atendimento, diagnóstico, tratamento e reabilitação das diferentes formas de sofrimentos mentais, sejam elas de cunho orgânico ou funcional, com manifestações psicológicas severas. São exemplos: adepressão, o transtorno bipolar, a esquizofrenia, a demência e os transtornos de ansiedade."
+                            },
+                            {
+                                "id": 40,
+                                "name": "UROLOGIA",
+                                "description": "Urologia é uma especialidade cirúrgica da medicina que trata do trato urinário de homens e de mulheres e do sistema reprodutor dos homens. Os médicos que possuem especialização nesta área são os urologistas, sendo treinados para diagnosticar, tratar e acompanhar pacientes com distúrbios urológicos. Os órgãos estudados pelos urologistas incluem os rins, ureteres, bexiga urinária, uretra e os órgãos do sistema reprodutor masculino (testículos, epidídimos, ducto deferente, vesículas seminais, próstata e pênis)."
+                            },
+                            {
+                                "id": 6,
+                                "name": "ENDOCRINOLOGIA",
+                                "description": "Endocrinologia é uma especialidade médica que estuda as ordens do sistema endócrino e suas secreções específicas, chamadas de secreções fisiológicas."
+                            },
+                            {
+                                "id": 8,
+                                "name": "GASTROENTEROLOGIA",
+                                "description": "A Gastroenterologia ou Gastrenterologia, é a especialidade médica que se ocupa do estudo, diagnóstico e tratamento clínico das doenças do aparelho digestivo."
+                            },
+                            {
+                                "id": 31,
+                                "name": "OTORRINOLARINGOLOGIA",
+                                "description": "A otorrinolaringologia  é uma especialidade médica com características clínicas e cirúrgicas. Seu campo de atuação envolve as doenças do ouvido, do nariz e seios paranasais, faringe, laringe, cabeça e pescoço."
+                            },
+                            {
+                                "id": 35,
+                                "name": "PNEUMOLOGIA",
+                                "description": "Pneumologia é a especialidade médica a qual é responsável pelo tratamento das patologias das vias aéreas inferiores"
+                            },
+                            {
+                                "id": 11,
+                                "name": "GINECOLOGIA E OBSTETRICIA",
+                                "description": "A ginecologia é a pratica da medicina que lida diretamente com a saúde do aparelho reprodutor feminino e mamas. Seu significado literal é \"a ciência da mulher\". A obstetrícia é o ramo da medicina que estuda a reprodução na mulher. Investiga a gestação, o parto e o puerpério nos seus aspectos fisiológicos e patológicos."
+                            },
+                            {
+                                "id": 174,
+                                "name": "ECOCARDIOGRAMA  BIDIMENSIONAL MAPA FLUXO",
+                                "description": "O Ecocardiograma com Doppler é um método de diagnóstico da estrutura e do funcionamento do coração baseados no uso de ultrassonografia. Este exame é frequentemente empregado na avaliação dos pacientes com sopro cardíaco, sintoma de palpitação, síncope, falta de ar, dor torácica, ou portadores de diversas doenças cardíacas como doenças do músculo cardíaco (infarto do miocárdio, miocardiopatias), insuficiência cardíaca, doenças das valvas, anomalias congênitas, entre outras."
+                            },
+                            {
+                                "id": 121,
+                                "name": "ULTRASSONOGRAFIA",
+                                "description": "A ultrassonografia ou ecografia é um método diagnóstico muito recorrente na medicina moderna que utiliza o eco gerado através de ondas ultrassônicas de alta frequência para visualizar, em tempo real, as estruturas internas do organismo. Por meio de uma ultrassonografia com doppler, o médico é capaz de ver o fluxo sangüíneo nos principais vasos."
+                            },
+                            {
+                                "id": 136,
+                                "name": "ULTRASSONOGRAFIA APARELHO URINARIO MASC",
+                                "description": "Esse exame tem a finalidade de avaliar a existência de alterações nos rins, ureteres e bexiga. As alterações podem ser malformações anatômicas, refluxos, presença de cálculos ou tumores."
+                            },
+                            {
+                                "id": 142,
+                                "name": "ULTRASSONOGRAFIA DA PROSTATA VIA ABDOMEM",
+                                "description": "A Ultrassonografia de Próstata por Via Abdominal (suprapúbica) é um procedimento não invasivo, utilizado para avaliação, seguimento, diagnóstico e caracterização das alterações e/ou lesões da bexiga, próstata e vesículas seminais, auxiliando, complementando e interagindo com outras especialidades médicas."
+                            },
+                            {
+                                "id": 140,
+                                "name": "ULTRASSONOGRAFIA DAS ARTICULACOES",
+                                "description": "A ultrassonografia articular é um exame sensível e indolor, capaz de disgnosticar lesões nos tendões, ligamentos e articulações."
+                            },
+                            {
+                                "id": 139,
+                                "name": "ULTRASSONOGRAFIA DE HIPOCONDRIO DIREITO",
+                                "description": "A Ultrassonografia do Hipocôndrio Direito, é um procedimento não invasivo, utilizado para avaliação, seguimento, diagnóstico e caracterização das alterações dos órgãos dessa região: fígado, vesícula biliar, vias biliares e pâncreas."
+                            },
+                            {
+                                "id": 138,
+                                "name": "ULTRASSONOGRAFIA DO ABDOMEN SUPERIOR",
+                                "description": "O ultrassom do abdome superior é utilizado para avaliar fígado, vesícula biliar, baço, pâncreas, rins e intestino. Ajuda a determinar a causa de dor abdominal; localizar cálculos na vesícula e vias biliares ou nos rins e vias urinárias. Permite avaliar a presença de tumores, cistos e abscessos; dilatações ou estreitamento das principais artérias do abdome."
+                            },
+                            {
+                                "id": 137,
+                                "name": "ULTRASSONOGRAFIA DO ABDOMEN TOTAL",
+                                "description": "Ultrassom do abdome total tem a finalidade de avaliar fígado, vesícula biliar, baço, pâncreas, rins, intestino, bexiga, aorta, veia cava inferior e adrenais para determinar a causa de dor abdominal, localizar cálculos na vesícula e vias biliares ou nos rins e vias urinárias."
+                            },
+                            {
+                                "id": 135,
+                                "name": "ULTRASSONOGRAFIA DO TORAX",
+                                "description": "A ultrassonografia torácica é uma ferramenta importante para a avaliação de doenças do parênquima pulmonar periférico, parede torácica, pleura e mediastino cranial."
+                            },
+                            {
+                                "id": 133,
+                                "name": "ULTRASSONOGRAFIA OBSTETRICA",
+                                "description": "O que é o exame: consiste na movimentação de um transdutor sobre o abdome e pelve de uma gestante recoberto por gel, havendo emissão e detecção de ondas de ultra-som que são transformadas em imagem e transmitidas em um monitor."
+                            },
+                            {
+                                "id": 132,
+                                "name": "ULTRASSONOGRAFIA PELVICA TRANSVAGINAL",
+                                "description": "O exame de Ultrassonografia Transvaginal (USG TV) é um complemento do exame de Ultrassonografia Pélvica (USG P). Como o fundo da vagina fica mais próximo dos órgãos genitais internos, ele permite um melhor contato e possibilita avaliá-los com maior precisão, o que não acontece com o exame de USG P. O USG TV é feito com uma sonda especial, que é envolta com preservativo para proteger a mulher e evitar contaminações"
+                            },
+                            {
+                                "id": 141,
+                                "name": "ULTRASSONOGRAFIA PROSTATA VIA TRANSRETAL",
+                                "description": "A Ultrassonografia de Próstata por Via Transretal é um procedimento que se beneficia da menor distância entre o transdutor e a próstata, o que facilita a perfeita visualização, identificação e caracterização das alterações e/ou lesões que possam ocorrer nessa região, auxiliando, complementando e interagindo com outras especialidades médicas. É um método que não utiliza nenhum tipo de radiação e não apresenta efeitos colaterais."
+                            },
+                            {
+                                "id": 134,
+                                "name": "ULTRASSONOGRAFIA TRATO URINARIO FEMINO",
+                                "description": "Este exame tem a finalidade de avaliar a existência de alterações nos rins, ureteres e bexiga. As alterações podem ser malformações anatômicas, refluxos, presença de cálculos ou tumores."
+                            },
+                            {
+                                "id": 166,
+                                "name": "HOLTER 24 HS/2 CANAIS",
+                                "description": "O Holter é um monitor portátil que registra a atividade elétrica do coração e suas variações durante as 24 horas do dia ou mais e pode, assim, detectar alterações que em geral não aparecem num exame de tempo mais limitado, como num eletrocardiograma simples, por exemplo."
+                            },
+                            {
+                                "id": 114,
+                                "name": "ANALISES CLINICA",
+                                "description": "Análise Clínica ou Exame laboratorial é o conjunto de exames e testes realizados em laboratórios de análises clínicas por biólogos, bioquímicos, biomédicos, farmacêuticos ou médicos, visando um diagnóstico ou confirmação de uma patologia ou para um check-up (exame de rotina)"
+                            },
+                            {
+                                "id": 165,
+                                "name": "ELETROCARDIOGRAMA - ECG",
+                                "description": "Um eletrocardiograma (identificado com as abreviações ECG e EKG é a reprodução gráfica da atividade elétrica do coração durante o seu funcionamento, registada a partir da superfície do corpo."
+                            },
+                            {
+                                "id": 144,
+                                "name": "TESTE ERGOMETRICO",
+                                "description": "Teste Ergométrico, Teste Cicloergométrico, Prova de esforço ou Teste sob estresse físico é um exame complementar de diagnósticoem Medicina, realizado por profissional médico cardiologista habilitado, que consiste em submeter o indivíduo a uma determinada modalidade de esforço físico graduado e monitorado com eletrocardiograma, objetivando aumentar sua demanda metabólica global e em especial a demanda metabólica do coração, podendo assim avaliar, entre outras variáveis, a aptidão cardio-respiratória global do indivíduo e a presença de isquemia no músculo cardíaco."
+                            },
+                            {
+                                "id": 156,
+                                "name": "MAPA-24 HS",
+                                "description": "A MAPA (assim mesmo, no feminino) é a sigla de Monitorização Ambulatorial da Pressão Arterial. Trata-se de um exame útil tanto no diagnóstico e no acompanhamento da Hipertensão Arterial. A pressão arterial varia constantemente por isto não podemos na maioria dos casos estabelecer o estágio de Hipertensão Arterial somente com as leituras da pressão arterial realizadas no consultório."
+                            },
+                            {
+                                "id": 44,
+                                "name": "NUTRICIONISTA",
+                                "description": "O nutricionista é um profissional de saúde que desenvolve ações no âmbito da atenção dietética e/ou segurança alimentar, destinadas tanto a um indivíduo como a um grupo populacional."
+                            },
+                            {
+                                "id": 15,
+                                "name": "MASTOLOGIA",
+                                "description": "A mastologia ou senologia é especialidade médica médica que se dedica ao estudo das glândulas mamárias. O mastologista é o especialista que estuda, previne, diagnostica, trata e reabilita todas as doenças da mama."
+                            }
+                        ]
+                    },
+                    {
+                        "id": 1600,
+                        "name": "ADM SERVICOS MEDICOS LTDA EPP",
+                        "shortName": "CLINICA COM VIDA",
+                        "unitId": 109,
+                        "unitName": "CLINICA COMVIDA",
+                        "street": "PADROEIRA DO BRASIL",
+                        "number": "188",
+                        "complement": "",
+                        "postalCode": "06010-090",
+                        "telephone": "(11)3685-5100",
+                        "neighborhood": "CENTRO",
+                        "city": "OSASCO",
+                        "state": "SP",
+                        "specialtyId": 3,
+                        "specialtyName": "CLINICA MEDICA",
+                        "specialtyDescription": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos",
+                        "allSpecialties": [
+                            {
+                                "id": 39,
+                                "name": "REUMATOLOGIA",
+                                "description": "Reumatologia é a área do conhecimento médico que se ocupa do estudo das doenças que acometem os tecidos conjuntivos, que incluem as articulações, os ossos, os músculos, os tendões e os ligamentos[1]. Estas patologias são muitas vezes designadas de doenças reumáticas."
+                            },
+                            {
+                                "id": 31,
+                                "name": "OTORRINOLARINGOLOGIA",
+                                "description": "A otorrinolaringologia  é uma especialidade médica com características clínicas e cirúrgicas. Seu campo de atuação envolve as doenças do ouvido, do nariz e seios paranasais, faringe, laringe, cabeça e pescoço."
+                            },
+                            {
+                                "id": 27,
+                                "name": "NEUROLOGIA",
+                                "description": "Neurologia é a especialidade médica que trata dos distúrbios estruturais do sistema nervoso. Especificamente, ela lida com o diagnóstico e tratamento de todas as categorias de doenças que envolvem os sistemas nervoso central, periférico e autônomo, parassimpático e simpático incluindo os seus revestimentos, vasos sanguíneos, e todos os tecidos efetores, como os músculos.[1] O correspondente cirúrgico da especialidade é a neurocirurgia."
+                            },
+                            {
+                                "id": 5,
+                                "name": "DERMATOLOGIA",
+                                "description": "É a especialidade médica que se ocupa do diagnóstico e tratamento clínico-cirúrgico das enfermidades relacionados à pele e aos anexos cutâneos (unhas, pelos, mucosas, cabelos)"
+                            },
+                            {
+                                "id": 41,
+                                "name": "CARDIOLOGIA",
+                                "description": "Cardiologia  é a especialidade médica que se ocupa do diagnóstico e tratamento das doenças que acometem o coração bem como os outros componentes do sistema circulatório."
+                            },
+                            {
+                                "id": 40,
+                                "name": "UROLOGIA",
+                                "description": "Urologia é uma especialidade cirúrgica da medicina que trata do trato urinário de homens e de mulheres e do sistema reprodutor dos homens. Os médicos que possuem especialização nesta área são os urologistas, sendo treinados para diagnosticar, tratar e acompanhar pacientes com distúrbios urológicos. Os órgãos estudados pelos urologistas incluem os rins, ureteres, bexiga urinária, uretra e os órgãos do sistema reprodutor masculino (testículos, epidídimos, ducto deferente, vesículas seminais, próstata e pênis)."
+                            },
+                            {
+                                "id": 10,
+                                "name": "GERIATRIA",
+                                "description": "Medicina geriátrica ou geriatria é o ramo da medicina que foca o estudo, a prevenção e o tratamento de doenças e da incapacidade em idades avançadas. O termo deve ser distinto de gerontologia, que é o estudo do envelhecimento em si."
+                            },
+                            {
+                                "id": 3,
+                                "name": "CLINICA MEDICA",
+                                "description": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos"
+                            },
+                            {
+                                "id": 54,
+                                "name": "ORTOPEDIA",
+                                "description": "A ortopedia é a especialidade médica que cuida das doenças e deformidades relacionadas aos elementos do aparelho locomotor, como ossos, músculos, ligamentos e articulações. A traumatologia é a especialidade médica que lida com o trauma do aparelho músculo-esquelético."
+                            },
+                            {
+                                "id": 6,
+                                "name": "ENDOCRINOLOGIA",
+                                "description": "Endocrinologia é uma especialidade médica que estuda as ordens do sistema endócrino e suas secreções específicas, chamadas de secreções fisiológicas."
+                            },
+                            {
+                                "id": 45,
+                                "name": "GINECOLOGIA",
+                                "description": "A ginecologia é a pratica da medicina que lida diretamente com a saúde do aparelho reprodutor feminino (vagina, útero ovários) e mamas. Seu significado literal é \"a ciência da mulher\"."
+                            },
+                            {
+                                "id": 15,
+                                "name": "MASTOLOGIA",
+                                "description": "A mastologia ou senologia é especialidade médica médica que se dedica ao estudo das glândulas mamárias. O mastologista é o especialista que estuda, previne, diagnostica, trata e reabilita todas as doenças da mama."
+                            },
+                            {
+                                "id": 50,
+                                "name": "ANGIOLOGIA",
+                                "description": "Angiologia é a especialidade médica que se ocupa do tratamento clínico das doenças que acometem vasos sanguíneos (artérias e veias) e vasos linfáticos. Atua em conjunto com a cirurgia vascular que se ocupa do tratamento cirúrgico das ditas doenças."
+                            },
+                            {
+                                "id": 2,
+                                "name": "CIRURGIA VASCULAR",
+                                "description": "Cirurgia vascular é a especialidade médica que se ocupa do tratamento cirúrgico de doenças das artérias, veias e vasos linfáticos. Atua junto à Angiologia, especialidade responsável pelo estudo clínico dessas doenças."
+                            },
+                            {
+                                "id": 8,
+                                "name": "GASTROENTEROLOGIA",
+                                "description": "A Gastroenterologia ou Gastrenterologia, é a especialidade médica que se ocupa do estudo, diagnóstico e tratamento clínico das doenças do aparelho digestivo."
+                            },
+                            {
+                                "id": 121,
+                                "name": "ULTRASSONOGRAFIA",
+                                "description": "A ultrassonografia ou ecografia é um método diagnóstico muito recorrente na medicina moderna que utiliza o eco gerado através de ondas ultrassônicas de alta frequência para visualizar, em tempo real, as estruturas internas do organismo. Por meio de uma ultrassonografia com doppler, o médico é capaz de ver o fluxo sangüíneo nos principais vasos."
+                            }
+                        ]
+                    },
+                    {
+                        "id": 2500,
+                        "name": "ALESSANDRA DE MORAES MAYER -ME",
+                        "shortName": "O DOUTOR ATENDE ",
+                        "unitId": 1859,
+                        "unitName": "O DOUTOR ATENDE ",
+                        "street": "BARÃO DE JUNDIAI",
+                        "number": "263",
+                        "complement": "",
+                        "postalCode": "05073-010",
+                        "telephone": "(11) 3644-6789",
+                        "neighborhood": "LAPA",
+                        "city": "SÃO PAULO",
+                        "state": "SP",
+                        "specialtyId": 3,
+                        "specialtyName": "CLINICA MEDICA",
+                        "specialtyDescription": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos",
+                        "allSpecialties": [
+                            {
+                                "id": 3,
+                                "name": "CLINICA MEDICA",
+                                "description": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos"
+                            },
+                            {
+                                "id": 50,
+                                "name": "ANGIOLOGIA",
+                                "description": "Angiologia é a especialidade médica que se ocupa do tratamento clínico das doenças que acometem vasos sanguíneos (artérias e veias) e vasos linfáticos. Atua em conjunto com a cirurgia vascular que se ocupa do tratamento cirúrgico das ditas doenças."
+                            },
+                            {
+                                "id": 41,
+                                "name": "CARDIOLOGIA",
+                                "description": "Cardiologia  é a especialidade médica que se ocupa do diagnóstico e tratamento das doenças que acometem o coração bem como os outros componentes do sistema circulatório."
+                            },
+                            {
+                                "id": 5,
+                                "name": "DERMATOLOGIA",
+                                "description": "É a especialidade médica que se ocupa do diagnóstico e tratamento clínico-cirúrgico das enfermidades relacionados à pele e aos anexos cutâneos (unhas, pelos, mucosas, cabelos)"
+                            },
+                            {
+                                "id": 27,
+                                "name": "NEUROLOGIA",
+                                "description": "Neurologia é a especialidade médica que trata dos distúrbios estruturais do sistema nervoso. Especificamente, ela lida com o diagnóstico e tratamento de todas as categorias de doenças que envolvem os sistemas nervoso central, periférico e autônomo, parassimpático e simpático incluindo os seus revestimentos, vasos sanguíneos, e todos os tecidos efetores, como os músculos.[1] O correspondente cirúrgico da especialidade é a neurocirurgia."
+                            },
+                            {
+                                "id": 104,
+                                "name": "NEUROLOGIA PEDIATRICA",
+                                "description": "Neurologia é a especialidade médica que trata dos distúrbios estruturais do sistema nervoso. Especificamente, ela lida com o diagnóstico e tratamento de todas as categorias de doenças que envolvem os sistemas nervoso central, periférico e autônomo, parassimpático e simpático incluindo os seus revestimentos, vasos sanguíneos, e todos os tecidos efetores, como os músculos.[1] O correspondente cirúrgico da especialidade é a neurocirurgia."
+                            },
+                            {
+                                "id": 8,
+                                "name": "GASTROENTEROLOGIA",
+                                "description": "A Gastroenterologia ou Gastrenterologia, é a especialidade médica que se ocupa do estudo, diagnóstico e tratamento clínico das doenças do aparelho digestivo."
+                            },
+                            {
+                                "id": 34,
+                                "name": "PEDIATRIA",
+                                "description": "A pediatria é a especialidade médica dedicada à assistência à criança e ao adolescente, nos seus diversos aspectos, sejam eles preventivos ou curativos. Pessoas como crianças e adolescentes se estiverem com doenças devem dirigir-se ao seu pediatra."
+                            },
+                            {
+                                "id": 39,
+                                "name": "REUMATOLOGIA",
+                                "description": "Reumatologia é a área do conhecimento médico que se ocupa do estudo das doenças que acometem os tecidos conjuntivos, que incluem as articulações, os ossos, os músculos, os tendões e os ligamentos[1]. Estas patologias são muitas vezes designadas de doenças reumáticas."
+                            },
+                            {
+                                "id": 36,
+                                "name": "PSIQUIATRIA",
+                                "description": "Psiquiatria é uma especialidade da Medicina que lida com a prevenção, atendimento, diagnóstico, tratamento e reabilitação das diferentes formas de sofrimentos mentais, sejam elas de cunho orgânico ou funcional, com manifestações psicológicas severas. São exemplos: adepressão, o transtorno bipolar, a esquizofrenia, a demência e os transtornos de ansiedade."
+                            },
+                            {
+                                "id": 6,
+                                "name": "ENDOCRINOLOGIA",
+                                "description": "Endocrinologia é uma especialidade médica que estuda as ordens do sistema endócrino e suas secreções específicas, chamadas de secreções fisiológicas."
+                            },
+                            {
+                                "id": 45,
+                                "name": "GINECOLOGIA",
+                                "description": "A ginecologia é a pratica da medicina que lida diretamente com a saúde do aparelho reprodutor feminino (vagina, útero ovários) e mamas. Seu significado literal é \"a ciência da mulher\"."
+                            },
+                            {
+                                "id": 60,
+                                "name": "PROCTOLOGIA",
+                                "description": "Coloproctologia é uma especialidade médica cirúrgica, é o estudo das doenças do intestino grosso (cólon), do reto e ânus. Compreende também uma série de procedimentos de diagnóstico, como a colonoscopia, a manometria e a ultrassonografia endorretal."
+                            },
+                            {
+                                "id": 54,
+                                "name": "ORTOPEDIA",
+                                "description": "A ortopedia é a especialidade médica que cuida das doenças e deformidades relacionadas aos elementos do aparelho locomotor, como ossos, músculos, ligamentos e articulações. A traumatologia é a especialidade médica que lida com o trauma do aparelho músculo-esquelético."
+                            }
+                        ]
+                    },
+                    {
+                        "id": 996,
+                        "name": "AMEL ASSISTENCIA MEDICA",
+                        "shortName": "AMEL",
+                        "unitId": 212,
+                        "unitName": "AMEL ASSISTENCIA MEDICA",
+                        "street": "PIRITUBA",
+                        "number": "55",
+                        "complement": "",
+                        "postalCode": "09015540",
+                        "telephone": "(11) 4436-0299",
+                        "neighborhood": "SANTO ANTÔNIO",
+                        "city": "SANTO ANDRÉ",
+                        "state": "SP",
+                        "specialtyId": 3,
+                        "specialtyName": "CLINICA MEDICA",
+                        "specialtyDescription": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos",
+                        "allSpecialties": [
+                            {
+                                "id": 3,
+                                "name": "CLINICA MEDICA",
+                                "description": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos"
+                            },
+                            {
+                                "id": 73,
+                                "name": "CIRURGIA CARDIOVASCULAR",
+                                "description": null
+                            },
+                            {
+                                "id": 8,
+                                "name": "GASTROENTEROLOGIA",
+                                "description": "A Gastroenterologia ou Gastrenterologia, é a especialidade médica que se ocupa do estudo, diagnóstico e tratamento clínico das doenças do aparelho digestivo."
+                            },
+                            {
+                                "id": 60,
+                                "name": "PROCTOLOGIA",
+                                "description": "Coloproctologia é uma especialidade médica cirúrgica, é o estudo das doenças do intestino grosso (cólon), do reto e ânus. Compreende também uma série de procedimentos de diagnóstico, como a colonoscopia, a manometria e a ultrassonografia endorretal."
+                            },
+                            {
+                                "id": 40,
+                                "name": "UROLOGIA",
+                                "description": "Urologia é uma especialidade cirúrgica da medicina que trata do trato urinário de homens e de mulheres e do sistema reprodutor dos homens. Os médicos que possuem especialização nesta área são os urologistas, sendo treinados para diagnosticar, tratar e acompanhar pacientes com distúrbios urológicos. Os órgãos estudados pelos urologistas incluem os rins, ureteres, bexiga urinária, uretra e os órgãos do sistema reprodutor masculino (testículos, epidídimos, ducto deferente, vesículas seminais, próstata e pênis)."
+                            },
+                            {
+                                "id": 70,
+                                "name": "ALERGIA E IMUNOLOGIA",
+                                "description": "Alergologia (ou Imunoalergologia) é a especialidade da Medicina que visa o diagnóstico e o tratamento das doenças alérgicas. Atualmente esta especialidade recebeu denominação oficial de Alergia e Imunologia"
+                            },
+                            {
+                                "id": 34,
+                                "name": "PEDIATRIA",
+                                "description": "A pediatria é a especialidade médica dedicada à assistência à criança e ao adolescente, nos seus diversos aspectos, sejam eles preventivos ou curativos. Pessoas como crianças e adolescentes se estiverem com doenças devem dirigir-se ao seu pediatra."
+                            },
+                            {
+                                "id": 31,
+                                "name": "OTORRINOLARINGOLOGIA",
+                                "description": "A otorrinolaringologia  é uma especialidade médica com características clínicas e cirúrgicas. Seu campo de atuação envolve as doenças do ouvido, do nariz e seios paranasais, faringe, laringe, cabeça e pescoço."
+                            },
+                            {
+                                "id": 41,
+                                "name": "CARDIOLOGIA",
+                                "description": "Cardiologia  é a especialidade médica que se ocupa do diagnóstico e tratamento das doenças que acometem o coração bem como os outros componentes do sistema circulatório."
+                            },
+                            {
+                                "id": 6,
+                                "name": "ENDOCRINOLOGIA",
+                                "description": "Endocrinologia é uma especialidade médica que estuda as ordens do sistema endócrino e suas secreções específicas, chamadas de secreções fisiológicas."
+                            },
+                            {
+                                "id": 11,
+                                "name": "GINECOLOGIA E OBSTETRICIA",
+                                "description": "A ginecologia é a pratica da medicina que lida diretamente com a saúde do aparelho reprodutor feminino e mamas. Seu significado literal é \"a ciência da mulher\". A obstetrícia é o ramo da medicina que estuda a reprodução na mulher. Investiga a gestação, o parto e o puerpério nos seus aspectos fisiológicos e patológicos."
+                            },
+                            {
+                                "id": 5,
+                                "name": "DERMATOLOGIA",
+                                "description": "É a especialidade médica que se ocupa do diagnóstico e tratamento clínico-cirúrgico das enfermidades relacionados à pele e aos anexos cutâneos (unhas, pelos, mucosas, cabelos)"
+                            },
+                            {
+                                "id": 27,
+                                "name": "NEUROLOGIA",
+                                "description": "Neurologia é a especialidade médica que trata dos distúrbios estruturais do sistema nervoso. Especificamente, ela lida com o diagnóstico e tratamento de todas as categorias de doenças que envolvem os sistemas nervoso central, periférico e autônomo, parassimpático e simpático incluindo os seus revestimentos, vasos sanguíneos, e todos os tecidos efetores, como os músculos.[1] O correspondente cirúrgico da especialidade é a neurocirurgia."
+                            },
+                            {
+                                "id": 43,
+                                "name": "PSICOLOGIA",
+                                "description": "Psicologia é o estudo do comportamento e as funções mentais. A psicologia tem como objetivo imediato a compreensão de grupos e indivíduos tanto pelo estabelecimento de princípios universais como pelo estudo de casos específicos,e tem, segundo alguns, como objetivo final o benefício geral da sociedade."
+                            },
+                            {
+                                "id": 44,
+                                "name": "NUTRICIONISTA",
+                                "description": "O nutricionista é um profissional de saúde que desenvolve ações no âmbito da atenção dietética e/ou segurança alimentar, destinadas tanto a um indivíduo como a um grupo populacional."
+                            },
+                            {
+                                "id": 42,
+                                "name": "FONOAUDIOLOGIA",
+                                "description": "A Fonoaudiologia  é a ciência que tem como objeto de estudo as funções neurovegetativas (mastigação, deglutição e aspectos funcionais da respiração) e a comunicação humana neurológica mais complexa que o sistema nervoso pode processar, no que se refere ao seu desenvolvimento, aperfeiçoamento, distúrbios e diferenças, em relação aos aspectos envolvidos na função auditiva periférica e central, na função vestibular, na função cognitiva, na linguagem oral e escrita, na fala, na fluência, na voz, nas funções estomatognáticas, orofaciais e na deglutição."
+                            },
+                            {
+                                "id": 81,
+                                "name": "ECOCARDIOGRAFIA",
+                                "description": "A ecocardiografia ou ecocardiograma com Doppler abrange os métodos de diagnóstico da estrutura e do funcionamento do coração baseados no uso de ultrassom"
+                            },
+                            {
+                                "id": 121,
+                                "name": "ULTRASSONOGRAFIA",
+                                "description": "A ultrassonografia ou ecografia é um método diagnóstico muito recorrente na medicina moderna que utiliza o eco gerado através de ondas ultrassônicas de alta frequência para visualizar, em tempo real, as estruturas internas do organismo. Por meio de uma ultrassonografia com doppler, o médico é capaz de ver o fluxo sangüíneo nos principais vasos."
+                            }
+                        ]
+                    },
+                    {
+                        "id": 1290,
+                        "name": "AMENO SERVICO OPERACIONAL DE SAUDE S/S LTDA",
+                        "shortName": "AMENO SAUDE",
+                        "unitId": 310,
+                        "unitName": "AMENO SAUDE",
+                        "street": "POMPEIA",
+                        "number": "718",
+                        "complement": "",
+                        "postalCode": "05022-000",
+                        "telephone": "(11) 3862-5152",
+                        "neighborhood": "VILA POMPÉIA",
+                        "city": "SÃO PAULO",
+                        "state": "SP",
+                        "specialtyId": 3,
+                        "specialtyName": "CLINICA MEDICA",
+                        "specialtyDescription": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos",
+                        "allSpecialties": [
+                            {
+                                "id": 3,
+                                "name": "CLINICA MEDICA",
+                                "description": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos"
+                            },
+                            {
+                                "id": 41,
+                                "name": "CARDIOLOGIA",
+                                "description": "Cardiologia  é a especialidade médica que se ocupa do diagnóstico e tratamento das doenças que acometem o coração bem como os outros componentes do sistema circulatório."
+                            },
+                            {
+                                "id": 34,
+                                "name": "PEDIATRIA",
+                                "description": "A pediatria é a especialidade médica dedicada à assistência à criança e ao adolescente, nos seus diversos aspectos, sejam eles preventivos ou curativos. Pessoas como crianças e adolescentes se estiverem com doenças devem dirigir-se ao seu pediatra."
+                            },
+                            {
+                                "id": 11,
+                                "name": "GINECOLOGIA E OBSTETRICIA",
+                                "description": "A ginecologia é a pratica da medicina que lida diretamente com a saúde do aparelho reprodutor feminino e mamas. Seu significado literal é \"a ciência da mulher\". A obstetrícia é o ramo da medicina que estuda a reprodução na mulher. Investiga a gestação, o parto e o puerpério nos seus aspectos fisiológicos e patológicos."
+                            },
+                            {
+                                "id": 31,
+                                "name": "OTORRINOLARINGOLOGIA",
+                                "description": "A otorrinolaringologia  é uma especialidade médica com características clínicas e cirúrgicas. Seu campo de atuação envolve as doenças do ouvido, do nariz e seios paranasais, faringe, laringe, cabeça e pescoço."
+                            },
+                            {
+                                "id": 5,
+                                "name": "DERMATOLOGIA",
+                                "description": "É a especialidade médica que se ocupa do diagnóstico e tratamento clínico-cirúrgico das enfermidades relacionados à pele e aos anexos cutâneos (unhas, pelos, mucosas, cabelos)"
+                            },
+                            {
+                                "id": 30,
+                                "name": "ORTOPEDIA E TRAUMATOLOGIA",
+                                "description": "A ortopedia é a especialidade médica que cuida das doenças e deformidades relacionadas aos elementos do aparelho locomotor, como ossos, músculos, ligamentos e articulações. A traumatologia é a especialidade médica que lida com o trauma do aparelho músculo-esquelético."
+                            },
+                            {
+                                "id": 36,
+                                "name": "PSIQUIATRIA",
+                                "description": "Psiquiatria é uma especialidade da Medicina que lida com a prevenção, atendimento, diagnóstico, tratamento e reabilitação das diferentes formas de sofrimentos mentais, sejam elas de cunho orgânico ou funcional, com manifestações psicológicas severas. São exemplos: adepressão, o transtorno bipolar, a esquizofrenia, a demência e os transtornos de ansiedade."
+                            }
+                        ]
+                    },
+                    {
+                        "id": 1132,
+                        "name": "ANA CAROLINA UNGARO ALMEIDA",
+                        "shortName": "ANA C. UNGARO",
+                        "unitId": 14,
+                        "unitName": "ANA CAROLINA UNGARO ALMEIDA",
+                        "street": "CERQUEIRA CESAR",
+                        "number": "481",
+                        "complement": "SALA 602",
+                        "postalCode": "14010-130",
+                        "telephone": "(16)3941-2592",
+                        "neighborhood": "CENTRO",
+                        "city": "RIBEIRÃO PRETO",
+                        "state": "SP",
+                        "specialtyId": 3,
+                        "specialtyName": "CLINICA MEDICA",
+                        "specialtyDescription": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos",
+                        "allSpecialties": [
+                            {
+                                "id": 3,
+                                "name": "CLINICA MEDICA",
+                                "description": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos"
+                            }
+                        ]
+                    },
+                    {
+                        "id": 1568,
+                        "name": "ANDRADE E MALATESTA SERVICOS MEDICOS ESPECIALIZADO",
+                        "shortName": "CEMAN CENTRO MED",
+                        "unitId": 645,
+                        "unitName": "CEMAN CENTRO MEDICO ANDRADE",
+                        "street": "BRAS DE PINA",
+                        "number": "90",
+                        "complement": "",
+                        "postalCode": "08730-130",
+                        "telephone": "(11) 4727-2804",
+                        "neighborhood": "VILA VITÓRIA",
+                        "city": "MOGI DAS CRUZES",
+                        "state": "SP",
+                        "specialtyId": 3,
+                        "specialtyName": "CLINICA MEDICA",
+                        "specialtyDescription": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos",
+                        "allSpecialties": [
+                            {
+                                "id": 41,
+                                "name": "CARDIOLOGIA",
+                                "description": "Cardiologia  é a especialidade médica que se ocupa do diagnóstico e tratamento das doenças que acometem o coração bem como os outros componentes do sistema circulatório."
+                            },
+                            {
+                                "id": 56,
+                                "name": "CIRURGIA GERAL",
+                                "description": "Cirurgia geral é a especialidade médica cuja área de atuação compreende: Cirurgia Abdominal , Cirurgia videolaparoscópica e Cirurgia do trauma. Esta especialidade médica ocupa-se do estudo dos mecanismo fisiopatológicos, diagnóstico e tratamento de enfermidades passíveis de abordagem por procedimentos cirúrgicos."
+                            },
+                            {
+                                "id": 3,
+                                "name": "CLINICA MEDICA",
+                                "description": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos"
+                            },
+                            {
+                                "id": 5,
+                                "name": "DERMATOLOGIA",
+                                "description": "É a especialidade médica que se ocupa do diagnóstico e tratamento clínico-cirúrgico das enfermidades relacionados à pele e aos anexos cutâneos (unhas, pelos, mucosas, cabelos)"
+                            },
+                            {
+                                "id": 6,
+                                "name": "ENDOCRINOLOGIA",
+                                "description": "Endocrinologia é uma especialidade médica que estuda as ordens do sistema endócrino e suas secreções específicas, chamadas de secreções fisiológicas."
+                            },
+                            {
+                                "id": 8,
+                                "name": "GASTROENTEROLOGIA",
+                                "description": "A Gastroenterologia ou Gastrenterologia, é a especialidade médica que se ocupa do estudo, diagnóstico e tratamento clínico das doenças do aparelho digestivo."
+                            },
+                            {
+                                "id": 11,
+                                "name": "GINECOLOGIA E OBSTETRICIA",
+                                "description": "A ginecologia é a pratica da medicina que lida diretamente com a saúde do aparelho reprodutor feminino e mamas. Seu significado literal é \"a ciência da mulher\". A obstetrícia é o ramo da medicina que estuda a reprodução na mulher. Investiga a gestação, o parto e o puerpério nos seus aspectos fisiológicos e patológicos."
+                            },
+                            {
+                                "id": 34,
+                                "name": "PEDIATRIA",
+                                "description": "A pediatria é a especialidade médica dedicada à assistência à criança e ao adolescente, nos seus diversos aspectos, sejam eles preventivos ou curativos. Pessoas como crianças e adolescentes se estiverem com doenças devem dirigir-se ao seu pediatra."
+                            },
+                            {
+                                "id": 60,
+                                "name": "PROCTOLOGIA",
+                                "description": "Coloproctologia é uma especialidade médica cirúrgica, é o estudo das doenças do intestino grosso (cólon), do reto e ânus. Compreende também uma série de procedimentos de diagnóstico, como a colonoscopia, a manometria e a ultrassonografia endorretal."
+                            },
+                            {
+                                "id": 36,
+                                "name": "PSIQUIATRIA",
+                                "description": "Psiquiatria é uma especialidade da Medicina que lida com a prevenção, atendimento, diagnóstico, tratamento e reabilitação das diferentes formas de sofrimentos mentais, sejam elas de cunho orgânico ou funcional, com manifestações psicológicas severas. São exemplos: adepressão, o transtorno bipolar, a esquizofrenia, a demência e os transtornos de ansiedade."
+                            },
+                            {
+                                "id": 39,
+                                "name": "REUMATOLOGIA",
+                                "description": "Reumatologia é a área do conhecimento médico que se ocupa do estudo das doenças que acometem os tecidos conjuntivos, que incluem as articulações, os ossos, os músculos, os tendões e os ligamentos[1]. Estas patologias são muitas vezes designadas de doenças reumáticas."
+                            },
+                            {
+                                "id": 31,
+                                "name": "OTORRINOLARINGOLOGIA",
+                                "description": "A otorrinolaringologia  é uma especialidade médica com características clínicas e cirúrgicas. Seu campo de atuação envolve as doenças do ouvido, do nariz e seios paranasais, faringe, laringe, cabeça e pescoço."
+                            },
+                            {
+                                "id": 40,
+                                "name": "UROLOGIA",
+                                "description": "Urologia é uma especialidade cirúrgica da medicina que trata do trato urinário de homens e de mulheres e do sistema reprodutor dos homens. Os médicos que possuem especialização nesta área são os urologistas, sendo treinados para diagnosticar, tratar e acompanhar pacientes com distúrbios urológicos. Os órgãos estudados pelos urologistas incluem os rins, ureteres, bexiga urinária, uretra e os órgãos do sistema reprodutor masculino (testículos, epidídimos, ducto deferente, vesículas seminais, próstata e pênis)."
+                            },
+                            {
+                                "id": 165,
+                                "name": "ELETROCARDIOGRAMA - ECG",
+                                "description": "Um eletrocardiograma (identificado com as abreviações ECG e EKG é a reprodução gráfica da atividade elétrica do coração durante o seu funcionamento, registada a partir da superfície do corpo."
+                            },
+                            {
+                                "id": 156,
+                                "name": "MAPA-24 HS",
+                                "description": "A MAPA (assim mesmo, no feminino) é a sigla de Monitorização Ambulatorial da Pressão Arterial. Trata-se de um exame útil tanto no diagnóstico e no acompanhamento da Hipertensão Arterial. A pressão arterial varia constantemente por isto não podemos na maioria dos casos estabelecer o estágio de Hipertensão Arterial somente com as leituras da pressão arterial realizadas no consultório."
+                            },
+                            {
+                                "id": 166,
+                                "name": "HOLTER 24 HS/2 CANAIS",
+                                "description": "O Holter é um monitor portátil que registra a atividade elétrica do coração e suas variações durante as 24 horas do dia ou mais e pode, assim, detectar alterações que em geral não aparecem num exame de tempo mais limitado, como num eletrocardiograma simples, por exemplo."
+                            },
+                            {
+                                "id": 173,
+                                "name": "ECOCARDIOGRAMA BIDIMENSIONAL C/ DOPLLER ",
+                                "description": "A ecocardiografia ou ecocardiograma bidimensional com doppler é um exame de ultrassom, no qual as imagens do coração, captadas por um transdutor colocado sobre o tórax do paciente, são transmitidas para um monitor."
+                            }
+                        ]
+                    },
+                    {
+                        "id": 1360,
+                        "name": "ANTONIO CARLOS MANIGLIA NASCIMENTO",
+                        "shortName": "IMED",
+                        "unitId": 555,
+                        "unitName": "CLINICA IMED",
+                        "street": "FAUSTA DUARTE DE ARAUJO",
+                        "number": "213",
+                        "complement": "",
+                        "postalCode": "08730-130",
+                        "telephone": "(11) 4794-0688",
+                        "neighborhood": "CENTRO",
+                        "city": "MOGI DAS CRUZES",
+                        "state": "SP",
+                        "specialtyId": 3,
+                        "specialtyName": "CLINICA MEDICA",
+                        "specialtyDescription": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos",
+                        "allSpecialties": [
+                            {
+                                "id": 8,
+                                "name": "GASTROENTEROLOGIA",
+                                "description": "A Gastroenterologia ou Gastrenterologia, é a especialidade médica que se ocupa do estudo, diagnóstico e tratamento clínico das doenças do aparelho digestivo."
+                            },
+                            {
+                                "id": 3,
+                                "name": "CLINICA MEDICA",
+                                "description": "Clínica médica, no Brasil também conhecida como Medicina Interna, é a especialidade médica que trata de pacientes adultos"
+                            },
+                            {
+                                "id": 56,
+                                "name": "CIRURGIA GERAL",
+                                "description": "Cirurgia geral é a especialidade médica cuja área de atuação compreende: Cirurgia Abdominal , Cirurgia videolaparoscópica e Cirurgia do trauma. Esta especialidade médica ocupa-se do estudo dos mecanismo fisiopatológicos, diagnóstico e tratamento de enfermidades passíveis de abordagem por procedimentos cirúrgicos."
+                            },
+                            {
+                                "id": 60,
+                                "name": "PROCTOLOGIA",
+                                "description": "Coloproctologia é uma especialidade médica cirúrgica, é o estudo das doenças do intestino grosso (cólon), do reto e ânus. Compreende também uma série de procedimentos de diagnóstico, como a colonoscopia, a manometria e a ultrassonografia endorretal."
+                            },
+                            {
+                                "id": 84,
+                                "name": "ENDOCRINOLOGIA E METABOLOGIA",
+                                "description": "Endocrinologia é uma especialidade médica que estuda as ordens do sistema endócrino e suas secreções específicas, chamadas de secreções fisiológicas."
+                            },
+                            {
+                                "id": 5,
+                                "name": "DERMATOLOGIA",
+                                "description": "É a especialidade médica que se ocupa do diagnóstico e tratamento clínico-cirúrgico das enfermidades relacionados à pele e aos anexos cutâneos (unhas, pelos, mucosas, cabelos)"
+                            },
+                            {
+                                "id": 2,
+                                "name": "CIRURGIA VASCULAR",
+                                "description": "Cirurgia vascular é a especialidade médica que se ocupa do tratamento cirúrgico de doenças das artérias, veias e vasos linfáticos. Atua junto à Angiologia, especialidade responsável pelo estudo clínico dessas doenças."
+                            },
+                            {
+                                "id": 44,
+                                "name": "NUTRICIONISTA",
+                                "description": "O nutricionista é um profissional de saúde que desenvolve ações no âmbito da atenção dietética e/ou segurança alimentar, destinadas tanto a um indivíduo como a um grupo populacional."
+                            },
+                            {
+                                "id": 43,
+                                "name": "PSICOLOGIA",
+                                "description": "Psicologia é o estudo do comportamento e as funções mentais. A psicologia tem como objetivo imediato a compreensão de grupos e indivíduos tanto pelo estabelecimento de princípios universais como pelo estudo de casos específicos,e tem, segundo alguns, como objetivo final o benefício geral da sociedade."
+                            },
+                            {
+                                "id": 52,
+                                "name": "CIRURGIA PLASTICA",
+                                "description": "A cirurgia plástica tem por objetivo a reconstituição de uma parte do corpo humano por razões médicas ou estéticas. A cirurgia plástica se desenvolve sob duas facetas: a cirurgia plástica reparadora e a cirurgia plástica estética. A cirurgia plástica reparadora tem como objetivo corrigir lesões deformantes, defeitos congênitos ou adquiridos. É considerada tão necessária quanto qualquer outra intervenção cirúrgica."
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+
 ## Prestadores por filtro [/api/app/providers/filter{?latitude,longitude,radius,id,name,state,city,neighborhood,postalcode}]
 
 Busca por prestadores conveniados em dadas coordenadas.
-É semelhante à anterior, mas mais abrangente, pois permite mais filtros.
 
 No retorno de sucesso, uma lista de prestadores é retornada.
 
@@ -169,7 +2079,7 @@ _Códigos de erro:_
     + latitude: `-23.5815888` (number) - a posição da latitude.
     + longitude: `-46.702628` (number) - a posição da longitude.
     + radius: `2.3` (number) - raio da busca, em quilômetros. Pode-se indicar metros, usando frações.
-    + id: 61 (optional, number) - identificador único do prestador. Pode ser informado várias vezes para mais de um prestador.
+    + id: 61 (optional, number) - identificador único da especialidade. Pode ser informado várias vezes para mais de uma especialidade.
     + name (optional, string) - filtro do nome da especilidade.
     + state (optional, string) - o estado buscado. Use a sigla da UF.
     + city (optional, string) - o nome da cidade buscada.
