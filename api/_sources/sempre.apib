@@ -214,6 +214,89 @@ _Códigos de erro:_
             }
         }
 
+## Bilhetes de Apólices de um Cartão [/api/sempre/cards/{cardNumber}/apolices{?billet}]
+
+### GET
+
+Obtém informações de bilhetes das apólices de um cartão de saúde.
+
+No retorno de sucesso, será retornado no campo `body` uma lista JSON com dados das apólices.
+
+| Campo             | Tipo    | Descrição                                                             |
+| ----------------- | ------- | --------------------------------------------------------------------- |
+| `billet`          | String  | O número do bilhete da apólice.                                       |
+| `status`          | Boolean | Indica se o bilhete é válido ou não.                                  |
+| `acquisitionDate` | String  | Data e hora de aquisição da apólice no formato `yyyy-MM-dd HH:mm:ss`. |
+| `vigencyStart`    | String  | Data de início da vigência da apólice no formato `yyyy-MM-dd`.        |
+| `vigencyEnd`      | String  | Data de fim da vigência da apólice no formato `yyyy-MM-dd`.           |
+| `url`             | String  | URL para download do arquivo de apólice.                              |
+
+_Códigos de erro:_
+
+- `400`: para erros na requisição, como de sintaxe, campo faltante ou inválido.
+- `401`: para erros relativos à autenticação ou à autorização.
+
++ Parameters
+    + cardNumber: `6064070175657410` (number, required) - Número de cartão de saúde do cliente (somente números).
+    + billet (string, optional) - Número do bilhete de apólice. Qaundo esse parâmetro é passado, será validado se o cartão possui essa apólice, retornando um erro do contrário.
+
++ Request  (application/json)
+    + Headers
+
+            Authorization: Bearer <TOKEN>
+
++ Response 200 (application/json)
+
+        {
+            "status": 200,
+            "defaultMessage": "Obtém o números de bilhete associados ao número do cartão passado",
+            "body": [
+                {
+                    "billet": "7182016700684",
+                    "acquisitionDate": "2019-01-28 18:44:05",
+                    "vigencyStart": "2019-03-16",
+                    "vigencyEnd": "2019-04-15",
+                    "url": "https://qa-api.meutem.com.br/app/cards/6064070175657410/billet/7182016700684/print",
+                    "status": true
+                },
+                {
+                    "billet": "7182016700005",
+                    "acquisitionDate": "2019-01-28 18:44:05",
+                    "vigencyStart": "2019-02-02",
+                    "vigencyEnd": "2019-03-01",
+                    "url": "https://qa-api.meutem.com.br/app/cards/6064070175657410/billet/7182016700005/print",
+                    "status": false
+                },
+                {
+                    "billet": "7182016600048",
+                    "acquisitionDate": "2019-01-28 18:44:05",
+                    "vigencyStart": "2019-01-29",
+                    "vigencyEnd": "2019-01-31",
+                    "url": "https://qa-api.meutem.com.br/app/cards/6064070175657410/billet/7182016600048/print",
+                    "status": false
+                }
+            ]
+        }
+
++ Response 400 (application/json)
+
+    > Caso tenha sido passado um número de bilhete e o cartão não possua esse bilhete.
+
+    + Body
+
+            {
+                "status": 400,
+                "defaultMessage": "O bilhete informado é inválido",
+                "error": {
+                    "exceptionLogCode": null,
+                    "errorType": "class br.com.meutem.api.exceptionhandler.BusinessException",
+                    "userMessage": "O bilhete informado é inválido",
+                    "developerMessage": "O bilhete informado é inválido",
+                    "apiErrorCode": null,
+                    "data": null
+                }
+            }
+
 # Group Autorização
 
 ## Token [/api/sempre/oauth/token]
