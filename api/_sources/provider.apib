@@ -2064,7 +2064,7 @@ _Códigos de erro:_
             }
         }
 
-## Prestadores por filtro [/api/app/providers/filter{?latitude,longitude,radius,id,name,state,city,neighborhood,postalcode}]
+## Prestadores por filtro [/api/app/providers/filter{?latitude,longitude,radius,name,state,city,neighborhood,postalcode,filterType}]
 
 Busca por prestadores conveniados em dadas coordenadas.
 
@@ -2079,12 +2079,12 @@ _Códigos de erro:_
     + latitude: `-23.5815888` (number) - a posição da latitude.
     + longitude: `-46.702628` (number) - a posição da longitude.
     + radius: `2.3` (number) - raio da busca, em quilômetros. Pode-se indicar metros, usando frações.
-    + id: 61 (optional, number) - identificador único da especialidade. Pode ser informado várias vezes para mais de uma especialidade.
     + name (optional, string) - filtro do nome da especilidade.
     + state (optional, string) - o estado buscado. Use a sigla da UF.
     + city (optional, string) - o nome da cidade buscada.
     + neighborhood (optional, string) - o bairro buscado.
     + postalcode (optional, string) - o CEP buscado.
+    + filterType: `OR` (optional, string) - indica como a filtragem da localidade (_city_, _state_, _neighborhood_ e _postalcode_) será aplicada. Pode ter o valor `OR` (padrão) ou `AND`.
 
 ### GET
 
