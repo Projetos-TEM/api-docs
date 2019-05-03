@@ -113,7 +113,6 @@ A entrada deve ser um JSON, informando os dados do cliente, com os seguintes cam
 | Campos               | Tipo   | Min. | Máx. | Obrigatório | Descrição                                                                                                                                                                                                                                                                                              |
 | -------------------- | ------ | ---- | ---- | :---------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `currentUser`        | String | 1    | 128  | Sim         | Identificação de quem está fazendo a operação.                                                                                                                                                                                                                                                         |
-| `action`             | Number | 1    | 1    | Sim         | Ação a ser efetuada: `1` (Adesão) e `4` (Suspensão).                                                                                                                                                                                                                                                   |
 | `onixCode`           | Number | 4    | 4    | Sim         | Código do produto usado no cartão de saúde.                                                                                                                                                                                                                                                            |
 | `cpfOrCnpj`          | Number | 11   | 11   | Sim         | Número de CPF do cliente.                                                                                                                                                                                                                                                                              |
 | `name`               | String | 6    | 50   | Sim         | Nome completo do cliente.                                                                                                                                                                                                                                                                              |
@@ -121,7 +120,7 @@ A entrada deve ser um JSON, informando os dados do cliente, com os seguintes cam
 | `birthdate`          | String | 10   | 10   | Sim         | Data de nascimento do cliente no formato `yyyy-MM-dd`. A data deve estar em um intervalo válido: o ano deve estar entre 1900 e o atual.                                                                                                                                                                |
 | `telephone`          | String | 11   | 11   | Sim         | Número de celular do cliente com DDD.                                                                                                                                                                                                                                                                  |
 | `gender`             | String | 1    | 1    | Sim         | Gênero do cliente (`M`/`F`).                                                                                                                                                                                                                                                                           |
-| `cardNumber`         | String | 14   | 16   | Sim/Não     | Número do cartão de saúde (obrigatório em alguns produtos).                                                                                                                                                                                                                                            |
+| `cardNumber`         | String | 14   | 16   | Sim/Não     | Número do cartão de saúde (obrigatório em alguns produtos). Se o produto for do tipo COLETIVO, deve ser informado, nesse campo, o CNPJ.                                                                                                                                                                |
 | `majorCard`          | String | 14   | 16   | Não         | Número do cartão titular.                                                                                                                                                                                                                                                                              |
 | `externalIdentifier` | String | -    | 20   | Não         | Identificador externo usado para identificar o cartão e/ou cliente no sistema externo do parceiro.                                                                                                                                                                                                     |
 | `email`              | String | -    | 200  | Não         | Um e-mail válido para contato com o cliente.                                                                                                                                                                                                                                                           |
@@ -168,7 +167,9 @@ _Códigos de erro:_
 
 ### POST
 
-Faz a atualização de status de um cartão de saúde.
+Faz a atualização de status de um cartão de saúde. As transições entre os estados do cartão podem ser as seguintes:
+
+![](images/estados-cartao.png)
 
 A entrada deve ser um JSON com os seguintes campos:
 
@@ -341,13 +342,12 @@ Utiliza o modo de autenticação _HTTP Basic_, seguindo o modo `client_credentia
 ## Client (object)
 
 + currentUser: `<USUÁRIO>` (string, required) - Identificação de quem fez a operação
-+ action: `1` (number, required) - Ação a ser efetuada: 1 (Adesão) e 4 (Suspensão)
 + cardNumber: `1234567654321234` (string) - Número do cartão de saúde (obrigatório em alguns produtos)
 + majorCard: `null` (string) - Número do cartão pai
 + onixCode: `<ONIX_CODE>` (string, required) - Código do produto usado no cartão de saúde
 + cpfOrCnpj: `28937645173` (string, required) - Número de CPF do cliente
 + name: `Maria Vitória Cunha` (string, required) - Nome completo do cliente
-+ shortName: `M. V. Cunha` (string) - Nome abreviado (usado no cartão)
++ shortName: `Maria V. Cunha` (string) - Nome abreviado (usado no cartão)
 + birthdate: `1991-11-12` (string, required) - Data de nascimento do cliente
 + telephone: `81996762941` (string, required) - Número de celular do cliente com DDD
 + externalIdentifier: null (string) - Identificador externo usado para identificar o cartão e/ou cliente no sistema externo do parceiro.
