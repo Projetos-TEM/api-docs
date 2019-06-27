@@ -106,11 +106,11 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
     </span>}
   ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="endpoints-carga-de-cliente" class="resource"><h3 class="resource-heading">Carga de Cliente <a href="#endpoints-carga-de-cliente" class="permalink">&nbsp;&para;</a></h3><div id="endpoints-carga-de-cliente-post" class="action post"><h4 class="action-heading"><div class="name"></div><a href="#endpoints-carga-de-cliente-post" class="method post">POST</a><code class="uri">/api/sempre/clients/load</code></h4><p>Faz a carga de um cliente a um cartão de saúde. O cartão pode ser um existente (o número do cartão deve ser passado) ou o cartão pode ser gerado na hora.</p>
-<p>A entrada deve ser um JSON, informando os dados do cliente, com os seguintes campos:</p>
+<p>A entrada deve ser um objeto JSON, informando os dados do cliente, com os seguintes campos:</p>
 <table>
 <thead>
 <tr>
-<th>Campos</th>
+<th>Campo</th>
 <th>Tipo</th>
 <th>Min.</th>
 <th>Máx.</th>
@@ -120,12 +120,36 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 </thead>
 <tbody>
 <tr>
+<td><code>operationTit</code></td>
+<td>String</td>
+<td>-</td>
+<td>-</td>
+<td style="text-align:center">Não</td>
+<td><p>Operação a ser efetuada: <code>CREATE</code> (adesão) ou <code>ALTER</code> (alteração). <p><strong>Valor padrão:</strong> <code>CREATE</code>.</td>
+</tr>
+<tr>
 <td><code>currentUser</code></td>
 <td>String</td>
 <td>1</td>
 <td>128</td>
 <td style="text-align:center">Sim</td>
-<td>Identificação de quem está fazendo a operação.</td>
+<td>Identificação de quem está fazendo a operação. Por exemplo: <code>Maria</code>.</td>
+</tr>
+<tr>
+<td><code>cpfOrCnpj</code></td>
+<td>Number</td>
+<td>11</td>
+<td>11</td>
+<td style="text-align:center">Sim</td>
+<td>Número de CPF do cliente.</td>
+</tr>
+<tr>
+<td><code>cardNumber</code></td>
+<td>String</td>
+<td>14</td>
+<td>16</td>
+<td style="text-align:center">Sim/Não</td>
+<td><p>Número do cartão de saúde (obrigatório em alguns produtos). <p>Se o produto for do tipo COLETIVO, deve ser informado, nesse campo, o CNPJ. <p>Na operação do tipo <code>ALTER</code>, o cartão de saúde do cliente deve ser identificado por esse campo. Se não for possível informar, o cartão de saúde pode ser identificado através da composição dos campos <code>cpf</code>+<code>onixCode</code>+<code>externalIdentifier</code>).</td>
 </tr>
 <tr>
 <td><code>onixCode</code></td>
@@ -136,12 +160,12 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>Código do produto usado no cartão de saúde.</td>
 </tr>
 <tr>
-<td><code>cpfOrCnpj</code></td>
+<td><code>newOnixCode</code></td>
 <td>Number</td>
-<td>11</td>
-<td>11</td>
-<td style="text-align:center">Sim</td>
-<td>Número de CPF do cliente.</td>
+<td>4</td>
+<td>4</td>
+<td style="text-align:center">Não</td>
+<td><p>Novo código do produto para o cartão de saúde. <p>Campo utilizado na operação do tipo <code>ALTER</code> para realizar a mudança de plano do cartão de saúde do titular e dos dependentes.</td>
 </tr>
 <tr>
 <td><code>name</code></td>
@@ -165,7 +189,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>10</td>
 <td>10</td>
 <td style="text-align:center">Sim</td>
-<td>Data de nascimento do cliente no formato <code>yyyy-MM-dd</code>. A data deve estar em um intervalo válido: o ano deve estar entre 1900 e o atual.</td>
+<td><p>Data de nascimento do cliente no formato <code>yyyy-MM-dd</code>. <p>A data deve estar em um intervalo válido: o ano deve estar entre 1900 e o atual.</td>
 </tr>
 <tr>
 <td><code>telephone</code></td>
@@ -180,16 +204,8 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>String</td>
 <td>1</td>
 <td>1</td>
-<td style="text-align:center">Sim</td>
-<td>Gênero do cliente (<code>M</code>/<code>F</code>).</td>
-</tr>
-<tr>
-<td><code>cardNumber</code></td>
-<td>String</td>
-<td>14</td>
-<td>16</td>
-<td style="text-align:center">Sim/Não</td>
-<td>Número do cartão de saúde (obrigatório em alguns produtos). Se o produto for do tipo COLETIVO, deve ser informado, nesse campo, o CNPJ.</td>
+<td style="text-align:center">Não</td>
+<td>Gênero do cliente (<code>M</code>/<code>F</code>). Se não informado, o gênero cadastrado será <code>M</code>.</td>
 </tr>
 <tr>
 <td><code>extraLine</code></td>
@@ -197,7 +213,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>50</td>
 <td style="text-align:center">Não</td>
-<td>Quarta linha do cartão TEM Saúde.</td>
+<td>Quarta linha do cartão TEM Saúde <em>(ainda não implementado)</em>.</td>
 </tr>
 <tr>
 <td><code>majorCard</code></td>
@@ -205,7 +221,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>14</td>
 <td>16</td>
 <td style="text-align:center">Não</td>
-<td>Número do cartão titular.</td>
+<td>Número do cartão titular (utilizado em alguns produtos para a inclusão individual de dependentes).</td>
 </tr>
 <tr>
 <td><code>externalIdentifier</code></td>
@@ -213,7 +229,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>45</td>
 <td style="text-align:center">Não</td>
-<td>Identificador externo usado para identificar o cartão e/ou cliente no sistema externo do parceiro.</td>
+<td>Identificador externo usado para identificar o cliente no sistema externo do parceiro.</td>
 </tr>
 <tr>
 <td><code>externalIdentifier2</code></td>
@@ -221,7 +237,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>45</td>
 <td style="text-align:center">Não</td>
-<td>Um segundo identificador externo usado para casos específicos (dependente de negociação com a TEM).</td>
+<td>Outro identificador externo, usado em casos específicos.</td>
 </tr>
 <tr>
 <td><code>email</code></td>
@@ -335,8 +351,186 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td style="text-align:center">Não</td>
 <td>Classe de rendimento: <code>1</code> (Até 1 salário mínimo), <code>2</code> (De 2 a 5 salários mínimos), <code>3</code> (De 5 a 10 salários mínimos), <code>4</code> (De 10 a 20 salários mínimos), <code>5</code> (Mais de 20 salários mínimos) ou <code>99</code> (Sem informação)</td>
 </tr>
+<tr>
+<td><code>dependents</code></td>
+<td>Array</td>
+<td>-</td>
+<td>-</td>
+<td style="text-align:center">Não</td>
+<td>Lista de dependentes do cliente para serem beneficiários dos serviços da Rede TEM de Saúde <em>(ainda não implementado)</em>. O objeto para descrever o dependente está descrito a seguir.</td>
+</tr>
 </tbody>
 </table>
+<hr>
+<p>O dependente é um objeto JSON com os seguintes campos:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Min.</th>
+<th>Máx.</th>
+<th style="text-align:center">Obrigatório</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>operationDep</code></td>
+<td>String</td>
+<td>-</td>
+<td>-</td>
+<td style="text-align:center">Sim</td>
+<td><p>Operação a ser efetuada com o dependente: <code>INCLUDE</code> (inclusão) ou <code>EXCLUDE</code> (exclusão). <p>A operação de excluir dependente só é possível se a operação do titular da carga for do tipo <code>ALTER</code>.</td>
+</tr>
+<tr>
+<td><code>cpf</code></td>
+<td>Number</td>
+<td>11</td>
+<td>11</td>
+<td style="text-align:center">Sim</td>
+<td>Número de CPF do dependente.</td>
+</tr>
+<tr>
+<td><code>cardNumber</code></td>
+<td>String</td>
+<td>14</td>
+<td>16</td>
+<td style="text-align:center">Sim/Não</td>
+<td>Número do cartão de saúde do dependente (se houver um cartão pré-gerado).</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>String</td>
+<td>6</td>
+<td>50</td>
+<td style="text-align:center">Sim</td>
+<td>Nome completo do dependente.</td>
+</tr>
+<tr>
+<td><code>shortName</code></td>
+<td>String</td>
+<td>6</td>
+<td>20</td>
+<td style="text-align:center">Não</td>
+<td>Nome abreviado do dependente (usado no cartão).</td>
+</tr>
+<tr>
+<td><code>birthdate</code></td>
+<td>String</td>
+<td>10</td>
+<td>10</td>
+<td style="text-align:center">Sim</td>
+<td>Data de nascimento do dependente no formato <code>yyyy-MM-dd</code>.</td>
+</tr>
+<tr>
+<td><code>telephone</code></td>
+<td>String</td>
+<td>11</td>
+<td>11</td>
+<td style="text-align:center">Não</td>
+<td><p>Número de celular do dependente com DDD. <p>Em caso de não informar, será utilizado o do titular.</td>
+</tr>
+<tr>
+<td><code>gender</code></td>
+<td>String</td>
+<td>1</td>
+<td>1</td>
+<td style="text-align:center">Não</td>
+<td>Gênero do dependente (<code>M</code>/<code>F</code>). Se não informado, o gênero cadastrado será <code>M</code>.</td>
+</tr>
+<tr>
+<td><code>extraLine</code></td>
+<td>String</td>
+<td>-</td>
+<td>50</td>
+<td style="text-align:center">Não</td>
+<td>Quarta linha do cartão TEM Saúde <em>(ainda não implementado)</em>.</td>
+</tr>
+<tr>
+<td><code>externalIdentifier</code></td>
+<td>String</td>
+<td>-</td>
+<td>45</td>
+<td style="text-align:center">Não</td>
+<td>Identificador externo usado para identificar o dependente no sistema externo do parceiro.</td>
+</tr>
+<tr>
+<td><code>externalIdentifier2</code></td>
+<td>String</td>
+<td>-</td>
+<td>45</td>
+<td style="text-align:center">Não</td>
+<td>Outro identificador externo, usado em casos específicos.</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td>String</td>
+<td>-</td>
+<td>200</td>
+<td style="text-align:center">Não</td>
+<td><p>Um e-mail válido para contato com o dependente. <p>Em caso de não informar, será utilizado o do titular.</td>
+</tr>
+<tr>
+<td><code>address</code></td>
+<td>String</td>
+<td>-</td>
+<td>40</td>
+<td style="text-align:center">-</td>
+<td>Endereço do dependente (logradouro)<a href="">*</a></td>
+</tr>
+<tr>
+<td><code>number</code></td>
+<td>String</td>
+<td>-</td>
+<td>6</td>
+<td style="text-align:center">-</td>
+<td>Endereço do dependente (número)<a href="">*</a></td>
+</tr>
+<tr>
+<td><code>complement</code></td>
+<td>String</td>
+<td>-</td>
+<td>20</td>
+<td style="text-align:center">-</td>
+<td>Endereço do dependente (complemento)<a href="">*</a></td>
+</tr>
+<tr>
+<td><code>neighborhood</code></td>
+<td>String</td>
+<td>-</td>
+<td>50</td>
+<td style="text-align:center">-</td>
+<td>Endereço do dependente (bairro)<a href="">*</a></td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td>String</td>
+<td>-</td>
+<td>50</td>
+<td style="text-align:center">-</td>
+<td>Endereço do dependente (cidade)<a href="">*</a></td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>String</td>
+<td>2</td>
+<td>2</td>
+<td style="text-align:center">-</td>
+<td>Endereço do dependente (UF)<a href="">*</a></td>
+</tr>
+<tr>
+<td><code>postalCode</code></td>
+<td>String</td>
+<td>-</td>
+<td>8</td>
+<td style="text-align:center">-</td>
+<td>Endereço do dependente (CEP)<a href="">*</a> - somente números</td>
+</tr>
+</tbody>
+</table>
+<p><a href="">*</a> <em>Se o dependente não informar o endereço, será utilizado o do titular, mas se informado pelo menos um dos campos de endereço, então as regras de obrigatoriedade serão as mesmas do titular.</em></p>
+<hr>
 <p>No retorno de sucesso, os dados do cartão, seja novo ou pré-existente são retornados.</p>
 <p><em>Códigos de erro:</em></p>
 <ul>
@@ -737,7 +931,7 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
   "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"Unauthorized"</span></span>,
   "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Unauthorized"</span></span>,
   "<span class="hljs-attribute">path</span>": <span class="hljs-value"><span class="hljs-string">"/api/sempre/oauth/token"</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 07 Jun 2019</p><script>/* eslint-env browser */
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 27 Jun 2019</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
