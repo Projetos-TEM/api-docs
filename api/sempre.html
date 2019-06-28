@@ -543,19 +543,20 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
 </li>
 </ul>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/api/sempre/clients/load</span></div><div class="title"><strong>Request&nbsp;&nbsp;<code>Adesão</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer &lt;TOKEN&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">operationTit</span>": <span class="hljs-value"><span class="hljs-string">"CREATE"</span></span>,
   "<span class="hljs-attribute">currentUser</span>": <span class="hljs-value"><span class="hljs-string">"&lt;USUÁRIO&gt;"</span></span>,
-  "<span class="hljs-attribute">cardNumber</span>": <span class="hljs-value"><span class="hljs-string">"1234567654321234"</span></span>,
-  "<span class="hljs-attribute">majorCard</span>": <span class="hljs-value"><span class="hljs-string">"null"</span></span>,
-  "<span class="hljs-attribute">onixCode</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ONIX_CODE&gt;"</span></span>,
   "<span class="hljs-attribute">cpfOrCnpj</span>": <span class="hljs-value"><span class="hljs-string">"28937645173"</span></span>,
+  "<span class="hljs-attribute">cardNumber</span>": <span class="hljs-value"><span class="hljs-string">"1234567654321234"</span></span>,
+  "<span class="hljs-attribute">onixCode</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ONIX_CODE&gt;"</span></span>,
   "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Maria Vitória Cunha"</span></span>,
   "<span class="hljs-attribute">shortName</span>": <span class="hljs-value"><span class="hljs-string">"Maria V. Cunha"</span></span>,
   "<span class="hljs-attribute">birthdate</span>": <span class="hljs-value"><span class="hljs-string">"1991-11-12"</span></span>,
   "<span class="hljs-attribute">telephone</span>": <span class="hljs-value"><span class="hljs-string">"81996762941"</span></span>,
+  "<span class="hljs-attribute">gender</span>": <span class="hljs-value"><span class="hljs-string">"F"</span></span>,
+  "<span class="hljs-attribute">majorCard</span>": <span class="hljs-value"><span class="hljs-string">"null"</span></span>,
   "<span class="hljs-attribute">externalIdentifier</span>": <span class="hljs-value"><span class="hljs-string">"null"</span></span>,
   "<span class="hljs-attribute">externalIdentifier2</span>": <span class="hljs-value"><span class="hljs-string">"null"</span></span>,
   "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"maria@exemplo.com"</span></span>,
-  "<span class="hljs-attribute">gender</span>": <span class="hljs-value"><span class="hljs-string">"F"</span></span>,
   "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"Rua Teófilo Prado"</span></span>,
   "<span class="hljs-attribute">number</span>": <span class="hljs-value"><span class="hljs-string">"561"</span></span>,
   "<span class="hljs-attribute">complement</span>": <span class="hljs-value"><span class="hljs-string">"Ap. 1102"</span></span>,
@@ -568,30 +569,49 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
   "<span class="hljs-attribute">nationality</span>": <span class="hljs-value"><span class="hljs-string">"Brasileira"</span></span>,
   "<span class="hljs-attribute">race</span>": <span class="hljs-value"><span class="hljs-number">99</span></span>,
   "<span class="hljs-attribute">scholarity</span>": <span class="hljs-value"><span class="hljs-number">99</span></span>,
-  "<span class="hljs-attribute">incomeClass</span>": <span class="hljs-value"><span class="hljs-number">99</span>
+  "<span class="hljs-attribute">incomeClass</span>": <span class="hljs-value"><span class="hljs-number">99</span></span>,
+  "<span class="hljs-attribute">dependents</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">operationDep</span>": <span class="hljs-value"><span class="hljs-string">"INCLUDE"</span></span>,
+      "<span class="hljs-attribute">cpf</span>": <span class="hljs-value"><span class="hljs-string">"20958297002"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"João Paulo da Cunha"</span></span>,
+      "<span class="hljs-attribute">shortName</span>": <span class="hljs-value"><span class="hljs-string">"João P. Cunha"</span></span>,
+      "<span class="hljs-attribute">birthdate</span>": <span class="hljs-value"><span class="hljs-string">"2001-12-23"</span></span>,
+      "<span class="hljs-attribute">telephone</span>": <span class="hljs-value"><span class="hljs-string">"81996762941"</span></span>,
+      "<span class="hljs-attribute">gender</span>": <span class="hljs-value"><span class="hljs-string">"M"</span></span>,
+      "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"maria@exemplo.com"</span></span>,
+      "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"Rua Teófilo Prado"</span></span>,
+      "<span class="hljs-attribute">number</span>": <span class="hljs-value"><span class="hljs-string">"561"</span></span>,
+      "<span class="hljs-attribute">complement</span>": <span class="hljs-value"><span class="hljs-string">"Ap. 1102"</span></span>,
+      "<span class="hljs-attribute">neighborhood</span>": <span class="hljs-value"><span class="hljs-string">"Jardins"</span></span>,
+      "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Campinas"</span></span>,
+      "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"SP"</span></span>,
+      "<span class="hljs-attribute">postalCode</span>": <span class="hljs-value"><span class="hljs-string">"01310100"</span>
+    </span>}
+  ]
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
   "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">operationTit</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Operação a ser efetuada: CREATE (adesão) ou ALTER (alteração)."</span>
+    </span>}</span>,
     "<span class="hljs-attribute">currentUser</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Identificação de quem fez a operação"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">cpfOrCnpj</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número de CPF do cliente"</span>
     </span>}</span>,
     "<span class="hljs-attribute">cardNumber</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número do cartão de saúde (obrigatório em alguns produtos)"</span>
     </span>}</span>,
-    "<span class="hljs-attribute">majorCard</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número do cartão pai"</span>
-    </span>}</span>,
     "<span class="hljs-attribute">onixCode</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Código do produto usado no cartão de saúde"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">cpfOrCnpj</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número de CPF do cliente"</span>
     </span>}</span>,
     "<span class="hljs-attribute">name</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
@@ -609,21 +629,25 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número de celular do cliente com DDD"</span>
     </span>}</span>,
+    "<span class="hljs-attribute">gender</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Gênero do cliente (M/F)"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">majorCard</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número do cartão pai"</span>
+    </span>}</span>,
     "<span class="hljs-attribute">externalIdentifier</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Identificador externo usado para identificar o cartão e/ou cliente no sistema externo do parceiro."</span>
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Identificador externo usado para identificar o cliente no sistema externo do parceiro."</span>
     </span>}</span>,
     "<span class="hljs-attribute">externalIdentifier2</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Um segundo identificador externo usado para casos específicos (dependente de negociação com a TEM)."</span>
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Outro identificador externo (usado em casos específicos)."</span>
     </span>}</span>,
     "<span class="hljs-attribute">email</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Um e-mail válido para contato com o cliente"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">gender</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Gênero do cliente (M/F)"</span>
     </span>}</span>,
     "<span class="hljs-attribute">address</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
@@ -676,16 +700,19 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
     "<span class="hljs-attribute">incomeClass</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Classe de rendimento: 1 (Até 1 salário mínimo), 2 (De 2 a 5 salários mínimos), 3 (De 5 a 10 salários mínimos), 4 (De 10 a 20 salários mínimos), 5 (Mais de 20 salários mínimos) ou 99 (Sem informação)"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">dependents</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Lista de dependentes do cliente para serem beneficiários dos serviços da Rede TEM de Saúde."</span>
     </span>}
   </span>}</span>,
   "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
     <span class="hljs-string">"currentUser"</span>,
-    <span class="hljs-string">"onixCode"</span>,
     <span class="hljs-string">"cpfOrCnpj"</span>,
+    <span class="hljs-string">"onixCode"</span>,
     <span class="hljs-string">"name"</span>,
     <span class="hljs-string">"birthdate"</span>,
-    <span class="hljs-string">"telephone"</span>,
-    <span class="hljs-string">"gender"</span>
+    <span class="hljs-string">"telephone"</span>
   ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-number">201</span></span>,

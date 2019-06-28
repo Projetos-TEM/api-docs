@@ -376,19 +376,20 @@ Utiliza o modo de autenticação _HTTP Basic_, seguindo o modo `client_credentia
 
 ## Client (object)
 
++ operationTit: `CREATE` (string) - Operação a ser efetuada: CREATE (adesão) ou ALTER (alteração).
 + currentUser: `<USUÁRIO>` (string, required) - Identificação de quem fez a operação
-+ cardNumber: `1234567654321234` (string) - Número do cartão de saúde (obrigatório em alguns produtos)
-+ majorCard: `null` (string) - Número do cartão pai
-+ onixCode: `<ONIX_CODE>` (string, required) - Código do produto usado no cartão de saúde
 + cpfOrCnpj: `28937645173` (string, required) - Número de CPF do cliente
++ cardNumber: `1234567654321234` (string) - Número do cartão de saúde (obrigatório em alguns produtos)
++ onixCode: `<ONIX_CODE>` (string, required) - Código do produto usado no cartão de saúde
 + name: `Maria Vitória Cunha` (string, required) - Nome completo do cliente
 + shortName: `Maria V. Cunha` (string) - Nome abreviado (usado no cartão)
 + birthdate: `1991-11-12` (string, required) - Data de nascimento do cliente
 + telephone: `81996762941` (string, required) - Número de celular do cliente com DDD
-+ externalIdentifier: null (string) - Identificador externo usado para identificar o cartão e/ou cliente no sistema externo do parceiro.
-+ externalIdentifier2: null (string) - Um segundo identificador externo usado para casos específicos (dependente de negociação com a TEM).
++ gender: `F` (string) - Gênero do cliente (M/F)
++ majorCard: null (string) - Número do cartão pai
++ externalIdentifier: null (string) - Identificador externo usado para identificar o cliente no sistema externo do parceiro.
++ externalIdentifier2: null (string) - Outro identificador externo (usado em casos específicos).
 + email: `maria@exemplo.com` (string) - Um e-mail válido para contato com o cliente
-+ gender: `F` (string, required) - Gênero do cliente (M/F)
 + address: `Rua Teófilo Prado` (string) - Endereço do cliente (logradouro)
 + number: `561` (string) - Endereço do cliente (número)
 + complement: `Ap. 1102` (string) - Endereço do cliente (complemento)
@@ -402,6 +403,25 @@ Utiliza o modo de autenticação _HTTP Basic_, seguindo o modo `client_credentia
 + race: 99 (number) - Etnia do cliente: 1 (Branca), 2 (Negra), 3 (Parda), 4 (Amarela), 5 (Indígena) ou 99 (sem informação)
 + scholarity: 99 (number) - Escolaridade do cliente: 1 (Analfabeto), 2 (Alfabetizado), 3 (1o Grau Incompleto), 4 (1o Grau Completo), 5 (2o Grau Incompleto) 6 (2o Grau Completo), 7 (Superior Incompleto), 8 (Superior Completo), 9 (Especialização), 10 (Mestrado), 11 (Doutorado) ou 99 (sem informação)
 + incomeClass: 99 (number) - Classe de rendimento: 1 (Até 1 salário mínimo), 2 (De 2 a 5 salários mínimos), 3 (De 5 a 10 salários mínimos), 4 (De 10 a 20 salários mínimos), 5 (Mais de 20 salários mínimos) ou 99 (Sem informação)
++ dependents (array[Dependent]) - Lista de dependentes do cliente para serem beneficiários dos serviços da Rede TEM de Saúde.
+
+## Dependent (object)
+
++ operationDep: `INCLUDE` (string) - Operação a ser efetuada com o dependente: INCLUDE (inclusão) ou EXCLUDE (exclusão).
++ cpf: `20958297002` (string, required) - Número de CPF do dependente
++ name: `João Paulo da Cunha` (string, required) - Nome completo do dependente
++ shortName: `João P. Cunha` (string) - Nome abreviado do dependente (usado no cartão)
++ birthdate: `2001-12-23` (string, required) - Data de nascimento do dependente
++ telephone: `81996762941` (string) - Número de celular do dependente com DDD
++ gender: `M` (string) - Gênero do dependente (M/F)
++ email: `maria@exemplo.com` (string) - Um e-mail válido para contato com o dependente
++ address: `Rua Teófilo Prado` (string) - Endereço do dependente (logradouro)
++ number: `561` (string) - Endereço do dependente (número)
++ complement: `Ap. 1102` (string) - Endereço do dependente (complemento)
++ neighborhood: `Jardins` (string) - Endereço do dependente (bairro)
++ city: `Campinas` (string) - Endereço do dependente (cidade)
++ state: `SP` (string) - Endereço do dependente (UF)
++ postalCode: `01310100` (string) - Endereço do dependente (CEP) - somente números
 
 ## Card (object)
 
