@@ -125,7 +125,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>-</td>
 <td style="text-align:center">Não</td>
-<td><p>Operação a ser efetuada: <code>CREATE</code> (adesão) ou <code>ALTER</code> (alteração). <p><strong>Valor padrão:</strong> <code>CREATE</code>.</td>
+<td><p>Operação a ser efetuada: <code>CREATE</code> (adesão) ou <code>ALTER</code> (alteração). <p><strong>Valor padrão:</strong> <code>CREATE</code>. <p><em>(ainda não implementado)</em></td>
 </tr>
 <tr>
 <td><code>currentUser</code></td>
@@ -133,7 +133,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>1</td>
 <td>128</td>
 <td style="text-align:center">Sim</td>
-<td>Identificação de quem está fazendo a operação. Por exemplo: <code>Maria</code>.</td>
+<td><p>Identificação de quem está fazendo a operação. <p><strong>Exemplo:</strong> <code>Maria</code></td>
 </tr>
 <tr>
 <td><code>cpfOrCnpj</code></td>
@@ -148,8 +148,8 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>String</td>
 <td>14</td>
 <td>16</td>
-<td style="text-align:center">Sim/Não</td>
-<td><p>Número do cartão de saúde (obrigatório em alguns produtos). <p>Se o produto for do tipo COLETIVO, deve ser informado, nesse campo, o CNPJ. <p>Na operação do tipo <code>ALTER</code>, o cartão de saúde do cliente deve ser identificado por esse campo. Se não for possível informar, o cartão de saúde pode ser identificado através da composição dos campos <code>cpf</code>+<code>onixCode</code>+<code>externalIdentifier</code>).</td>
+<td style="text-align:center">Não</td>
+<td><p>Número do cartão de saúde (obrigatório em alguns produtos). <p>Caso o produto seja do tipo COLETIVO, deve ser informado, nesse campo, o CNPJ. <p><strong>Observações:</strong> <ul><li>Na operação <code>ALTER</code>, o cartão de saúde do cliente deve ser identificado por esse campo. <li>Caso não seja possível informar, o cartão de saúde será identificado através da composição dos campos <code>cpf</code>+<code>onixCode</code>+<code>externalIdentifier</code>.</td>
 </tr>
 <tr>
 <td><code>onixCode</code></td>
@@ -157,7 +157,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>4</td>
 <td>4</td>
 <td style="text-align:center">Sim</td>
-<td>Código do produto usado no cartão de saúde.</td>
+<td>Código do produto do cartão de saúde.</td>
 </tr>
 <tr>
 <td><code>newOnixCode</code></td>
@@ -165,7 +165,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>4</td>
 <td>4</td>
 <td style="text-align:center">Não</td>
-<td><p>Novo código do produto para o cartão de saúde. <p>Campo utilizado na operação do tipo <code>ALTER</code> para realizar a mudança de plano do cartão de saúde do titular e dos dependentes.</td>
+<td><p>Novo código do produto para o cartão de saúde. <p><strong>Observação:</strong> campo utilizado na operação do tipo <code>ALTER</code> para realizar a mudança de plano do cartão de saúde do titular e dos dependentes. <p><em>(ainda não implementado)</em></td>
 </tr>
 <tr>
 <td><code>name</code></td>
@@ -189,7 +189,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>10</td>
 <td>10</td>
 <td style="text-align:center">Sim</td>
-<td><p>Data de nascimento do cliente no formato <code>yyyy-MM-dd</code>. <p>A data deve estar em um intervalo válido: o ano deve estar entre 1900 e o atual.</td>
+<td><p>Data de nascimento do cliente no formato <code>yyyy-MM-dd</code>. <p><strong>Observação:</strong> a data deve estar em um intervalo válido: o ano deve estar entre 1900 e o atual.</td>
 </tr>
 <tr>
 <td><code>telephone</code></td>
@@ -197,7 +197,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>11</td>
 <td>11</td>
 <td style="text-align:center">Sim</td>
-<td>Número de celular do cliente com DDD.</td>
+<td>Número de celular do cliente com DDD - somente números.</td>
 </tr>
 <tr>
 <td><code>gender</code></td>
@@ -205,7 +205,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>1</td>
 <td>1</td>
 <td style="text-align:center">Não</td>
-<td>Gênero do cliente (<code>M</code>/<code>F</code>). Se não informado, o gênero cadastrado será <code>M</code>.</td>
+<td><p>Gênero do cliente (<code>M</code>/<code>F</code>). <p><strong>Valor padrão:</strong> <code>M</code>.</td>
 </tr>
 <tr>
 <td><code>extraLine</code></td>
@@ -213,7 +213,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>50</td>
 <td style="text-align:center">Não</td>
-<td>Quarta linha do cartão TEM Saúde <em>(ainda não implementado)</em>.</td>
+<td><p>Quarta linha do cartão TEM Saúde. <p><em>(ainda não implementado)</em></td>
 </tr>
 <tr>
 <td><code>majorCard</code></td>
@@ -221,7 +221,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>14</td>
 <td>16</td>
 <td style="text-align:center">Não</td>
-<td>Número do cartão titular (utilizado em alguns produtos para a inclusão individual de dependentes).</td>
+<td><p>Número do cartão titular. <p><strong>Observação:</strong> campo utilizado em alguns produtos para a inclusão individual de dependentes.</td>
 </tr>
 <tr>
 <td><code>externalIdentifier</code></td>
@@ -237,7 +237,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>45</td>
 <td style="text-align:center">Não</td>
-<td>Outro identificador externo, usado em casos específicos.</td>
+<td>Outro identificador externo (usado em casos específicos).</td>
 </tr>
 <tr>
 <td><code>email</code></td>
@@ -357,7 +357,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>-</td>
 <td style="text-align:center">Não</td>
-<td>Lista de dependentes do cliente para serem beneficiários dos serviços da Rede TEM de Saúde <em>(ainda não implementado)</em>. O objeto para descrever o dependente está descrito a seguir.</td>
+<td><p>Lista de dependentes do cliente para serem beneficiários dos serviços da Rede TEM de Saúde. <p>O objeto para descrever o dependente está descrito a seguir. <p><em>(ainda não implementado)</em></td>
 </tr>
 </tbody>
 </table>
@@ -381,7 +381,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>-</td>
 <td style="text-align:center">Sim</td>
-<td><p>Operação a ser efetuada com o dependente: <code>INCLUDE</code> (inclusão) ou <code>EXCLUDE</code> (exclusão). <p>A operação de excluir dependente só é possível se a operação do titular da carga for do tipo <code>ALTER</code>.</td>
+<td><p>Operação a ser efetuada com o dependente: <code>INCLUDE</code> (inclusão) ou <code>EXCLUDE</code> (exclusão). <p><strong>Observação:</strong> a exclusão de dependentes só é possível se a operação do titular da carga for do tipo <code>ALTER</code>.</td>
 </tr>
 <tr>
 <td><code>cpf</code></td>
@@ -396,8 +396,8 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>String</td>
 <td>14</td>
 <td>16</td>
-<td style="text-align:center">Sim/Não</td>
-<td>Número do cartão de saúde do dependente (se houver um cartão pré-gerado).</td>
+<td style="text-align:center">Não</td>
+<td><p>Número do cartão de saúde do dependente. <p><strong>Observação:</strong> esse campo deve ser utilizado se houver um cartão pré-gerado do mesmo produto do titular para associar ao dependente.</td>
 </tr>
 <tr>
 <td><code>name</code></td>
@@ -429,7 +429,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>11</td>
 <td>11</td>
 <td style="text-align:center">Não</td>
-<td><p>Número de celular do dependente com DDD. <p>Em caso de não informar, será utilizado o do titular.</td>
+<td><p>Número de celular do dependente com DDD - somente números. <p><strong>Valor padrão:</strong> copiado do titular.</td>
 </tr>
 <tr>
 <td><code>gender</code></td>
@@ -437,7 +437,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>1</td>
 <td>1</td>
 <td style="text-align:center">Não</td>
-<td>Gênero do dependente (<code>M</code>/<code>F</code>). Se não informado, o gênero cadastrado será <code>M</code>.</td>
+<td><p>Gênero do dependente (<code>M</code>/<code>F</code>). <p><strong>Valor padrão:</strong> <code>M</code>.</td>
 </tr>
 <tr>
 <td><code>extraLine</code></td>
@@ -445,7 +445,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>50</td>
 <td style="text-align:center">Não</td>
-<td>Quarta linha do cartão TEM Saúde <em>(ainda não implementado)</em>.</td>
+<td>Quarta linha do cartão TEM Saúde.</td>
 </tr>
 <tr>
 <td><code>externalIdentifier</code></td>
@@ -461,7 +461,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>45</td>
 <td style="text-align:center">Não</td>
-<td>Outro identificador externo, usado em casos específicos.</td>
+<td>Outro identificador externo (usado em casos específicos).</td>
 </tr>
 <tr>
 <td><code>email</code></td>
@@ -469,7 +469,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>200</td>
 <td style="text-align:center">Não</td>
-<td><p>Um e-mail válido para contato com o dependente. <p>Em caso de não informar, será utilizado o do titular.</td>
+<td><p>Um e-mail válido para contato com o dependente. <p><strong>Valor padrão:</strong> copiado do titular.</td>
 </tr>
 <tr>
 <td><code>address</code></td>
@@ -477,7 +477,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>40</td>
 <td style="text-align:center">-</td>
-<td>Endereço do dependente (logradouro)<a href="">*</a></td>
+<td><p>Endereço do dependente (logradouro) <p><strong>Valor padrão:</strong> copiado do titular.<a href="">*</a></td>
 </tr>
 <tr>
 <td><code>number</code></td>
@@ -485,7 +485,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>6</td>
 <td style="text-align:center">-</td>
-<td>Endereço do dependente (número)<a href="">*</a></td>
+<td><p>Endereço do dependente (número) <p><strong>Valor padrão:</strong> copiado do titular.<a href="">*</a></td>
 </tr>
 <tr>
 <td><code>complement</code></td>
@@ -493,7 +493,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>20</td>
 <td style="text-align:center">-</td>
-<td>Endereço do dependente (complemento)<a href="">*</a></td>
+<td><p>Endereço do dependente (complemento) <p><strong>Valor padrão:</strong> copiado do titular.<a href="">*</a></td>
 </tr>
 <tr>
 <td><code>neighborhood</code></td>
@@ -501,7 +501,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>50</td>
 <td style="text-align:center">-</td>
-<td>Endereço do dependente (bairro)<a href="">*</a></td>
+<td><p>Endereço do dependente (bairro) <p><strong>Valor padrão:</strong> copiado do titular.<a href="">*</a></td>
 </tr>
 <tr>
 <td><code>city</code></td>
@@ -509,7 +509,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>50</td>
 <td style="text-align:center">-</td>
-<td>Endereço do dependente (cidade)<a href="">*</a></td>
+<td><p>Endereço do dependente (cidade) <p><strong>Valor padrão:</strong> copiado do titular.<a href="">*</a></td>
 </tr>
 <tr>
 <td><code>state</code></td>
@@ -517,7 +517,7 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>2</td>
 <td>2</td>
 <td style="text-align:center">-</td>
-<td>Endereço do dependente (UF)<a href="">*</a></td>
+<td><p>Endereço do dependente (UF) <p><strong>Valor padrão:</strong> copiado do titular.<a href="">*</a></td>
 </tr>
 <tr>
 <td><code>postalCode</code></td>
@@ -525,11 +525,11 @@ As credenciais para obter o token devem ser solicitadas previamente.</p>
 <td>-</td>
 <td>8</td>
 <td style="text-align:center">-</td>
-<td>Endereço do dependente (CEP)<a href="">*</a> - somente números</td>
+<td><p>Endereço do dependente (CEP) - somente números <p><strong>Valor padrão:</strong> copiado do titular.<a href="">*</a></td>
 </tr>
 </tbody>
 </table>
-<p><a href="">*</a> <em>Se o dependente não informar o endereço, será utilizado o do titular, mas se informado pelo menos um dos campos de endereço, então as regras de obrigatoriedade serão as mesmas do titular.</em></p>
+<p><a href="">*</a> <em>Caso o dependente não informe o endereço, será utilizado o do titular. Caso seja informado pelo menos um dos campos de endereço, então as regras de obrigatoriedade serão as mesmas do titular.</em></p>
 <hr>
 <p>No retorno de sucesso, os dados do cartão, seja novo ou pré-existente são retornados.</p>
 <p><em>Códigos de erro:</em></p>
@@ -931,7 +931,7 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
   "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"Unauthorized"</span></span>,
   "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Unauthorized"</span></span>,
   "<span class="hljs-attribute">path</span>": <span class="hljs-value"><span class="hljs-string">"/api/sempre/oauth/token"</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 27 Jun 2019</p><script>/* eslint-env browser */
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 28 Jun 2019</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
