@@ -725,63 +725,24 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
       "<span class="hljs-attribute">way</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
       "<span class="hljs-attribute">password</span>": <span class="hljs-value"><span class="hljs-string">"874125"</span></span>,
       "<span class="hljs-attribute">emitter</span>": <span class="hljs-value"><span class="hljs-string">"755"</span></span>,
-      "<span class="hljs-attribute">product</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ONIX_CODE&gt;"</span>
+      "<span class="hljs-attribute">product</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ONIX_CODE&gt;"</span></span>,
+      "<span class="hljs-attribute">luckyTickets</span>": <span class="hljs-value">[
+        {
+          "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">522336</span></span>,
+          "<span class="hljs-attribute">serialNumber</span>": <span class="hljs-value"><span class="hljs-string">"001"</span></span>,
+          "<span class="hljs-attribute">luckyNumber</span>": <span class="hljs-value"><span class="hljs-string">"187324"</span></span>,
+          "<span class="hljs-attribute">active</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+          "<span class="hljs-attribute">campaign</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+            "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"&lt;NOME DA CAMPANHA&gt;"</span></span>,
+            "<span class="hljs-attribute">startDate</span>": <span class="hljs-value"><span class="hljs-string">"2019-07-15"</span></span>,
+            "<span class="hljs-attribute">endDate</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+            "<span class="hljs-attribute">prize</span>": <span class="hljs-value"><span class="hljs-number">20000</span>
+          </span>}
+        </span>}
+      ]
     </span>}</span>,
     "<span class="hljs-attribute">errors</span>": <span class="hljs-value">[]
-  </span>}
-</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
-  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">status</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"O mesmo código de resposta do HTTP"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">defaultMessage</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Descrição da resposta"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">body</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-      "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">message</span>": <span class="hljs-value">{
-          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
-        </span>}</span>,
-        "<span class="hljs-attribute">card</span>": <span class="hljs-value">{
-          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-          "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
-            "<span class="hljs-attribute">cardNumber</span>": <span class="hljs-value">{
-              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número do cartão para o cliente"</span>
-            </span>}</span>,
-            "<span class="hljs-attribute">cvv</span>": <span class="hljs-value">{
-              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Código de segurança do cartão"</span>
-            </span>}</span>,
-            "<span class="hljs-attribute">way</span>": <span class="hljs-value">{
-              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Número da via"</span>
-            </span>}</span>,
-            "<span class="hljs-attribute">password</span>": <span class="hljs-value">{
-              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Senha inicial do cliente"</span>
-            </span>}</span>,
-            "<span class="hljs-attribute">emitter</span>": <span class="hljs-value">{
-              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Código do emissor"</span>
-            </span>}</span>,
-            "<span class="hljs-attribute">product</span>": <span class="hljs-value">{
-              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Código do produto"</span>
-            </span>}
-          </span>}</span>,
-          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Informações do cartão ativada"</span>
-        </span>}</span>,
-        "<span class="hljs-attribute">errors</span>": <span class="hljs-value">{
-          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Lista de erros"</span>
-        </span>}
-      </span>}
-    </span>}
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="endpoints-atualiza-status-do-cartão" class="resource"><h3 class="resource-heading">Atualiza Status do Cartão <a href="#endpoints-atualiza-status-do-cartão" class="permalink">&nbsp;&para;</a></h3><div id="endpoints-atualiza-status-do-cartão-post" class="action post"><h4 class="action-heading"><div class="name"></div><a href="#endpoints-atualiza-status-do-cartão-post" class="method post">POST</a><code class="uri">/api/sempre/cards/update</code></h4><p>Faz a atualização de status de um cartão de saúde. As transições entre os estados do cartão podem ser as seguintes:</p>
 <p><img src="images/estados-cartao.png" alt=""></p>
@@ -958,7 +919,7 @@ nesses casos, pode ser retornado uma lista dos erros encontrados.</p>
   "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"Unauthorized"</span></span>,
   "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Unauthorized"</span></span>,
   "<span class="hljs-attribute">path</span>": <span class="hljs-value"><span class="hljs-string">"/api/sempre/oauth/token"</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 28 Jun 2019</p><script>/* eslint-env browser */
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 15 Jul 2019</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 

@@ -190,13 +190,37 @@ _Códigos de erro:_
 
 + Response 201 (application/json)
 
-    + Attributes (object)
-        + status: `201` (number) - O mesmo código de resposta do HTTP
-        + defaultMessage: `Adesão on-line` (string) - Descrição da resposta
-        + body (object)
-            + message: `Carga de cliente finalizada com sucesso` (string)
-            + card (Card) - Informações do cartão ativada
-            + errors (array) - Lista de erros
+        {
+            "status": 201,
+            "defaultMessage": "Adesão on-line",
+            "body": {
+                "message": "Carga de cliente finalizada com sucesso",
+                "card": {
+                    "cardNumber": "1234567654321234",
+                    "cvv": "321",
+                    "way": "1",
+                    "password": "874125",
+                    "emitter": "755",
+                    "product": "<ONIX_CODE>",
+                    "luckyTickets": [
+                        {
+                            "id": 522336,
+                            "serialNumber": "001",
+                            "luckyNumber": "187324",
+                            "active": true,
+                            "campaign": {
+                                "id": 1,
+                                "name": "<NOME DA CAMPANHA>",
+                                "startDate": "2019-07-15",
+                                "endDate": null,
+                                "prize": 20000
+                            }
+                        }
+                    ]
+                },
+                "errors": []
+            }
+        }
 
 ## Atualiza Status do Cartão [/api/sempre/cards/update]
 
